@@ -1,4 +1,4 @@
-baseURL = "/" 
+baseURL = "https://aslanbellmann.netlify.app" 
 theme = "hugo-apero"
 languageCode = "en"
 title = "Tales of Uncertainty"
