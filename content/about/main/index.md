@@ -6,10 +6,10 @@ title: |
   About me 
 
 intro: |
-  Hi, my name is Aslan. I've done my undergrad in Exercise Sciences at the University
-  of Auckland in New Zealand, and I am currently doing my masters in Human Movement
-  Sciences at the Vrije University Amsterdam in The Netherlands. My main interest is 
-  the neuroscience of human movement.
+  Hi, my name is Aslan. I did my undergrad in Exercise Sciences at the University
+  of Auckland in New Zealand, and my masters in Human Movement Sciences at the Vrije 
+  University Amsterdam in The Netherlands. I hope to start a PhD soon. 
+  My main interest is the neuroscience of human movement.
   
 outro: |
   Outro text here. 

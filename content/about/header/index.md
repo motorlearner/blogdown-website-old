@@ -9,6 +9,9 @@ headline: Tales of Uncertainty
 
 ---
 
-Assumptions make it possible to answer questions in the face of uncertainty. It is 
-critical to keep track of the assumptions and the uncertainty that propagates through 
-them. 
+Why the title? Any knowledge claim always comes with 
+uncertainty, and is incomplete without a detailed account of said uncertainty. 
+Identifying, acknowledging, and communicating uncertainty is an exercise that 
+only few people master. Many people neglect that part, instead telling a tale 
+that is really a tale [full] of [neglected] uncertainty. Somewhat like focusing
+on the center of a probability distribution, while neglecting its tails [of uncertainty].
