@@ -4,12 +4,12 @@
 title:        Hello there.
 subtitle:     Welcome to 'tales of uncertainty'
 description:  |
-  My name is Aslan, and this is my website. Here, I blog about all things science. 
+  Hi, my name is Aslan. Here, I blog about all things science. 
   What exactly this entails is not well-defined. Probably some basic concepts related
-  to data wrangling and analysis; surely some motor neuroscience (which is my main 
+  to data wrangling and analysis; surely some motor neuroscience (my main 
   research interest); maybe some cool stuff in `R`, `Python`, or `Julia`; and whatever
   else comes to mind. There's a nonzero chance you'll find some of it interesting. 
-  Anyway, enjoy this visualization of the Fourier transform.
+  Anyway, enjoy this visualization of the Fourier transform. :)
   
 # image
 images: 
