@@ -12,6 +12,6 @@ headline: Tales of Uncertainty
 Why the title? Any knowledge claim always comes with 
 uncertainty, and is incomplete without a detailed account of said uncertainty. 
 Identifying, acknowledging, and communicating uncertainty is an exercise that 
-only few people master. Many neglect that part altogether and end up telling fairy tales, 
-for the tale is incomplete without its uncertainty. Kind of like focusing
+only few people master. Many neglect that part altogether and end up telling a fairy tale, 
+for a tale is incomplete without its uncertainty. Kind of like focusing
 on the center of a probability distribution, thus neglecting its tails.
