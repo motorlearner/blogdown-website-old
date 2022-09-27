@@ -6,7 +6,7 @@ excerpt:    "All things frequentist statistics."
 
 # metadata (NB bottom will show "see also: all posts with same tag")
 author:     "Aslan B."
-date:       2022-05-01
+date:       2022-01-01
 categories: 
 - statistics
 tags:
@@ -106,21 +106,15 @@ i.e. *if the underlying process is repeated infinitely many times*.
 
 ## The Working Example
 
+<<<<<<< HEAD
+=======
 We will use the following toy example:
 
+>>>>>>> parent of 653477e (update freqstats primer)
 In `R`, there is a function `rnorm(n)` which draws a sample of size `n` from a normal
 distribution with mean `\(\mu\)` and standard deviation `\(\sigma\)`. I will call this the 
 *population distribution*, with population mean `\(\mu\)` and population standard devaition 
 `\(\sigma\)`. 
-
-
-```r
-rnorm(10)
-```
-
-```
-##  [1] -0.56 -0.23  1.56  0.07  0.13  1.72  0.46 -1.27 -0.69 -0.45
-```
 
 We have some hypothesis or question about the population mean `\(\mu\)`. As mentioned above, we know 
 that the population distribution is a normal distribution. We will also pretend to know 
