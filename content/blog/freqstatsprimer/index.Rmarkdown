@@ -121,10 +121,6 @@ i.e. *if the underlying process is repeated infinitely many times*.
 
 ## The Working Example
 
-HERE_____
-
-We will use the following toy example:
-
 In `R`, there is a function `rnorm(n)` which draws a sample of size `n` from a normal
 distribution with mean $\mu$ and standard deviation $\sigma$. I will call this the 
 *population distribution*, with population mean $\mu$ and population standard devaition 
