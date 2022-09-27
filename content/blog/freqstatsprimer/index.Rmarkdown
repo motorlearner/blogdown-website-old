@@ -6,7 +6,7 @@ excerpt:    "All things frequentist statistics."
 
 # metadata (NB bottom will show "see also: all posts with same tag")
 author:     "Aslan B."
-date:       2022-01-01
+date:       2022-05-01
 categories: 
 - statistics
 tags:
@@ -78,6 +78,8 @@ h2{
 
 ## In the Long Run
 
+Blaaaaa
+
 Inferential statistics uses probability theory to answer questions about the real world. 
 Probability is a well-defined mathematical concept, and everyone has some intuition about 
 probability. If something has low probability, you will be surprised if it actually 
@@ -122,11 +124,6 @@ i.e. *if the underlying process is repeated infinitely many times*.
 
 ## The Working Example
 
-<<<<<<< HEAD
-=======
-We will use the following toy example:
-
->>>>>>> parent of 653477e (update freqstats primer)
 In `R`, there is a function `rnorm(n)` which draws a sample of size `n` from a normal
 distribution with mean $\mu$ and standard deviation $\sigma$. I will call this the 
 *population distribution*, with population mean $\mu$ and population standard devaition 
