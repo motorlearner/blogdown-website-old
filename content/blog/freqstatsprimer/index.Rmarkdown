@@ -126,10 +126,6 @@ distribution with mean $\mu$ and standard deviation $\sigma$. I will call this t
 *population distribution*, with population mean $\mu$ and population standard devaition 
 $\sigma$. 
 
-```{r}
-rnorm(10)
-```
-
 We have some hypothesis or question about the population mean $\mu$. As mentioned above, we know 
 that the population distribution is a normal distribution. We will also pretend to know 
 that the population standard deviation is $\sigma=1$. Our strategy is as follows: 
