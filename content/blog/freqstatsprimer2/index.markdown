@@ -1,0 +1,765 @@
+---
+# text
+title:      "Frequentist Statistics Primer"
+subtitle:   "p-values, confidence intervals, and error rates"
+excerpt:    "All things frequentist statistics."
+
+# metadata (NB bottom will show "see also: all posts with same tag")
+author:     "Aslan B."
+date:       2022-05-01
+categories: 
+- statistics
+tags:
+- statistics
+
+# other
+layout:     single
+draft:      false
+---
+
+
+
+<style type="text/css">
+/* make all images centered;
+   no width parameter to preserve width set via ggsave;
+   fig caption text style is set manually each time,
+    there is probably an easier way to do this like
+    make a css text class with those style params and
+    then just apply that class, but I am too lazy atm
+*/
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*  FONT SIZE
+    - p = main text
+    - li = list (could also use ol and ul for ordered, unordered)
+    - h = headings
+*/
+p {
+  font-size: 14px;
+  text-align: justify;
+  width: auto;
+}
+li{
+  font-size: 14px;
+  text-align: justify;
+  width: 125%;
+}
+blockquote p{
+  font-size: 13px;
+  width: 120%;
+}
+h1{
+  font-size: 16px;
+}
+h2{
+  font-size: 14px;
+}
+</style>
+
+## In the Long Run
+
+Inferential statistics uses probability theory to answer questions about the real world. 
+Probability is a well-defined mathematical concept, and everyone has some intuition about 
+probability. If something has low probability, you will be surprised if it actually 
+happens. Conversely, if something has high probability, you wouldn't be very surprised. 
+But what exactly does probability quantify in the real world?
+
+There are different interpretations. For example, an interpretation that is often attached 
+to *Bayesian* statistics is that probability reflects a rational agent's degree of belief. 
+In *frequentist* statistics, however, probability refers to hypothetical long run frequencies. 
+For example, when flipping a coin, the probability of 'heads' is 0.5. That means, if 
+you repeatedly flipped a coin, the proportion of 'heads' would converge to 0.5 
+*as the number of coin flips approaches infinity*. Below in **Figure 1**, you see 20 
+simulated series of 10,000 coin flips each. The y-axis shows the running proportion of 'heads'.
+The proportions starts at 0 or 1 on the first flip. There is some variability initially, but 
+as the number of flips grows, the proportions converge to 0.5.
+
+<!-- plot: law of large numbers -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/lln.svg" />
+  <b> Figure 1. </b> 
+  Twenty simulated series of 10,000 coin flips each. The y-axis shows the 
+  proportion of heads. 
+</p>
+
+More generally, the probability that a process produces a certain outcome is the frequency 
+at which that outcome is observed *if the process would be repeated infinitely many times*. 
+Because "if the process would be repeated infinitely many times" is a mouthful, I will 
+often just say "in the long run". So, the probability that a process produces a certain outcome 
+is the frequency at which that outcome is observed *in the long run*. 
+
+Note that if you interpret probability this way, you can only assign probability to things 
+that are, in principle, repeatable. We can talk about the probability of getting 8 heads
+out of 10 coin flips because you can flip a coin 10 times, over and over again. However, 
+it doesn't make sense to talk about the probability that some theory is true because there 
+is nothing to repeat. Many misinterpretations of frequentist statistical concepts can be 
+avoided simply by remembering that probabilities are long run frequencies. 
+
+> ✔️ **Probability as a long run frequency**  
+Under the frequentist interpretation of probability, the probability that a process 
+produces an outcome is the frequency at which that outcome is observed *in the long run*,
+i.e. *if the underlying process is repeated infinitely many times*. 
+
+## The Working Example
+
+We will use the following toy example:
+
+In `R`, there is a function `rnorm(n)` which draws a sample of size `n` from a normal
+distribution with mean `\(\mu\)` and standard deviation `\(\sigma\)`. I will call this the 
+*population distribution*, with population mean `\(\mu\)` and population standard devaition 
+`\(\sigma\)`. 
+
+
+```r
+rnorm(10)
+```
+
+```
+##  [1] -0.56 -0.23  1.56  0.07  0.13  1.72  0.46 -1.27 -0.69 -0.45
+```
+
+We have some hypothesis or question about the population mean `\(\mu\)`. As mentioned above, we know 
+that the population distribution is a normal distribution. We will also pretend to know 
+that the population standard deviation is `\(\sigma=1\)`. Our strategy is as follows: 
+We will draw a sample of size `\(N\)` from the population distribution, and use the sample 
+mean `\(m\)` to make some inference about `\(\mu\)`.
+
+<!-- plot: overview -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/overview.svg" />
+  <b> Figure 2. </b> 
+  The working example. We draw a sample of size \(N\) from a population 
+  distribution with mean \(\mu\) and standard deviation \(\sigma\). We want to
+  answer some question about \(\mu\). In our case, we know that the population 
+  distribution is normal, and that \(\sigma=1\). 
+</p>
+
+Have a look at **Figure 2** and make sure you know what `\(\mu, \sigma, m, s, N\)` stand for. 
+Greek letters stand for *population* parameters, Latin letters stand for *sample* parameters. 
+If a letter starts with an **m**, it stands for the **m**ean. 
+If a letter starts with an **s**, it stands for the **s**tandard deviation.
+
+<table>
+  <tr>
+    <td>  </td>
+    <th> Population </th>
+    <th> Sample </th>
+  </tr>
+  <tr>
+    <td> Mean </td>
+    <td> \(\mu\) </td>
+    <td> \(m\) </td>
+  </tr>
+  <tr>
+    <td> Standard Deviation </td>
+    <td> \(\sigma\) </td>
+    <td> \(s\) </td>
+  </tr>
+  <tr>
+    <td> Size </td>
+    <td>  </td>
+    <td> \(N\) </td>
+  </tr>
+</table>
+
+There are many questions we could ask about `\(\mu\)`. We might want to know whether it is 
+greater / smaller than some hypothetical value. Or, we might want to know whether it is 
+different from / similar to some specific value? To answer any of these questions, we 
+need the sampling distribution. 
+
+## The Sampling Distribution
+
+Let's take a sample of size `\(N\)` from a population distribution with mean `\(\mu\)` and 
+standard deviation `\(\sigma\)`. We can calculate the sample mean `\(m\)`. In **Figure 3**, you 
+see this process repeated twenty times for three different sample sizes. Each line shows
+a different sample. The gray points are the sample values and the colored square is their
+mean. Note that the sample means break away farther from `\(\mu\)` (dashed line) when `\(N\)` is
+smaller.
+
+<!-- plot: clt samples -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/clt_sample.svg" />
+  <b> Figure 3. </b> 
+  Samples of size \(N\), drawn from a normal distribution with mean \(\mu\) (dashed line) 
+  and standard deviation \(\sigma\).
+</p>
+
+Now, what if we repeated this process not only 20 times, but infinitely many times? We 
+would get infinitely many sample means `\(m\)`, which form their own distribution. This is the
+'*sampling distribution of `\(m\)`*'. You can see it in **Figure 4**: the colored distribution 
+is the sampling distribution of `\(m\)`, and the gray distribution is the population distribution
+(which is a normal distribution---just as in our working example). 
+
+<!-- plot: clt distributions -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/clt_dist.svg" />
+  <b> Figure 4. </b> 
+  The sampling distribution of \(m\), for three sample sizes \(N\). The samples 
+  were drawn from the gray population distribution with mean \(\mu\) and standard deviation 
+  \(\sigma\). The dashed line highlights \(\mu\). The x-axis shows the distance from 
+  \(\mu\), measured in multiples of \(\sigma\).
+</p>
+
+There are a few things about the sampling distribution of `\(m\)` that should immediately
+catch your eye. 
+First, it has the same mean as the population distribution. That is, it has mean `\(\mu\)`. 
+Second, its spread decreases as the sample size increases. In fact, its standard deviation 
+is `\(\frac{\sigma}{\sqrt{N}}\)`. Note that this specific standard deviation is also called 
+the *standard error of `\(m\)`*.
+Third---maybe not quite so obvious---it is a normal distribution. To sum up, the
+sampling distribution of `\(m\)` is a normal distribution with mean `\(\mu\)` and standard 
+deviation `\(\frac{\sigma}{\sqrt{N}}\)`.
+
+> 📝 **The Central Limit Theorem**  
+The sampling distribution of `\(m\)` is a normal distribution with mean `\(\mu\)` and standard
+deviation `\(\frac{\sigma}{\sqrt{N}}\)` *for almost any population distribution*. The 
+population distribution must have a finite mean `\(\mu\)` and standard deviation `\(\sigma\)`, but 
+it does not need to be a normal distribution as in our working example! There is another 
+caveat: depending on the shape of the population distribution, the sampling distribution 
+of `\(m\)` will only be normal if `\(N\)` is sufficiently large. For example, as long as our 
+population distribution is symmetric, all our three sample sizes should be enough. But
+if our population distribution was highly skewed, a sample size of 5 won't cut it and 
+a sample size of 15 might not either. 
+You can create your own population distribution and simulate the sampling distribution 
+[here](https://onlinestatbook.com/stat_sim/sampling_dist/). 
+
+So, now we know what the sampling distribution of `\(m\)` is: if we draw infinitely many 
+samples of size `\(N\)` from a population distribution with mean `\(\mu\)` and standard deviation
+`\(\sigma\)`, then all the sample means would be distributed according to the sampling 
+distribution of `\(m\)`. But how is this useful? How can we use the sampling distribution of 
+`\(m\)` to learn something about `\(\mu\)`? Here is a brief example to build some intuition. 
+
+Let's say we draw a sample of size `\(N=15\)` from our population distribution. The sample is 
+shown in **Figure 5**. We compute the sample mean, which turns out to be `\(m=0.3\)`. The 
+sample mean is marked by the red square and the solid line. As per our working example, 
+we are interested in the population mean `\(\mu\)` and we know the population standard deviation
+is `\(\sigma=1\)`. 
+
+<!-- plot: sample -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/sample.svg" />
+  <b> Figure 5. </b> 
+  Sampling distributions of \(m\) for different \(\mu\), given \(\sigma=1\) and \(N=15\).
+  The highlighted sampling distribution shows how \(m\) would be distributed in the long run
+  if \(\mu=-2\). 
+</p>
+
+Now, let's say we think that `\(\mu=0\)`. Could our sample have come from a population 
+distribution with mean `\(\mu=0\)` (and standard deviation `\(\sigma=1\)`)? Well, we simply take
+the sampling distribution of `\(m\)` and set its mean to `\(0\)`. This distribution is highlighted 
+in **Figure 6**. If `\(\mu=0\)`, then our sample mean must have come from that distribution.
+The sample mean is still highlighted by the solid line.
+So---just by looking at the figure---is it likely that our sample mean came from that 
+distribution? I think you would agree it's not super unlikely. So `\(\mu\)` could be `\(0\)`. 
+
+<!-- plot: sampling distribution placement 1 -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/sdistplace1.svg" />
+  <b> Figure 6. </b> 
+  Sampling distributions of \(m\) for different \(\mu\), given \(\sigma=1\) and \(N=15\).
+  The highlighted sampling distribution shows how \(m\) would be distributed in the long run
+  if \(\mu=-2\). 
+</p>
+
+Let's repeat this with another value, say `\(\mu=-0.5\)`. Could our sample have come from a 
+population distribution with mean `\(\mu=-0.5\)` (and standard deviation `\(\sigma=1\)`)? Well,
+we simply take the sampling distribution of `\(m\)` and set its mean to `\(-0.5\)`. 
+This distribution is highlighted in **Figure 7**. If `\(\mu=-0.5\)`, then our sample mean must 
+have come from that distribution. The sample mean is still highlighted by the solid line.
+So---again, just by looking at the figure---is it likely 
+that our sample mean came from that distribution? I think you would agree it's very 
+unlikely (but note that it is not impossible---the tails of the distribution become too
+thin to see them, but they are never exactly zero). So it's reasonable to conclude that 
+`\(\mu\)` is not `\(-0.5\)`. 
+
+<!-- plot: sampling distribution placement 2 -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/sdistplace2.svg" />
+  <b> Figure 6. </b> 
+  Sampling distributions of \(m\) for different \(\mu\), given \(\sigma=1\) and \(N=15\).
+  The highlighted sampling distribution shows how \(m\) would be distributed in the long run
+  if \(\mu=-2\). 
+</p>
+
+We can center the sampling distribution of `\(m\)` on any value. If `\(\mu\)` was 'that value', 
+then our sample mean must have come from that distribution. If that is very unlikely, 
+then we conclude that `\(\mu\)` is not 'that value'. That is a very rough sketch of how
+frequentist statistical inference works. Now it is time to formalize this.
+
+> ✔️ **The sampling distribution of `\(m\)`**  
+If we took infinitely many samples of size `\(N\)` from a population distribution with mean 
+`\(\mu\)` and standard deviation `\(\sigma\)`, then the sample means `\(m\)` would form a distribution 
+called the *sampling distribution of `\(m\)`*. It is a normal distribution with mean `\(\mu\)`
+and standard deviation `\(\frac{\sigma}{\sqrt{N}}\)`. We can set the mean of this distribution
+to a specific value, so it tells us how `\(m\)` would be distributed in the long run 
+*if `\(\mu\)` was that specific value*. 
+
+## Rejecting the Incompatible
+
+Let's take a step back and forget about sampling distributions for a moment. Instead, 
+imagine we are at a scientific conference, and we want to know whether our common friend
+Rick is also at the conference. We know that Rick is always wearing a lab coat. We look 
+carefully, but no one is wearing a lab coat. 
+
+1. If Rick is at the conference, then someone will be wearing a lab coat. 
+2. No one is wearing a lab coat. 
+3. Therefore, Rick is not at the conference.
+
+This is a valid argument called *modus tollens*, also known as 'denying the consequent'. 
+Now, let's say we *do* see someone wearing a lab coat.
+
+1. If Rick is at the conference, then someone will be wearing a lab coat. 
+2. Someone is wearing a lab coat. 
+3. --
+
+We cannot conclude that Rick was at the conference.
+We might have seen Rick in his lab coat, or we might have 
+seen someone else wearing a lab coat. We simply cannot conclude anything. 
+
+Below you see these two cases summarized in more abstract form. We start with a 
+model/assumption that tells us what observation (O) to expect under a certain possible 
+truth (T). Then we make the observation. Finally, if this observation is incompatible
+with the possible truth, we reject the possible truth.
+
+<table>
+  <tr>
+    <td>
+      <i> 3. Model/Assumption </i>
+    </td>
+    <td>
+      If T, then O.
+    </td>
+    <td>
+      If T, then O.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <i> 4. Observation </i>
+    </td>
+    <td>
+      Not O.
+    </td>
+    <td>
+      O.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <i> 5. Conclusion </i>
+    </td>
+    <td>
+      Therefore not T.
+    </td>
+    <td>
+      -
+    </td>
+  </tr>
+</table>
+
+This is the same logic that is used in frequentist statistics. However, this was a 
+minimalist presentation that left some steps implicit. Here is the same logic with all 
+steps made explicit:
+
+<table>
+  <tr>
+    <td style="width:34%">
+      <i> 1. List all possible truths. </i> <br>
+      \(T_1, T_2, T_3 ... \)
+    </td>
+    <td colspan="2">
+      \(T_1\): Rick is at the conference. <br>
+      \(T_2\): Rick is not at the conference.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <i> 2. List all possible observations. </i> <br>
+      \(O_1, O_2, O_3 ... \)
+    </td>
+    <td colspan="2">
+      \(O_1\): Someone is wearing a lab coat. <br>
+      \(O_2\): No one is wearing a lab coat.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <i> 3. For each possible truth, define which 
+      observations are compatible and which are incompatible. </i> <br>
+      <img src="graphics/compatiblemapping.svg">
+    </td>
+    <td colspan="2">
+      If \(T_1\), then \(O_1\). In other words, \(T_1\) is compatible with \(O_1\); it is incompatible 
+      with everything else, i.e. \(O_2\). <br><br>
+      If \(T_2\), then \(O_1\) or \(O_2\). In other words, \(T_2\) is compatible with \(O_1\) and \(O_2\);
+      it is incompatible with everything else, i.e. nothing.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <i> 4. Make an observation. </i>
+    </td>
+    <td style="width:33%">
+      \(O_1\): Someone is wearing a lab coat.
+    </td>
+    <td style="width:33%">
+      \(O_2\): No one is wearing a lab coat.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <i> 5. Reject all possible truths that are incompatible with the observation. </i>
+    </td>
+    <td style="width:33%">
+      Reject nothing.
+    </td>
+    <td style="width:33%">
+      Reject \(T_1\). 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <i> 6. The actual truth is somewhere among the remaining possible truths (which
+      are compatible with the observation). </i>
+    </td>
+    <td style="width:33%">
+      \(T_1\) or \(T_2\): Rick is or is not at the conference.
+    </td>
+    <td style="width:33%">
+      \(T_2\): Rick is not at the conference.
+    </td>
+  </tr>
+</table>
+
+So you start with all possible truths, then make an observation, and
+then _reject_ the possible truths that are _incompatible_ with the observation. You are
+left with all the possible truths that are not rejected. The actual truth is somewhere in 
+there. They key point is: the only way to conclude that the actual truth is *something* 
+is to reject *everything else*. You can only reject!
+
+If you have a lake full of fish, and you are looking for the one true 
+fish, you cannot just cast your fishing pole and pull the true fish out of the lake. 
+Instead, you have to remove all the other fish from the lake until you are left with the 
+one true fish. (If you came here for good analogies you're probably in the wrong place.)
+
+So now we know that our mode of inference is the rejection of possible truths that are
+incompatible with our observation. But what does 'incompatible' really mean?
+In our conference example, it meant 'logically impossible':
+If T, then O *for sure* and 'not O' is *logically impossible* (if Rick---who is always
+wearing a lab coat---is at the conference, then it is logically impossible that no one 
+there will be wearing a lab coat). 
+But many situations cannot be solved by logic alone---we need probability and statistics. 
+In those cases, 'incompatible' means 'unlikely':
+If T, then O *with high probability* and 'not O' is *with low probability*.
+Under the frequentist interpretation of probability, this translates to:
+If T, then O *in most cases in the long run* and 'not O' *in few cases in the long run*. 
+
+So our mode of inference is the rejection of all possible truths under which our 
+observation would be rare, in the long run. For example: if we repeatedly flipped a 
+conventional coin 10 times, then we would get either 0/10 or 10/10 heads in only 0.2% of 
+all cases, in the long run. So upon getting 0/10 or 10/10 heads, we will reject the notion 
+that this is a conventional coin.
+
+## The Null and the Alternative
+
+Now, let's apply what we've learned to our `rnorm(n)` working example. Recall we are 
+interested in the population mean `\(\mu\)`. Our observation is the sample mean `\(m\)` from 
+a random sample of size `\(N\)`. We will walk through the example using `\(N=15\)`.
+
+*1. List all possible truths.*
+
+We start with all possible truths about `\(\mu\)`: it could be *any* number. Recall that we 
+can only conclude that `\(\mu\)` is *something* by rejecting that `\(\mu\)` is *everything else*. 
+Accordingly, we divide all possible truths about `\(\mu\)` into two parts: the 'something' 
+we want to conclude and the 'everything else' that we need to reject in order to do so. 
+
+The 'everything else' we need to reject is the *Null Hypothesis* `\(H_0\)`. The 'something' we
+then conclude is the *alternative hypothesis* `\(H_1\)`. There are three fundamental 
+versions of `\(H_0\)` and `\(H_1\)`:
+
+<table>
+  <tr>
+    <td>
+    1a
+    </td>
+    <td>
+    \(H_0: \mu \le \mu_0\) <br>
+    \(H_1: \mu  >  \mu_0\)
+    </td>
+    <td>
+    \(\mu\) is less or equal to some value \(\mu_0\) <br>
+    \(\mu\) is greater than some value \(\mu_0\)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    1b
+    </td>
+    <td>
+    \(H_0: \mu \ge \mu_0\) <br>
+    \(H_1: \mu  <  \mu_0\)
+    </td>
+    <td>
+    \(\mu\) is greater or equal to some value \(\mu_0\) <br>
+    \(\mu\) is less than some value \(\mu_0\)
+    </td>
+  </tr>
+  <tr>
+    <td>
+    2
+    </td>
+    <td>
+    \(H_0: \mu  =  \mu_0\) <br>
+    \(H_1: \mu \ne \mu_0\)
+    </td>
+    <td>
+    \(\mu\) is equal to some value \(\mu_0\) <br>
+    \(\mu\) is different from some value \(\mu_0\)
+    </td>
+  </tr>
+</table>
+
+Versions 1a and 1b are called *one-sided tests*. Note that they are basically opposites 
+of each other. Version 2 is called a *two-sided test*. Technically, a two-sided test 
+is just the combination of both one-sided tests, so it's not really fundamental. 
+
+Note that `\(\mu_0\)` is just some hypothetical value for `\(\mu\)` that we are particularly 
+interested in. We are often interested in specific hypothetical values for a given
+parameter. Say you want to know whether a vaccine prevents more than 90% of infections. 
+Your parameter is vaccine efficacy and you are asking if it's greater than 90%. Or, say
+your want to know whether drinking coffee influences reaction time. Your parameter is 
+the effect of coffee on reaction time and you are asking if it's different from zero. 
+Of course, sometimes you are not interested in specific hypothetical values for a given 
+parameter. Say you conduct a survey and ask people about their age. Your parameter is the 
+population age, but you are simply asking what it is --- there is no value of interest. 
+As we will see shortly, that situation also corresponds to one of the versions above. 
+
+Now that we have listed all possible truths about `\(\mu\)` in the form of `\(H_0\)` and `\(H_1\)`, 
+we can move on to the next step. 
+
+*2. List all possible observations.*
+
+We continue with all possible sample means `\(m\)`: it could by *any* number.
+
+## The false rejection rate
+
+*3. For each possible truth, define which observations are compatible and which are incompatible.*
+
+Since we want to reject `\(H_0\)`, we need to define which `\(m\)` would be incompatible with 
+`\(H_0\)`. In the frequentist framework, 'incompatible' means 'rare, in the long run'. 
+But how rare, exactly? Well, that's for us to decide---and we will later take a closer
+look at how to do so. But for now, I will just go ahead and define 'rare' to mean 5%.
+With that, here is how we define which `\(m\)` are incompatible with `\(H_0\)`.
+
+Take a look at **Figure 5**. The top row shows `\(H_0\)` and `\(H_1\)` for the one-sided cases
+(on the left, in the middle) and for the two-sided case (on the right). In the one-sided 
+case, `\(\mu_0\)` is the most extreme value under `\(H_0\)`. In the two-sided case, `\(\mu_0\)` is 
+the only value under `\(H_0\)`. 
+The bottom row shows a bunch of sampling distributions of `\(m\)`. All the red ones 
+
+
+The bottom row shows the sampling distribution of `\(m\)`, centered on `\(\mu_0\)` (dashed line). 
+If `\(\mu=\mu_0\)`, then `\(m\)` would be distributed like that, in the long run. 
+The gray tail area is `\(\alpha=0.05\)`---one tail of 0.05 in the one-sided cases and two tails
+of 0.025 each in the two-sided case. Note that the tails are never zero, they just become 
+too small to see. If `\(\mu=\mu_0\)`, then we would see "gray `\(m\)`" in 5% of cases, in the long
+run. These "gray `\(m\)`" are incompatible with `\(H_0\)`. In other words, if `\(m\)` falls at least 
+as far away from `\(H_0\)` as the cutoff (solid line), then we will reject `\(H_0\)`. 
+
+<!-- plot: h0h1 -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/h0h1.svg" />
+  <b> Figure 5. </b> 
+  Set-up for one-sided tests (left, middle) and two-sided tests (right). The top row 
+  shows the Null hypothesis \(H_0\), and the alternative hypothesis \(H_1\). The bottom 
+  row shows the sampling distribution of \(m\), centered on \(\mu_0\). Note that the
+  distribution is nonzero everywhere, but the tails become too thin to see them all the way out. 
+  The gray area shows which \(m\) are incompatible with (icw) \(H_0\), the red area shows which
+  \(m\) are compatible with (cw) \(H_0\). 
+</p> 
+
+
+
+So by setting `\(\alpha\)`, we define what it takes to reject `\(H_0\)`. There are two ways to 
+describe what `\(\alpha\)` means. First, it tells us how far away from `\(H_0\)` the sample mean 
+`\(m\)` needs to fall in order to reject `\(H_0\)`: so far that, if `\(H_0\)` were true, this would
+happen in no more than a fraction `\(\alpha\)` of all cases in the long run. Another way to put 
+it is, that it tells us how often we'd make a false rejection: if `\(H_0\)` were true, then we 
+would falsely reject it in no more than a fraction `\(\alpha\)` of all cases in the long run. 
+Thus, `\(\alpha\)` is our *false rejection rate*. 
+
+So, what should we set `\(\alpha\)` to?
+So far, we have simply set it to 0.05, and we will stick with 0.05 as we move on. 
+In fact, most studies simply set it to 0.05. But what is the justification? There is none! 
+There is no good justification for always using 0.05. In fact, there is no good justification 
+for always using *any* specific value. Instead, you should set `\(\alpha\)` depending on the context 
+of the research question and the available resources. We will look at this in more detail, 
+later. For now, it's sufficient to know what `\(\alpha\)` is. 
+
+> ✔️ **The false rejection rate `\(\mathbf{\alpha}\)`**  
+If `\(\mu\)` was some hypothetical value, then we would falsely reject it in a small fraction 
+`\(\alpha\)` of all cases, in the long run. Thus, `\(\alpha\)` is our *false rejection rate*. We
+are in full control of `\(\alpha\)`, i.e. we decide what the false rejection rate is. 
+
+## The p-value
+
+*4. Make an observation.*
+
+Next, we draw our sample of `\(N=15\)` and compute the sample mean `\(m\)`. 
+
+*5. Reject all possible truths that are incompatible with the observation.*
+
+We have set `\(\alpha\)` to define how far away from `\(H_0\)` the sample mean `\(m\)` needs to fall, 
+in order to reject `\(H_0\)`. We have drawn a sample and computed `\(m\)`. Now, we will check 
+how far away from `\(H_0\)` our sample mean `\(m\)` did fall, by computing the `\(p\)`-value. If 
+`\(p\le\alpha\)`, our sample mean fell far enough from `\(H_0\)` to reject it. 
+
+To get `\(p\)`, we simply repeat the two steps from earlier with a slight adjustment. You can 
+follow along in **Figure 6**. Earlier---before taking our sample---we defined how large the 
+gray area `\(\alpha\)` should be. This implied a cutoff , which
+told us how far away from `\(H_0\)` the sample mean `\(m\)` needs to fall in order to reject `\(H_0\)`. 
+Now---after taking our sample---we use our observed sample mean `\(m\)` as the cutoff. 
+This creates a gray area `\(p\)`. If `\(p\le\alpha\)`, our observed sample mean is far away from 
+`\(H_0\)`, so we reject `\(H_0\)`. 
+
+<!-- plot: p-values -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/pvalue.svg" />
+  <b> Figure 6. </b> Caption here. 
+</p> 
+
+Just as with `\(\alpha\)`, there are two ways to describe what the `\(p\)`-value means. First, 
+it tells us how far away our sample mean `\(m\)` is from `\(H_0\)`: so far that, if `\(H_0\)` were 
+true, this would happen in no more than a fraction `\(p\)` of all cases in the long run.
+Second, it tells us the lowest false rejection rate under which we would reject `\(H_0\)`, 
+given our observed sample mean `\(m\)`.
+
+<!-- plot: p-value curves -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/pvaluecurve.svg" />
+  <b> Figure. </b> Caption here. 
+</p> 
+
+<!-- plot: confidence intervals -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/ci.svg" />
+  <b> Figure. </b> Caption here. 
+</p>
+
+<!-- plot: confidence intervals by n -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/ci_n.svg" />
+  <b> Figure. </b> Caption here. 
+</p>
+
+<!-- plot: rejection rate -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/rejrate.svg" />
+  <b> Figure. </b> Caption here. 
+</p>
+
+<table>
+  <tr>
+    <th>
+      Decision
+    </th>
+    <th>
+      Truth
+    </th>
+    <th>
+      Evaluation
+    </th>
+    <th>
+      Rate
+    </th>
+  </tr>
+    <td rowspan="2">
+      Rejection
+    </td>
+    <td>
+      Value in question is the true value.
+    </td>
+    <td>
+      False
+    </td>
+    <td>
+      \(\alpha\)
+    </td>
+  <tr>
+    <td>
+      Value in question is not the true value.
+    </td>
+    <td>
+      True
+    </td>
+    <td>
+      \(1-\beta\)
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="2">
+      Non-rejection
+    </td>
+    <td>
+      Value in question is the true value.
+    </td>
+    <td>
+      True
+    </td>
+    <td>
+      \(1-\alpha\)
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Value in question is not the true value.
+    </td>
+    <td>
+      False
+    </td>
+    <td>
+      \(\beta\)
+    </td>
+  </tr>
+</table>
+
+<!-- plot: alpha beta inference -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/rejrate_inference.svg" />
+  <b> Figure. </b> Caption here. 
+</p>
+
+<!-- plot: rejection rate by alpha -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/rejrate_alpha.svg" />
+  <b> Figure. </b> Caption here. 
+</p>
+
+<!-- plot: rejection rate by n -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/rejrate_n.svg" />
+  <b> Figure. </b> Caption here. 
+</p>
+
+<!-- plot: rejection rate heatmap by alpha -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/rejrateheat_alpha.svg" />
+  <b> Figure. </b> Caption here. 
+</p>
+
+<!-- plot: rejection rate heatmap by sigma -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/rejrateheat_sigma.svg" />
+  <b> Figure. </b> Caption here. 
+</p>
+
+<!-- plot: rejection rate heatmap by sigma standardized -->
+<p style="text-align: center; font-size: 12px">
+  <img src="plots/rejrateheat_sigma_std.svg" />
+  <b> Figure. </b> Caption here. 
+</p>
+
