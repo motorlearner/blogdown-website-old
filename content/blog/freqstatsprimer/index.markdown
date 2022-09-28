@@ -62,23 +62,21 @@ h2{
 
 ## In the Long Run
 
-Blaaaaa
+Statistics is largely based on probability theory. Probability is a scalar between zero 
+and one, and the probability that any of multiple mutually exclusive events occurs is the
+sum of the individual probabilities -- that's just the mathematical definition. 
+'High probability' means we expect it, while 'low probability' means 
+we'd be surprised if it happens -- that's intuition. But what exactly does probability
+quantify in the real world?
 
-Inferential statistics uses probability theory to answer questions about the real world. 
-Probability is a well-defined mathematical concept, and everyone has some intuition about 
-probability. If something has low probability, you will be surprised if it actually 
-happens. Conversely, if something has high probability, you wouldn't be very surprised. 
-But what exactly does probability quantify in the real world?
-
-There are different interpretations. For example, an interpretation that is often attached 
-to *Bayesian* statistics is that probability reflects a rational agent's degree of belief. 
-In *frequentist* statistics, however, probability refers to hypothetical long run frequencies. 
-For example, when flipping a coin, the probability of 'heads' is 0.5. That means, if 
-you repeatedly flipped a coin, the proportion of 'heads' would converge to 0.5 
-*as the number of coin flips approaches infinity*. Below in **Figure 1**, you see 20 
-simulated series of 10,000 coin flips each. The y-axis shows the running proportion of 'heads'.
-The proportions starts at 0 or 1 on the first flip. There is some variability initially, but 
-as the number of flips grows, the proportions converge to 0.5.
+There are many interpretations. But today, we are dealing with *frequentist* statistics, 
+where probability refers to hypothetical long run frequencies.
+For example, when flipping a coin, the probability of heads is 0.5. That means, if we 
+repeatedly flipped a coin, the proportion of heads would *converge* to 0.5 
+*as the number of coin flips approaches infinity*. Below in **Figure 1**, you see 20
+simulated series of 10,000 coin flips each. The y-axis shows the running proportion of 
+heads. The proportion starts at 0 or 1 on the first flip. There is some variability 
+initially, but as the number of flips grows, the proportions converge to 0.5. 
 
 <!-- plot: law of large numbers -->
 <p style="text-align: center; font-size: 12px">
@@ -90,9 +88,8 @@ as the number of flips grows, the proportions converge to 0.5.
 
 More generally, the probability that a process produces a certain outcome is the frequency 
 at which that outcome is observed *if the process would be repeated infinitely many times*. 
-Because "if the process would be repeated infinitely many times" is a mouthful, I will 
-often just say "in the long run". So, the probability that a process produces a certain outcome 
-is the frequency at which that outcome is observed *in the long run*. 
+Saying it more concisely, the probability that a process produces a certain outcome is the 
+frequency at which that outcome is observed *in the long run*. 
 
 Note that if you interpret probability this way, you can only assign probability to things 
 that are, in principle, repeatable. We can talk about the probability of getting 8 heads
