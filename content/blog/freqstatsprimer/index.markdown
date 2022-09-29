@@ -62,14 +62,14 @@ h2{
 
 ## In the Long Run
 
-Statistics is largely based on probability theory. Probability is a scalar between zero 
-and one, and the probability that any of multiple mutually exclusive events occurs is the
-sum of the individual probabilities -- that's just the mathematical definition. 
-'High probability' means we expect it, while 'low probability' means 
-we'd be surprised if it happens -- that's intuition. But what exactly does probability
-quantify in the real world?
+Statistics is largely based on probability theory. 
+Mathematically: Probability is a scalar between zero and one, and the probability that any 
+of multiple mutually exclusive events occurs is the sum of the individual probabilities. 
+Intuitively: 'High probability' means we expect it, while 'low probability' means we'd be 
+surprised if it happens. 
+So far so good, but what exactly does probability quantify in the real world?
 
-There are many interpretations. But today, we are dealing with *frequentist* statistics, 
+There are several interpretations. But today, we are dealing with *frequentist* statistics, 
 where probability refers to hypothetical long run frequencies.
 For example, when flipping a coin, the probability of heads is 0.5. That means, if we 
 repeatedly flipped a coin, the proportion of heads would *converge* to 0.5 
@@ -87,9 +87,8 @@ initially, but as the number of flips grows, the proportions converge to 0.5.
 </p>
 
 More generally, the probability that a process produces a certain outcome is the frequency 
-at which that outcome is observed *if the process would be repeated infinitely many times*. 
-Saying it more concisely, the probability that a process produces a certain outcome is the 
-frequency at which that outcome is observed *in the long run*. 
+at which that outcome is observed **in the long run**, i.e. 
+*if the process would be repeated infinitely many times*.  
 
 Note that if you interpret probability this way, you can only assign probability to things 
 that are, in principle, repeatable. We can talk about the probability of getting 8 heads
@@ -103,11 +102,27 @@ Under the frequentist interpretation of probability, the probability that a proc
 produces an outcome is the frequency at which that outcome is observed *in the long run*,
 i.e. *if the underlying process is repeated infinitely many times*. 
 
-## The Working Example
+## Setup
+
+Statistical inference boils down to inferring something about the
+population distribution (a probability distribution) from a random sample. 
+
+1. We want to know something about the population distribution.
+2. We draw a random sample from that population distribution.
+3. We use information from our random sample to infer something about the population
+distribution.
+
+Now, the "population distribution" is of course a probability distribution, but what 
+exactly it refers 
+
+Consider a survey, 
+where we want to find out the average daily coffee consumption in a certain country. We 
+would randomly choose people from that country and ask them how much coffee they consume.
+Our population are all the values 
 
 In `R`, there is a function `rnorm(n)` which draws a sample of size `n` from a normal
 distribution with mean `\(\mu\)` and standard deviation `\(\sigma\)`. I will call this the 
-*population distribution*, with population mean `\(\mu\)` and population standard devaition 
+*population distribution*, with population mean `\(\mu\)` and population standard deviation 
 `\(\sigma\)`. 
 
 We have some hypothesis or question about the population mean `\(\mu\)`. As mentioned above, we know 
