@@ -109,7 +109,7 @@ We will later pretend that *both* `\(\mu\)` and `\(\sigma\)` are unknown, in whi
   distribution is normal, and that \(\sigma=1\). 
 </p>
 
-An easy way to remember what the symbols ($\mu,\sigma,m,s,N$) stand for is: greek letter are for population parameters (latin ones for sample parameters) and letters that are pronounced with M at the beginning are for the mean (the ones with S are for the standard deviation). 
+An easy way to remember what the symbols `\(\mu,\sigma,m,s,N\)` stand for is: Greek letter are for population parameters (Latin ones for sample parameters) and letters that are pronounced with M at the beginning are for the mean (the ones with S are for the standard deviation). 
 
 <table>
   <tr>
