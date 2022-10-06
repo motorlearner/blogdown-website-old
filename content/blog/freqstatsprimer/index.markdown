@@ -50,7 +50,7 @@ li{
 }
 blockquote p{
   font-size: 13px;
-  width: 120%;
+  width: 100%;
 }
 h1{
   font-size: 16px;
