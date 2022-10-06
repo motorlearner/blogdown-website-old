@@ -60,6 +60,8 @@ h2{
 }
 </style>
 
+In my experience, statistics
+
 ## In the Long Run
 
 Statistics is largely based on probability theory. 

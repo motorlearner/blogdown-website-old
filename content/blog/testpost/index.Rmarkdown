@@ -17,7 +17,7 @@ layout:     single
 draft:      false
 ---
 
-This is simply a template to remind myself of all the cool features that you can put
+A template to remind myself of all the cool features that you can put
 into blogposts. 
 
 ### Using Panelsets
@@ -67,6 +67,18 @@ There is also the usual stuff such as
 or a horizontal line (maybe useful to put around figures, with figure caption inside.)
 ____
 
-Here is a picture, loaded from the plots folder. 
+This is main body of my content.
+I have a footnote link for this line
+<a id="footnote-1-ref" href="#footnote-1"><sup>[1]</sup></a>.
+Then, I have some more content.
+Some of it is interesting and it has some footnotes as well
+<a id="footnote-2-ref" href="#footnote-2"><sup>[2]</sup></a>.
 
-![alt text](plots/pic.svg "Title")
+<hr> 
+<p id="footnote-1">
+   [1] Here is my first footnote. <a href="#footnote-1-ref">&#8617;</a> 
+</p>
+<p id="footnote-2">
+   [2] Another footnote. <a href="#footnote-2-ref">&#8617;</a>
+</p>
+<hr> 
