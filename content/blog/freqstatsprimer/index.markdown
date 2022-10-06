@@ -179,7 +179,7 @@ Say we draw a random sample of `\(N=15\)` from our population with unknown mean 
   Sample.
 </p>
 
-Let’s ask a simple question: could it be that `\(\mu\stackrel{?}{=}0\)`? Well, if indeed `\(\mu=0\)`, then our sample mean (solid vertical line) must have come from the distribution highlighted in **Figure 6** (the one with mean `\(0\)`). Just by looking at the figure, I think we can agree that this is not unlikely. So, `\(\mu\)` could be `\(0\)`. 
+Let’s ask a simple question: `\(\mu\stackrel{?}{=}0\)`. Well, if we assume `\(\mu\stackrel{!}{=}0\)`, then our sample mean (solid vertical line) must have come from the distribution highlighted in **Figure 6** (the one with mean `\(0\)`). Just by looking at the figure, I think we can agree that this is not unlikely. So, `\(\mu\)` could be `\(0\)`. 
 
 <!-- plot: sampling distribution placement 1 -->
 <p style="text-align: center; font-size: 12px">
@@ -190,7 +190,7 @@ Let’s ask a simple question: could it be that `\(\mu\stackrel{?}{=}0\)`? Well,
   run if \(\mu=-0\). 
 </p>
 
-Let’s repeat this with another value: could it be that `\(\mu=0.5\)`? The corresponding sampling distribution with mean `\(\mu=-0.5\)` is highlighted in **Figure 7**. If indeed `\(\mu=-0.5\)`, then our sample mean (solid vertical line) must have come from that distribution.Just by looking at the figure, I think we can agree that this is very unlikely (but not exactly impossible: the tails of the distribution are thin but never zero). So, we can rule out `\(\mu=-0.5\)`. 
+Let’s repeat this with another value: `\(\mu\stackrel{?}{=}-0.5\)`. Again, if we assume `\(\mu\stackrel{!}{=}-0.5\)`, then our sample mean (solid vertical line) must have come from the distribution highlighted in **Figure 7** (the one with mean `\(-0.5\)`). Just by looking at the figure, I think we can agree that this is very unlikely (but not exactly impossible: the tails of the distribution are thin but never zero). So, we can conclude `\(\mu\ne -0.5\)`. 
 
 <!-- plot: sampling distribution placement 2 -->
 <p style="text-align: center; font-size: 12px">
@@ -201,7 +201,7 @@ Let’s repeat this with another value: could it be that `\(\mu=0.5\)`? The corr
   if \(\mu=-2\). 
 </p>
 
-We can center the sampling distribution of `\(m\)` on any value, call it `\(\mu_0\)`. If `\(\mu=\mu_0\)`, then our sample mean `\(m\)` must have come from that distribution. If that is very unlikely, then we conclude `\(\mu\ne\mu_0\)`. That is a very rough sketch of how frequentist statistics works. Now, we will look at this in more detail. 
+We can center the sampling distribution of `\(m\)` on any value, call it `\(\mu_0\)`. If we assume `\(\mu\stackrel{!}{=}\mu_0\)`, then our sample mean `\(m\)` must have come from that distribution. If that is very unlikely, then we conclude `\(\mu\ne\mu_0\)`. That is a very rough sketch of how frequentist statistics works. Now, we will look at this in more detail. 
 
 > ✔️ **The sampling distribution of `\(m\)`**  
 If we assume that `\(\mu\stackrel{!}{=}\mu_0\)`, then our sample mean `\(m\)` must have come from the sampling distribution with mean `\(\mu_0\)`. If that is very unlikely, we conclude that `\(\mu\ne\mu_0\)`.  
