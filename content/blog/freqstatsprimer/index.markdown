@@ -60,25 +60,13 @@ h2{
 }
 </style>
 
-In my experience, statistics
+In my experience, statistics courses often brush over the fundamentals and quickly---too quickly---move on to teach you different models and how to implement them. So, I decided to write a blogpost explaining the fundamentals of frequentist statistics. The goal is to give you a good understanding of the fundamental frequentist statistical concepts: p-values, confidence intervals, statistical power, etc. Enjoy! 
+
 
 ## In the Long Run
 
-Statistics is largely based on probability theory. 
-Mathematically: Probability is a scalar between zero and one, and the probability that any 
-of multiple mutually exclusive events occurs is the sum of the individual probabilities. 
-Intuitively: 'High probability' means we expect it, while 'low probability' means we'd be 
-surprised if it happens. 
-So far so good, but what exactly does probability quantify in the real world?
-
-There are several interpretations. But today, we are dealing with *frequentist* statistics, 
-where probability refers to hypothetical long run frequencies.
-For example, when flipping a coin, the probability of heads is 0.5. That means, if we 
-repeatedly flipped a coin, the proportion of heads would *converge* to 0.5 
-*as the number of coin flips approaches infinity*. Below in **Figure 1**, you see 20
-simulated series of 10,000 coin flips each. The y-axis shows the running proportion of 
-heads. The proportion starts at 0 or 1 on the first flip. There is some variability 
-initially, but as the number of flips grows, the proportions converge to 0.5. 
+Statistical inference is based on probability theory. Mathematically speaking, probability is a scalar between zero and one, and the probability that any of multiple mutually exclusive events occurs is the sum of their individual probabilities. Intuitively speaking, >high probability< means we expect it and >low probability< means we’d be surprised if it happened. So far so good. But what exactly does probability quantify in the real world?
+There are several interpretations of probability. But today, we are dealing with *frequentist statistics*. In this framework, probability refers to hypothetical long run *frequencies*. For example, when flipping a coin, the probability of heads is 0.5. That means, if we repeatedly flipped a coin,the proportion of heads would converge to 0.5 as the number of coin flips approaches infinity. You can see a simulated example in F1. 
 
 <!-- plot: law of large numbers -->
 <p style="text-align: center; font-size: 12px">
@@ -88,50 +76,28 @@ initially, but as the number of flips grows, the proportions converge to 0.5.
   proportion of heads. 
 </p>
 
-More generally, the probability that a process produces a certain outcome is the frequency 
-at which that outcome is observed **in the long run**, i.e. 
-*if the process would be repeated infinitely many times*.  
-
-Note that if you interpret probability this way, you can only assign probability to things 
-that are, in principle, repeatable. We can talk about the probability of getting 8 heads
-out of 10 coin flips because you can flip a coin 10 times, over and over again. However, 
-it doesn't make sense to talk about the probability that some theory is true because there 
-is nothing to repeat. Many misinterpretations of frequentist statistical concepts can be 
-avoided simply by remembering that probabilities are long run frequencies. 
+More generally, the probability that a process produces a certain outcome is the frequency at which that outcome is observed *in the long run*, i.e. *if the process is repeated infinitely often*. Note that, under this interpretation, it only makes sense to assign probability to repeatable events. Does it make sense to talk about the probability of getting a sum of 12 when rolling three dice? Yes, because you can roll three dice over and over again. Does it make sense to talk about the probability that your hypothesis is true? No, there is nothing to repeat here. 
 
 > ✔️ **Probability as a long run frequency**  
-Under the frequentist interpretation of probability, the probability that a process 
-produces an outcome is the frequency at which that outcome is observed *in the long run*,
-i.e. *if the underlying process is repeated infinitely many times*. 
+Under the frequentist interpretatio, the probability that a process produces an outcome is the frequency at which that outcome is observed *in the long run*, i.e. *if the underlying process is repeated infinitely often*. 
 
 ## Setup
 
-Statistical inference boils down to inferring something about the
-population distribution (a probability distribution) from a random sample. 
+Statistical inference essentially means inferring some aspect of an unobservable probability distribution---often called the *population distribution*---using a random sample. Step by step, it looks something like this:
 
-1. We want to know something about the population distribution.
-2. We draw a random sample from that population distribution.
-3. We use information from our random sample to infer something about the population
-distribution.
+1. We are interested in some aspect of the population distribution.  
+2. We draw a random sample from that population
+3. We use information from the sample to infer something about (some aspect of) the population distribution.
 
-Now, the "population distribution" is of course a probability distribution, but what 
-exactly it refers 
+Note that what exactly constitutes the population distribution and the random sample depends on the study design---in particular, which part is random: the inclusion of participants (as in surveys) or the allocation of participants (as in trials). But we don't need to worry about that. All that matters for us is the general concept.
 
-Consider a survey, 
-where we want to find out the average daily coffee consumption in a certain country. We 
-would randomly choose people from that country and ask them how much coffee they consume.
-Our population are all the values 
+Now, we need a specific example to work with, which will be as follows:
 
-In `R`, there is a function `rnorm(n)` which draws a sample of size `n` from a normal
-distribution with mean `\(\mu\)` and standard deviation `\(\sigma\)`. I will call this the 
-*population distribution*, with population mean `\(\mu\)` and population standard deviation 
-`\(\sigma\)`. 
+1. The population distribution is some distribution. It has an unknown mean `\(\mu\)`, which we are interested in. It also has a known standard deviation `\(\sigma=1\)`.  
+2. We draw a random sample of size `\(N\)` from that population distribution. We denote the sample mean `\(m\)` and the sample standard deviation `\(s\)`.  
+3. We use the sample mean `\(m\)` to infer something about the population mean `\(\mu\)`.  
 
-We have some hypothesis or question about the population mean `\(\mu\)`. As mentioned above, we know 
-that the population distribution is a normal distribution. We will also pretend to know 
-that the population standard deviation is `\(\sigma=1\)`. Our strategy is as follows: 
-We will draw a sample of size `\(N\)` from the population distribution, and use the sample 
-mean `\(m\)` to make some inference about `\(\mu\)`.
+We will later pretend that *both* `\(\mu\)` and `\(\sigma\)` are unknown, in which case we will have to use both `\(m\)` and `\(s\)`. But for now, `\(\sigma=1\)` is known and `\(s\)` can be ignored.
 
 <!-- plot: overview -->
 <p style="text-align: center; font-size: 12px">
@@ -143,10 +109,7 @@ mean `\(m\)` to make some inference about `\(\mu\)`.
   distribution is normal, and that \(\sigma=1\). 
 </p>
 
-Have a look at **Figure 2** and make sure you know what `\(\mu, \sigma, m, s, N\)` stand for. 
-Greek letters stand for *population* parameters, Latin letters stand for *sample* parameters. 
-If a letter starts with an **m**, it stands for the **m**ean. 
-If a letter starts with an **s**, it stands for the **s**tandard deviation.
+An easy way to remember what the symbols ($\mu,\sigma,m,s,N$) stand for is: greek letter are for population parameters (latin ones for sample parameters) and letters that are pronounced with M at the beginning are for the mean (the ones with S are for the standard deviation). 
 
 <table>
   <tr>
@@ -171,19 +134,13 @@ If a letter starts with an **s**, it stands for the **s**tandard deviation.
   </tr>
 </table>
 
-There are many questions we could ask about `\(\mu\)`. We might want to know whether it is 
-greater / smaller than some hypothetical value. Or, we might want to know whether it is 
-different from / similar to some specific value? To answer any of these questions, we 
-need the sampling distribution. 
+So, what do we want to know about `\(\mu\)`? We might want to know whether it is greater or smaller than some value. We might want to know whether it is different from or similar to some value. Or, we might simply want an estimate of it. To answer any of these questions, we need the sampling distribution. 
 
 ## The Sampling Distribution
 
-Let's take a sample of size `\(N\)` from a population distribution with mean `\(\mu\)` and 
-standard deviation `\(\sigma\)`. We can calculate the sample mean `\(m\)`. In **Figure 3**, you 
-see this process repeated twenty times for three different sample sizes. Each line shows
-a different sample. The gray points are the sample values and the colored square is their
-mean. Note that the sample means break away farther from `\(\mu\)` (dashed line) when `\(N\)` is
-smaller.
+The sampling distribution exists for any sample statistic (sample mean, median, standard deviation, etc.) and it tells you how that sample statistic would be distributed if you computed it for an infinite series of random samples.
+
+We will be using the sampling distribution of the sample mean `\(m\)`. In **Figure 3** you see twenty samples of size `\(N\)`, drawn from a population distribution with some mean `\(\mu\)` and some standard deviation `\(\sigma\)`. The grey points are the sample values, and the colored squares are the sample means. 
 
 <!-- plot: clt samples -->
 <p style="text-align: center; font-size: 12px">
@@ -193,11 +150,7 @@ smaller.
   and standard deviation \(\sigma\).
 </p>
 
-Now, what if we repeated this process not only 20 times, but infinitely many times? We 
-would get infinitely many sample means `\(m\)`, which form their own distribution. This is the
-'*sampling distribution of `\(m\)`*'. You can see it in **Figure 4**: the colored distribution 
-is the sampling distribution of `\(m\)`, and the gray distribution is the population distribution
-(which is a normal distribution---just as in our working example). 
+Now, what if we continued doing this infinitely many times? We would get infinitely many sample means, which would form their own distribution. This is the sampling distribution of `\(m\)`. In **Figure 4**, you can see the sampling distribution of `\(m\)` in colour (and the underlying population distribution in grey).
 
 <!-- plot: clt distributions -->
 <p style="text-align: center; font-size: 12px">
@@ -209,77 +162,35 @@ is the sampling distribution of `\(m\)`, and the gray distribution is the popula
   \(\mu\), measured in multiples of \(\sigma\).
 </p>
 
-There are a few things about the sampling distribution of `\(m\)` that should immediately
-catch your eye. 
-First, it has the same mean as the population distribution. That is, it has mean `\(\mu\)`. 
-Second, its spread decreases as the sample size increases. In fact, its standard deviation 
-is `\(\frac{\sigma}{\sqrt{N}}\)`. Note that this specific standard deviation is also called 
-the *standard error of `\(m\)`*.
-Third---maybe not quite so obvious---it is a normal distribution. To sum up, the
-sampling distribution of `\(m\)` is a normal distribution with mean `\(\mu\)` and standard 
-deviation `\(\frac{\sigma}{\sqrt{N}}\)`.
+The sampling distribution of `\(m\)` has some important properties. First, it has the same mean as the underlying population distribution—i.e. it has mean `\(\mu\)`. Second, its spread decreases as the sample size `\(N\)` increases—specifically, it has standard deviation `\(\frac{\sigma}{\sqrt{N}}\)`. Third—maybe not quite so obvious—it is a normal distribution. To sum up, the sampling distribution of `\(m\)` is a normal distribution with mean `\(\mu\)` and standard deviation `\(\frac{\sigma}{\sqrt{N}}\)`.
 
 > 📝 **The Central Limit Theorem**  
-The sampling distribution of `\(m\)` is a normal distribution with mean `\(\mu\)` and standard
-deviation `\(\frac{\sigma}{\sqrt{N}}\)` *for almost any population distribution*. The 
-population distribution must have a finite mean `\(\mu\)` and standard deviation `\(\sigma\)`, but 
-it does not need to be a normal distribution as in our working example! There is another 
-caveat: depending on the shape of the population distribution, the sampling distribution 
-of `\(m\)` will only be normal if `\(N\)` is sufficiently large. For example, as long as our 
-population distribution is symmetric, all our three sample sizes should be enough. But
-if our population distribution was highly skewed, a sample size of 5 won't cut it and 
-a sample size of 15 might not either. 
-You can create your own population distribution and simulate the sampling distribution 
+The sampling distribution of `\(m\)` is a normal distribution with mean `\(\mu\)` and standard deviation `\(\frac{\sigma}{\sqrt{N}}\)` given almost any population distribution. The population distribution must have a finite mean `\(\mu\)` and standard deviation `\(\sigma\)`, but other than that it can be whatever. There is a caveat: depending on the shape of the population distribution, the above holds only if `\(N\)` is sufficiently large. For example, a sample size of 5 will probably be enough given a symmetric population distribution but it might not be enough given a heavily skewed population distribution. You can create your own population distribution and simulate the sampling distribution
 [here](https://onlinestatbook.com/stat_sim/sampling_dist/). 
 
-So, now we know what the sampling distribution of `\(m\)` is: if we draw infinitely many 
-samples of size `\(N\)` from a population distribution with mean `\(\mu\)` and standard deviation
-`\(\sigma\)`, then all the sample means would be distributed according to the sampling 
-distribution of `\(m\)`. But how is this useful? How can we use the sampling distribution of 
-`\(m\)` to learn something about `\(\mu\)`? Here is a brief example to build some intuition. 
+So, now we know what the sampling distribution is: if we drew infinitely many samples from a population distribution with mean `\(\mu\)` and standard deviation `\(\sigma\)`, then all the sample means would be distributed according to the sampling distribution of `\(m\)`. But how is this useful? How can we use that knowledge to learn something about `\(\mu\)`? Let’s build some intuition. 
 
-Let's say we draw a sample of size `\(N=15\)` from our population distribution. The sample is 
-shown in **Figure 5**. We compute the sample mean, which turns out to be `\(m=0.3\)`. The 
-sample mean is marked by the red square and the solid line. As per our working example, 
-we are interested in the population mean `\(\mu\)` and we know the population standard deviation
-is `\(\sigma=1\)`. 
+Say we draw a random sample of `\(N=15\)` from our population with unknown mean `\(\mu\)` and standard deviation `\(\sigma=1\)`. The sample is shown in **Figure 5**. The sample mean turns out to be `\(m=0.3\)`, and it is marked by the solid vertical line.
 
 <!-- plot: sample -->
 <p style="text-align: center; font-size: 12px">
   <img src="plots/sample.svg" />
   <b> Figure 5. </b> 
-  Sampling distributions of \(m\) for different \(\mu\), given \(\sigma=1\) and \(N=15\).
-  The highlighted sampling distribution shows how \(m\) would be distributed in the long run
-  if \(\mu=-2\). 
+  Sample.
 </p>
 
-Now, let's say we think that `\(\mu=0\)`. Could our sample have come from a population 
-distribution with mean `\(\mu=0\)` (and standard deviation `\(\sigma=1\)`)? Well, we simply take
-the sampling distribution of `\(m\)` and set its mean to `\(0\)`. This distribution is highlighted 
-in **Figure 6**. If `\(\mu=0\)`, then our sample mean must have come from that distribution.
-The sample mean is still highlighted by the solid line.
-So---just by looking at the figure---is it likely that our sample mean came from that 
-distribution? I think you would agree it's not super unlikely. So `\(\mu\)` could be `\(0\)`. 
+Let’s ask a simple question: could it be that `\(\mu\stackrel{?}{=}0\)`? Well, if indeed `\(\mu=0\)`, then our sample mean (solid vertical line) must have come from the distribution highlighted in **Figure 6** (the one with mean `\(0\)`). Just by looking at the figure, I think we can agree that this is not unlikely. So, `\(\mu\)` could be `\(0\)`. 
 
 <!-- plot: sampling distribution placement 1 -->
 <p style="text-align: center; font-size: 12px">
   <img src="plots/sdistplace1.svg" />
   <b> Figure 6. </b> 
   Sampling distributions of \(m\) for different \(\mu\), given \(\sigma=1\) and \(N=15\).
-  The highlighted sampling distribution shows how \(m\) would be distributed in the long run
-  if \(\mu=-2\). 
+  The highlighted sampling distribution shows how \(m\) would be distributed in the long
+  run if \(\mu=-0\). 
 </p>
 
-Let's repeat this with another value, say `\(\mu=-0.5\)`. Could our sample have come from a 
-population distribution with mean `\(\mu=-0.5\)` (and standard deviation `\(\sigma=1\)`)? Well,
-we simply take the sampling distribution of `\(m\)` and set its mean to `\(-0.5\)`. 
-This distribution is highlighted in **Figure 7**. If `\(\mu=-0.5\)`, then our sample mean must 
-have come from that distribution. The sample mean is still highlighted by the solid line.
-So---again, just by looking at the figure---is it likely 
-that our sample mean came from that distribution? I think you would agree it's very 
-unlikely (but note that it is not impossible---the tails of the distribution become too
-thin to see them, but they are never exactly zero). So it's reasonable to conclude that 
-`\(\mu\)` is not `\(-0.5\)`. 
+Let’s repeat this with another value: could it be that `\(\mu=0.5\)`? The corresponding sampling distribution with mean `\(\mu=-0.5\)` is highlighted in **Figure 7**. If indeed `\(\mu=-0.5\)`, then our sample mean (solid vertical line) must have come from that distribution.Just by looking at the figure, I think we can agree that this is very unlikely (but not exactly impossible: the tails of the distribution are thin but never zero). So, we can rule out `\(\mu=-0.5\)`. 
 
 <!-- plot: sampling distribution placement 2 -->
 <p style="text-align: center; font-size: 12px">
@@ -290,18 +201,10 @@ thin to see them, but they are never exactly zero). So it's reasonable to conclu
   if \(\mu=-2\). 
 </p>
 
-We can center the sampling distribution of `\(m\)` on any value. If `\(\mu\)` was 'that value', 
-then our sample mean must have come from that distribution. If that is very unlikely, 
-then we conclude that `\(\mu\)` is not 'that value'. That is a very rough sketch of how
-frequentist statistical inference works. Now it is time to formalize this.
+We can center the sampling distribution of `\(m\)` on any value, call it `\(\mu_0\)`. If `\(\mu=\mu_0\)`, then our sample mean `\(m\)` must have come from that distribution. If that is very unlikely, then we conclude `\(\mu\ne\mu_0\)`. That is a very rough sketch of how frequentist statistics works. Now, we will look at this in more detail. 
 
 > ✔️ **The sampling distribution of `\(m\)`**  
-If we took infinitely many samples of size `\(N\)` from a population distribution with mean 
-`\(\mu\)` and standard deviation `\(\sigma\)`, then the sample means `\(m\)` would form a distribution 
-called the *sampling distribution of `\(m\)`*. It is a normal distribution with mean `\(\mu\)`
-and standard deviation `\(\frac{\sigma}{\sqrt{N}}\)`. We can set the mean of this distribution
-to a specific value, so it tells us how `\(m\)` would be distributed in the long run 
-*if `\(\mu\)` was that specific value*. 
+If we assume that `\(\mu\stackrel{!}{=}\mu_0\)`, then our sample mean `\(m\)` must have come from the sampling distribution with mean `\(\mu_0\)`. If that is very unlikely, we conclude that `\(\mu\ne\mu_0\)`.  
 
 ## Rejecting the Incompatible
 
