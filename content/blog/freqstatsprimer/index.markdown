@@ -43,25 +43,122 @@ p {
   text-align: justify;
   width: auto;
 }
+
 li{
   font-size: 14px;
   text-align: justify;
-  width: 125%;
+  padding-left: 1em;
 }
-blockquote p{
-  font-size: 13px;
-  width: 100%;
-}
+
 h1{
-  font-size: 16px;
+  font-size: 11px;
 }
+
 h2{
-  font-size: 14px;
+  font-size: 6px;
 }
+
+.keypoint{
+  border-left: 0.8em solid #cccccc;
+  background-color: #e5e5e5;
+  padding: 0.75em 1em 0.75em 0.5em;
+}
+
+.figure{
+  text-align: justify; 
+  font-size: 12px;
+  margin-left: 10em;
+  margin-right: 10em;
+}
+
+</style>
+
+<style type="text/css">
+/*
+ *  Footnotes
+ */
+ 
+footer {
+  margin-top: 2ex;
+  border-top: 1px solid silver;
+  font-size: 1em;
+}
+
+footer ol {
+  padding-left: 20px;
+}
+
+/*
+ *  initialiazing a `footnotes` counter on the wrapper
+ */
+ 
+article {
+  counter-reset: footnotes;
+}
+
+/*
+ *  inline footnotes references
+ *  1. increment the counter at each new reference
+ *  2. reset link styles to make it appear like regular text
+ */
+ 
+[aria-describedby="footnote-label"] {
+  counter-increment: footnotes; /* 1 */
+  text-decoration: none; /* 2 */
+  color: inherit; /* 2 */
+  cursor: default; /* 2 */
+  outline: none; /* 2 */
+}
+
+/*
+ *  actual numbered references
+ *  1. display the current state of the counter (e.g. `[1]`)
+ *  2. align text as superscript
+ *  3. make the number smaller (since it's superscript)
+ *  4. slightly offset the number from the text
+ *  5. reset link styles on the number to show it's usable
+ */
+[aria-describedby="footnote-label"]::after {
+  content: '[' counter(footnotes) ']'; /* 1 */
+  vertical-align: super; /* 2 */
+  font-size: 0.8em; /* 3 */
+  margin-left: 2px; /* 4 */
+  color: #8a0900; /* 5 */
+  cursor: pointer; /* 5 */
+}
+
+/*
+ *  resetting the default focused styles on the number
+ */
+[aria-describedby="footnote-label"]:focus::after {
+  outline: thin dotted;
+  outline-offset: 2px;
+}
+
+[aria-label="Back to content"] {
+  font-size: 0.8em;
+}
+
+/* 
+ *  highlight target note
+ */
+footer :target {
+  background: yellow;
+}
+
+/*
+ *  visually hidden yet accessible content
+ */
+.visually-hidden {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  visibility: hidden;
+  opacity: 0;
+}
+
 </style>
 
 In my experience, statistics courses often brush over the fundamentals and quickly---too quickly---move on to teach you different models and how to implement them. So, I decided to write a blogpost explaining the fundamentals of frequentist statistics. The goal is to give you a good understanding of the fundamental frequentist statistical concepts: p-values, confidence intervals, statistical power, etc. Enjoy! 
-
 
 ## In the Long Run
 
@@ -76,10 +173,19 @@ There are several interpretations of probability. But today, we are dealing with
   proportion of heads. 
 </p>
 
+<!-- plot: law of large numbers -->
+<p class="figure">
+  <img src="plots/lln.svg" />
+  <b> Figure 1. </b> 
+  Twenty simulated series of 10,000 coin flips each. The y-axis shows the proportion of heads. 
+</p>
+
 More generally, the probability that a process produces a certain outcome is the frequency at which that outcome is observed *in the long run*, i.e. *if the process is repeated infinitely often*. Note that, under this interpretation, it only makes sense to assign probability to repeatable events. Does it make sense to talk about the probability of getting a sum of 12 when rolling three dice? Yes, because you can roll three dice over and over again. Does it make sense to talk about the probability that your hypothesis is true? No, there is nothing to repeat here. 
 
-> ✔️ **Probability as a long run frequency**  
-Under the frequentist interpretatio, the probability that a process produces an outcome is the frequency at which that outcome is observed *in the long run*, i.e. *if the underlying process is repeated infinitely often*. 
+<p class="keypoint">
+<b> ✔️ Probability as a long run frequency </b> <br>
+Under the frequentist interpretation, the probability that a process produces an outcome is the frequency at which that outcome is observed <i>in the long run</i>, i.e. <i> if the underlying process is repeated infinitely often </i>.
+</p>
 
 ## Setup
 
@@ -89,7 +195,7 @@ Statistical inference essentially means inferring some aspect of an unobservable
 2. We draw a random sample from that population
 3. We use information from the sample to infer something about (some aspect of) the population distribution.
 
-Note that what exactly constitutes the population distribution and the random sample depends on the study design---in particular, which part is random: the inclusion of participants (as in surveys) or the allocation of participants (as in trials). But we don't need to worry about that. All that matters for us is the general concept.
+Note that what exactly constitutes the population distribution and the random sample depends on the study design---in particular, which part is random: the inclusion of participants (as in surveys) or the allocation of participants (as in trials).<a href="#whatispop-foot" aria-describedby="footnote-label" id="whatispop-text"></a> But we don't need to worry about that. All that matters for us is the general concept. Maintaining footnotes manually can be a pain. 
 
 Now, we need a specific example to work with, which will be as follows:
 
@@ -150,7 +256,7 @@ We will be using the sampling distribution of the sample mean `\(m\)`. In **Figu
   and standard deviation \(\sigma\).
 </p>
 
-Now, what if we continued doing this infinitely many times? We would get infinitely many sample means, which would form their own distribution. This is the sampling distribution of `\(m\)`. In **Figure 4**, you can see the sampling distribution of `\(m\)` in colour (and the underlying population distribution in grey).
+Now, what if we continued doing this infinitely many times? We would get infinitely many sample means, which would form their own distribution. This is the sampling distribution of `\(m\)`. In **Figure 4**, you can see the sampling distribution of `\(m\)` in color (and the underlying population distribution in grey).
 
 <!-- plot: clt distributions -->
 <p style="text-align: center; font-size: 12px">
@@ -162,13 +268,14 @@ Now, what if we continued doing this infinitely many times? We would get infinit
   \(\mu\), measured in multiples of \(\sigma\).
 </p>
 
-The sampling distribution of `\(m\)` has some important properties. First, it has the same mean as the underlying population distribution—i.e. it has mean `\(\mu\)`. Second, its spread decreases as the sample size `\(N\)` increases—specifically, it has standard deviation `\(\frac{\sigma}{\sqrt{N}}\)`. Third—maybe not quite so obvious—it is a normal distribution. To sum up, the sampling distribution of `\(m\)` is a normal distribution with mean `\(\mu\)` and standard deviation `\(\frac{\sigma}{\sqrt{N}}\)`.
+The sampling distribution of `\(m\)` has some important properties. First, it has the same mean as the underlying population distribution—i.e. it has mean `\(\mu\)`. Second, its spread decreases as the sample size `\(N\)` increases—specifically, it has standard deviation `\(\frac{\sigma}{\sqrt{N}}\)`.<a href="#standarderror-foot" aria-describedby="footnote-label" id="standarderror-text"></a> Third, it is a normal distribution. 
 
-> 📝 **The Central Limit Theorem**  
-The sampling distribution of `\(m\)` is a normal distribution with mean `\(\mu\)` and standard deviation `\(\frac{\sigma}{\sqrt{N}}\)` given almost any population distribution. The population distribution must have a finite mean `\(\mu\)` and standard deviation `\(\sigma\)`, but other than that it can be whatever. There is a caveat: depending on the shape of the population distribution, the above holds only if `\(N\)` is sufficiently large. For example, a sample size of 5 will probably be enough given a symmetric population distribution but it might not be enough given a heavily skewed population distribution. You can create your own population distribution and simulate the sampling distribution
+So the sampling distribution of `\(m\)` is a normal distribution with mean `\(\mu\)` and standard deviation `\(\frac{\sigma}{\sqrt{N}}\)`. This is true as long as the population distribution has a defined mean `\(\mu\)` and finite standard deviation `\(\sigma\)`, but *the shape of the population distribution does not matter*! This cool fact is called the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem). There is a caveat: depending on the shape of the population distribution, the above holds only if `\(N\)` is sufficiently large. For example, a sample size of 5 will probably be enough given a symmetric population distribution but it might not be enough given a heavily skewed population distribution. You can create your own population distribution and simulate the sampling distribution
 [here](https://onlinestatbook.com/stat_sim/sampling_dist/). 
 
-So, now we know what the sampling distribution is: if we drew infinitely many samples from a population distribution with mean `\(\mu\)` and standard deviation `\(\sigma\)`, then all the sample means would be distributed according to the sampling distribution of `\(m\)`. But how is this useful? How can we use that knowledge to learn something about `\(\mu\)`? Let’s build some intuition. 
+### Putting the Sampling Distribution to use
+
+So, now we know what the sampling distribution is, but how is it useful? How can we use that knowledge to learn something about `\(\mu\)`? Let’s build some intuition. 
 
 Say we draw a random sample of `\(N=15\)` from our population with unknown mean `\(\mu\)` and standard deviation `\(\sigma=1\)`. The sample is shown in **Figure 5**. The sample mean turns out to be `\(m=0.3\)`, and it is marked by the solid vertical line.
 
@@ -201,37 +308,34 @@ Let’s repeat this with another value: `\(\mu\stackrel{?}{=}-0.5\)`. Again, if 
   if \(\mu=-2\). 
 </p>
 
-We can center the sampling distribution of `\(m\)` on any value, call it `\(\mu_0\)`. If we assume `\(\mu\stackrel{!}{=}\mu_0\)`, then our sample mean `\(m\)` must have come from that distribution. If that is very unlikely, then we conclude `\(\mu\ne\mu_0\)`. That is a very rough sketch of how frequentist statistics works. Now, we will look at this in more detail. 
+Generally speaking, we could be interested in any value, call it `\(\mu_0\)`. If we assume `\(\mu\stackrel{!}{=}\mu_0\)`, then our sample mean `\(m\)` must have come from the sampling distribution with mean `\(\mu_0\)`. If that is very unlikely, then we conclude `\(\mu\ne\mu_0\)` (if it is not unlikely, we do nothing).
 
-> ✔️ **The sampling distribution of `\(m\)`**  
-If we assume that `\(\mu\stackrel{!}{=}\mu_0\)`, then our sample mean `\(m\)` must have come from the sampling distribution with mean `\(\mu_0\)`. If that is very unlikely, we conclude that `\(\mu\ne\mu_0\)`.  
+<p class="keypoint">
+<b> ✔️ The sampling distribution of the \(m\) </b> <br>
+If we (hypothetically) drew infinitely many samples of size \(N\) from a population distribution with mean \(\mu\) and standard deviation \(\sigma\), then all the \(m\)'s would be distributed according to the sampling distribution of \(m\). It is a normal distribution with mean \(\mu\) and standard deviation \(\frac{\sigma}{\sqrt{N}}\). The fact that the sampling distribution of \(m\) and the population distribution both have mean \(\mu\) is important. It allows us to learn something about \(\mu\). For that, we draw a random sample and compute \(m\). We can assume any hypothetical value \(\mu_0\) for the population mean, i.e. \(\mu\stackrel{!}{=}\mu_0\). Under this assumption, our \(m\) must have come from the sampling distribution of \(m\) that has mean \(\mu_0\). If that is very unlikely, we conclude \(\mu\ne\mu_0\).
+</p>
 
 ## Rejecting the Incompatible
 
-Let's take a step back and forget about sampling distributions for a moment. Instead, 
-imagine we are at a scientific conference, and we want to know whether our common friend
-Rick is also at the conference. We know that Rick is always wearing a lab coat. We look 
-carefully, but no one is wearing a lab coat. 
+Let's recap. We can use the sampling distribution of `\(m\)` in order to assess if our sample mean `\(m\)` would be likely under the assumption `\(\mu\stackrel{!}{=}\mu_0\)`.
+If our `\(m\)` would be unlikely under `\(\mu\stackrel{!}{=}\mu_0\)`, then we conclude `\(\mu\ne\mu_0\)`. If our `\(m\)` *is* likely under `\(\mu\stackrel{!}{=}\mu_0\)`, then we do not conclude anything. To understand why, we will look at the logical argument we are making. 
+
+Forget about statistics for a moment. Imagine  we are at a scientific conference, and we want to know whether our common friend Rick is also at the conference. We know that Rick is always wearing a lab coat. We look carefully, but no one is wearing a lab coat. 
 
 1. If Rick is at the conference, then someone will be wearing a lab coat. 
 2. No one is wearing a lab coat. 
 3. Therefore, Rick is not at the conference.
 
-This is a valid argument called *modus tollens*, also known as 'denying the consequent'. 
-Now, let's say we *do* see someone wearing a lab coat.
+This is a valid argument called *modus tollens*, also known as 'denying the consequent'. Now, let's say we *do* see someone wearing a lab coat.
 
 1. If Rick is at the conference, then someone will be wearing a lab coat. 
 2. Someone is wearing a lab coat. 
 3. --
 
-We cannot conclude that Rick was at the conference.
-We might have seen Rick in his lab coat, or we might have 
-seen someone else wearing a lab coat. We simply cannot conclude anything. 
+We cannot conclude that Rick was at the conference. We might have seen Rick in his lab coat, or we might have seen someone else wearing a lab coat. We simply cannot conclude anything. 
 
-Below you see these two cases summarized in more abstract form. We start with a 
-model/assumption that tells us what observation (O) to expect under a certain possible 
-truth (T). Then we make the observation. Finally, if this observation is incompatible
-with the possible truth, we reject the possible truth.
+Below you see these two cases summarized more abstractly. We start with a model/assumption that tells us what observation (O) to expect under a certain possible 
+truth (T). Then we make the observation. Finally, if this observation is incompatible with the possible truth, we reject the possible truth.
 
 <table>
   <tr>
@@ -269,9 +373,7 @@ with the possible truth, we reject the possible truth.
   </tr>
 </table>
 
-This is the same logic that is used in frequentist statistics. However, this was a 
-minimalist presentation that left some steps implicit. Here is the same logic with all 
-steps made explicit:
+This is essentially the logical argument underlying frequentist statistics. However, a few steps are left implicit. Here is the same argument with all steps made explicit:
 
 <table>
   <tr>
@@ -302,9 +404,9 @@ steps made explicit:
     </td>
     <td colspan="2">
       If \(T_1\), then \(O_1\). In other words, \(T_1\) is compatible with \(O_1\); it is incompatible 
-      with everything else, i.e. \(O_2\). <br><br>
+      with everything else, i.e. with \(O_2\). <br><br>
       If \(T_2\), then \(O_1\) or \(O_2\). In other words, \(T_2\) is compatible with \(O_1\) and \(O_2\);
-      it is incompatible with everything else, i.e. nothing.
+      it is incompatible with everything else, i.e. with nothing.
     </td>
   </tr>
   <tr>
@@ -343,51 +445,17 @@ steps made explicit:
   </tr>
 </table>
 
-So you start with all possible truths, then make an observation, and
-then _reject_ the possible truths that are _incompatible_ with the observation. You are
-left with all the possible truths that are not rejected. The actual truth is somewhere in 
-there. They key point is: the only way to conclude that the actual truth is *something* 
-is to reject *everything else*. You can only reject!
+So we start with all possible truths, then make an observation, and then *reject* the possible truths that are *incompatible* with our observation. We are left with all possible truths that have not been rejected, and the actual truth is somewhere in there. The key point is: the only way to conclude that the actual truth is *something* is to reject *everything else*. You can only reject! (Hence why, in the previous section, we could conclude `\(\mu\ne\mu_0\)` but we could never conclude `\(\mu=\mu_0\)`). 
 
-If you have a lake full of fish, and you are looking for the one true 
-fish, you cannot just cast your fishing pole and pull the true fish out of the lake. 
-Instead, you have to remove all the other fish from the lake until you are left with the 
-one true fish. (If you came here for good analogies you're probably in the wrong place.)
-
-So now we know that our mode of inference is the rejection of possible truths that are
-incompatible with our observation. But what does 'incompatible' really mean?
-In our conference example, it meant 'logically impossible':
-If T, then O *for sure* and 'not O' is *logically impossible* (if Rick---who is always
-wearing a lab coat---is at the conference, then it is logically impossible that no one 
-there will be wearing a lab coat). 
-But many situations cannot be solved by logic alone---we need probability and statistics. 
-In those cases, 'incompatible' means 'unlikely':
-If T, then O *with high probability* and 'not O' is *with low probability*.
-Under the frequentist interpretation of probability, this translates to:
-If T, then O *in most cases in the long run* and 'not O' *in few cases in the long run*. 
-
-So our mode of inference is the rejection of all possible truths under which our 
-observation would be rare, in the long run. For example: if we repeatedly flipped a 
-conventional coin 10 times, then we would get either 0/10 or 10/10 heads in only 0.2% of 
-all cases, in the long run. So upon getting 0/10 or 10/10 heads, we will reject the notion 
-that this is a conventional coin.
+Now, if we want to reject the possible truths that are incompatible with our observation, then what does 'incompatible' mean? In the conference example, it meant 'logically impossible'. If Rick (who is always wearing a lab coat) is at the conference, then it is logically impossible that no one there will be wearing a lab coat. But most questions cannot be solved by logic alone---we need probability and statistics. Here, incompatible means 'improbable' or 'unlikely'. And in frequentist statistics, this translates to a small long run frequency. So, we want to reject all possible truths under which our observation would be rare, in the long run. 
 
 ## The Null and the Alternative
 
-Now, let's apply what we've learned to our `rnorm(n)` working example. Recall we are 
-interested in the population mean `\(\mu\)`. Our observation is the sample mean `\(m\)` from 
-a random sample of size `\(N\)`. We will walk through the example using `\(N=15\)`.
+Back to our working example: we are interested in the population mean `\(\mu\)`, and we observe a random sample of size `\(N\)` with sample mean `\(m\)`. We will now walk through our argument step by step. As earlier, we will use `\(N=15\)`. 
 
 *1. List all possible truths.*
 
-We start with all possible truths about `\(\mu\)`: it could be *any* number. Recall that we 
-can only conclude that `\(\mu\)` is *something* by rejecting that `\(\mu\)` is *everything else*. 
-Accordingly, we divide all possible truths about `\(\mu\)` into two parts: the 'something' 
-we want to conclude and the 'everything else' that we need to reject in order to do so. 
-
-The 'everything else' we need to reject is the *Null Hypothesis* `\(H_0\)`. The 'something' we
-then conclude is the *alternative hypothesis* `\(H_1\)`. There are three fundamental 
-versions of `\(H_0\)` and `\(H_1\)`:
+We start with all possible truths about `\(\mu\)`: it could be any number whatsoever. But we're not done yet. Recall that we can only conclude that `\(\mu\)` is *something* by rejecting *everything else*. Accordingly, we split all possible truths about `\(\mu\)` into the 'something' we want to conclude and the 'everything else' that we need to reject in order to do so. The 'everything else' we need to reject is the *Null Hypothesis* `\(H_0\)`. The 'something' we then conclude is the *alternative hypothesis* `\(H_1\)`. There are three fundamental versions of `\(H_0\)` and `\(H_1\)`:
 
 <table>
   <tr>
@@ -431,65 +499,28 @@ versions of `\(H_0\)` and `\(H_1\)`:
   </tr>
 </table>
 
-Versions 1a and 1b are called *one-sided tests*. Note that they are basically opposites 
-of each other. Version 2 is called a *two-sided test*. Technically, a two-sided test 
-is just the combination of both one-sided tests, so it's not really fundamental. 
+Versions 1a and 1b are called *one-sided tests*. Note that they are basically opposites of each other. Version 2 is called a *two-sided test*. Technically, a two-sided test is just the combination of both one-sided tests, so it's not really fundamental. 
 
-Note that `\(\mu_0\)` is just some hypothetical value for `\(\mu\)` that we are particularly 
-interested in. We are often interested in specific hypothetical values for a given
-parameter. Say you want to know whether a vaccine prevents more than 90% of infections. 
-Your parameter is vaccine efficacy and you are asking if it's greater than 90%. Or, say
-your want to know whether drinking coffee influences reaction time. Your parameter is 
-the effect of coffee on reaction time and you are asking if it's different from zero. 
-Of course, sometimes you are not interested in specific hypothetical values for a given 
-parameter. Say you conduct a survey and ask people about their age. Your parameter is the 
-population age, but you are simply asking what it is --- there is no value of interest. 
-As we will see shortly, that situation also corresponds to one of the versions above. 
+Recall that `\(\mu_0\)` is just some hypothetical value for `\(\mu\)` that we are particularly interested in. We are often interested in specific hypothetical values for a given parameter. Say you want to know if a vaccine prevents more than 90% of infections. Your parameter is vaccine efficacy and you are asking if it's greater than 90%. Or, say you want to know if coffee changes your reaction time. Your parameter is the change in reaction time due to coffee consumption and you are asking if it's different from zero. Of course, sometimes you are not interested in specific hypothetical values for a given parameter. Say you conduct a survey and ask people about their age. Your parameter is the population age, but you are simply asking what it is---there is no value of interest. As we will see shortly, that situation also corresponds to one of the versions above. 
 
-Now that we have listed all possible truths about `\(\mu\)` in the form of `\(H_0\)` and `\(H_1\)`, 
-we can move on to the next step. 
+Now that we have listed all possible truths about `\(\mu\)` in the form of `\(H_0\)` and `\(H_1\)`, we can move on to the next step. 
 
 *2. List all possible observations.*
 
-We continue with all possible sample means `\(m\)`: it could by *any* number.
+We continue with all possible sample means `\(m\)`: again, it could by any number whatsoever. Done. 
 
 ## The false rejection rate
 
 *3. For each possible truth, define which observations are compatible and which are incompatible.*
 
-Since we want to reject `\(H_0\)`, we need to define which `\(m\)` would be incompatible with 
-`\(H_0\)`. In the frequentist framework, 'incompatible' means 'rare, in the long run'. 
-But how rare, exactly? Well, that's for us to decide---and we will later take a closer
-look at how to do so. But for now, I will just go ahead and define 'rare' to mean 5%.
-With that, here is how we define which `\(m\)` are incompatible with `\(H_0\)`.
-
-Take a look at **Figure 5**. The top row shows `\(H_0\)` and `\(H_1\)` for the one-sided cases
-(on the left, in the middle) and for the two-sided case (on the right). In the one-sided 
-case, `\(\mu_0\)` is the most extreme value under `\(H_0\)`. In the two-sided case, `\(\mu_0\)` is 
-the only value under `\(H_0\)`. 
-The bottom row shows a bunch of sampling distributions of `\(m\)`. All the red ones 
-
-
-The bottom row shows the sampling distribution of `\(m\)`, centered on `\(\mu_0\)` (dashed line). 
-If `\(\mu=\mu_0\)`, then `\(m\)` would be distributed like that, in the long run. 
-The gray tail area is `\(\alpha=0.05\)`---one tail of 0.05 in the one-sided cases and two tails
-of 0.025 each in the two-sided case. Note that the tails are never zero, they just become 
-too small to see. If `\(\mu=\mu_0\)`, then we would see "gray `\(m\)`" in 5% of cases, in the long
-run. These "gray `\(m\)`" are incompatible with `\(H_0\)`. In other words, if `\(m\)` falls at least 
-as far away from `\(H_0\)` as the cutoff (solid line), then we will reject `\(H_0\)`. 
+Since we want to reject `\(H_0\)`, we need to define which `\(m\)` would be incompatible with `\(H_0\)`. In the frequentist framework, incompatible means 'rare, in the long run'. But how rare, exactly? Well, that's for us to decide---and we will later take a closer look at how to do so. But for now, I will just go ahead and define rare as 5%. With that, we can define which `\(m\)` are incompatible with `\(H_0\)`: those that we would get in at most 5% of cases in the long run, if `\(H_0\)` were true. The incompatible region is shown in **Figure 7**; see the figure caption for more details. 
 
 <!-- plot: h0h1 -->
 <p style="text-align: center; font-size: 12px">
   <img src="plots/h0h1.svg" />
-  <b> Figure 5. </b> 
-  Set-up for one-sided tests (left, middle) and two-sided tests (right). The top row 
-  shows the Null hypothesis \(H_0\), and the alternative hypothesis \(H_1\). The bottom 
-  row shows the sampling distribution of \(m\), centered on \(\mu_0\). Note that the
-  distribution is nonzero everywhere, but the tails become too thin to see them all the way out. 
-  The gray area shows which \(m\) are incompatible with (icw) \(H_0\), the red area shows which
-  \(m\) are compatible with (cw) \(H_0\). 
+  <b> Figure 7. </b> 
+  Set-up for one-sided tests (left and center) and two-sided tests (right). Top row shows the Null hypothesis \(H_0\), and the alternative hypothesis \(H_1\). Bottom row splits all possible \(m\) into those incompatible with (icw) \(H_0\) and those compatible with (cw) \(H_0\). The split occurs at the solid vertical line. In the one-sided case (left and center), \(m\) would fall into the incompatible region in <i>at most</i> 5% of cases in the long run, if \(H_0\) were true: exactly 5% for the highlighted distribution, and less than 5% for any of the other red distributions. For the two-sided case (right), \(m\) would fall into the incompatible region in <i>exactly</i> 5% of cases in the long run, if \(H_0\) were true.
 </p> 
-
 
 
 So by setting `\(\alpha\)`, we define what it takes to reject `\(H_0\)`. There are two ways to 
@@ -671,3 +702,20 @@ given our observed sample mean `\(m\)`.
   <b> Figure. </b> Caption here. 
 </p>
 
+<!-- footnotes -->
+<footer>
+<h2 class="visually-hidden" id="footnote-label"> Footnotes </h2>
+<ol>
+
+<li id="whatispop-foot">
+In surveys, participants may be included at random, in which case the population refers to all people that could have been drawn. In trials, participants are typically not included at random but are randomly allocated to group, in which case the population refers to all possible allocations of the included participants. It is pretty rare that participants are both included and allocated at random, but in this case the population would refer to all possible allocations of all people that could have been included. 
+<a href="#whatispop-text" aria-label="Back to content"> ↩ </a>
+</li>
+
+<li id="standarderror-foot">
+The standard deviation of the sampling distribution is also called the standard error. 
+<a href="#standarderror-text" aria-label="Back to content"> ↩ </a>
+</li>
+
+</ol>
+</footer>

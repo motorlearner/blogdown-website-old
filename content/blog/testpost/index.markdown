@@ -17,7 +17,91 @@ layout:     single
 draft:      false
 ---
 
-This is simply a template to remind myself of all the cool features that you can put
+<style type="text/css">
+footer {
+  margin-top: 50px;
+  border-top: 1px solid silver;
+  font-size: 0.8em;
+}
+
+footer ol {
+  padding-left: 20px;
+}
+
+/**
+ * Initialiazing a `footnotes` counter on the wrapper
+ */
+article {
+  counter-reset: footnotes;
+}
+
+/**
+ * Inline footnotes references
+ * 1. Increment the counter at each new reference
+ * 2. Reset link styles to make it appear like regular text
+ */
+[aria-describedby="footnote-label"] {
+  counter-increment: footnotes; /* 1 */
+  text-decoration: none; /* 2 */
+  color: inherit; /* 2 */
+  cursor: default; /* 2 */
+  outline: none; /* 2 */
+}
+
+/**
+ * Actual numbered references
+ * 1. Display the current state of the counter (e.g. `[1]`)
+ * 2. Align text as superscript
+ * 3. Make the number smaller (since it's superscript)
+ * 4. Slightly offset the number from the text
+ * 5. Reset link styles on the number to show it's usable
+ */
+[aria-describedby="footnote-label"]::after {
+  content: '[' counter(footnotes) ']'; /* 1 */
+  vertical-align: super; /* 2 */
+  font-size: 0.8em; /* 3 */
+  margin-left: 2px; /* 4 */
+  color: #8a0900; /* 5 */
+  cursor: pointer; /* 5 */
+}
+
+/**
+ * Resetting the default focused styles on the number
+ */
+[aria-describedby="footnote-label"]:focus::after {
+  outline: thin dotted;
+  outline-offset: 2px;
+}
+
+[aria-label="Back to content"] {
+  font-size: 0.8em;
+}
+
+/**
+ * Highlight target note
+ */
+footer :target {
+  background: #e5e5e5;
+}
+
+/**
+ * Visually hidden yet accessible content
+ */
+.visually-hidden {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.credit {
+  text-align: center;
+  font-size: .75em;
+  padding-top: 10px;
+}
+</style>
+
+A template to remind myself of all the cool features that you can put
 into blogposts. 
 
 ### Using Panelsets
@@ -51,7 +135,7 @@ Markdown allows you to build tables. This is what they look like:
 
 Can use inline maths like `\(1+1=2\)` or put it into a block. Note that there are some 
 differences to LATEX. For example, manually adding a tag adds the tag to the whole 
-block, it appears. 
+block, it appears.
 
 $$
 `\begin{align}
@@ -82,3 +166,29 @@ Some of it is interesting and it has some footnotes as well
    [2] Another footnote. <a href="#footnote-2-ref">&#8617;</a>
 </p>
 <hr> 
+
+# Next
+
+Maintaining <a href="#footnotes" aria-describedby="footnote-label" id="footnotes-ref">footnotes</a> manually can be a pain. 
+
+
+By using <a href="#css" aria-describedby="footnote-label" id="css-ref">CSS</a> <a href="#css-counters" aria-describedby="footnote-label" id="css-counters-ref">counters</a> to add the numbered references in the text and an ordered list to display the actual footnotes in the footer, it becomes extremely easy.
+
+<footer>
+<h2 class="visually-hidden" id="footnote-label">Footnotes</h2>
+<ol>
+
+<li id="footnotes">Footnotes are notes placed at the bottom of a page. They cite references or comment on a designated part of the text above it. 
+<a href="#footnotes-ref" aria-label="Back to content">↩</a>
+</li>
+      
+<li id="css">Cascading Style Sheets <a href="#css-ref" aria-label="Back to content">↩</a>
+</li>
+
+<li id="css-counters">CSS counters are, in essence, variables maintained by CSS whose values may be incremented by CSS rules to track how many times they're used. 
+<a href="#css-counters-ref" aria-label="Back to content">↩</a>
+</li>
+</ol>
+</footer>
+
+<p class="credit">Demo by Hugo Giraudel. <a href="http://www.sitepoint.com/accessible-footnotes-css" target="_blank">See article</a>.</p>
