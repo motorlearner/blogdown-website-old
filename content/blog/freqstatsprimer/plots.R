@@ -468,26 +468,26 @@ p3 <- ggplot() +
 
 p4 <- getnd(0, 1/sqrt(15)) %>%
   ggplot() +
-  geom_area(aes(x=x-0.5,y), 
-            color=c[2], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x-1.0,y), 
-            color=c[2], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x-1.5,y), 
-            color=c[2], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x-2.0,y), 
-            color=c[2], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x-2.5,y), 
-            color=c[2], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x+0.5,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x+1.0,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x+1.5,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x+2.0,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x+2.5,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x-0.5,y), 
+  #          color=c[2], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x-1.0,y), 
+  #          color=c[2], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x-1.5,y), 
+  #          color=c[2], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x-2.0,y), 
+  #          color=c[2], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x-2.5,y), 
+  #          color=c[2], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x+0.5,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x+1.0,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x+1.5,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x+2.0,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x+2.5,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
   geom_area(aes(x,y), 
             color=c[2], fill=c[2]) +
   geom_area(aes(ifelse(x > qnorm(0.05, 0, 1/sqrt(15), lower.tail=F), x, NA), y),
@@ -529,26 +529,26 @@ p4 <- getnd(0, 1/sqrt(15)) %>%
 
 p5 <- getnd(0, 1/sqrt(15)) %>%
   ggplot() +
-  geom_area(aes(x=x-0.5,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x-1.0,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x-1.5,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x-2.0,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x-2.5,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x+0.5,y), 
-            color=c[2], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x+1.0,y), 
-            color=c[2], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x+1.5,y), 
-            color=c[2], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x+2.0,y), 
-            color=c[2], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x+2.5,y), 
-            color=c[2], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x-0.5,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x-1.0,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x-1.5,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x-2.0,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x-2.5,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x+0.5,y), 
+  #          color=c[2], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x+1.0,y), 
+  #          color=c[2], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x+1.5,y), 
+  #          color=c[2], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x+2.0,y), 
+  #          color=c[2], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x+2.5,y), 
+  #          color=c[2], fill=c[2], alpha=0, size=0.1) +
   geom_area(aes(x,y), 
             color=c[2], fill=c[2]) +
   geom_area(aes(ifelse(x < qnorm(0.05, 0, 1/sqrt(15), lower.tail=T), x, NA), y),
@@ -590,26 +590,26 @@ p5 <- getnd(0, 1/sqrt(15)) %>%
 
 p6 <- getnd(0, 1/sqrt(15)) %>%
   ggplot() +
-  geom_area(aes(x=x-0.5,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x-1.0,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x-1.5,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x-2.0,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x-2.5,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x+0.5,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x+1.0,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x+1.5,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x+2.0,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
-  geom_area(aes(x=x+2.5,y), 
-            color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x-0.5,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x-1.0,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x-1.5,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x-2.0,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x-2.5,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x+0.5,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x+1.0,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x+1.5,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x+2.0,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
+  #geom_area(aes(x=x+2.5,y), 
+  #          color=c[4], fill=c[2], alpha=0, size=0.1) +
   geom_area(aes(x,y), 
             color=c[2], fill=c[2]) +
   geom_area(aes(ifelse(x < qnorm(0.025, 0, 1/sqrt(15), lower.tail=T), x, NA), y),
@@ -672,9 +672,108 @@ ggsave(
 layout <- "
 ABC
 DEF
+GHI
 "
 
-p1 <-  ggplot() +
+p1 <- ggplot() +
+  scale_x_continuous(name="X", limits=c(-3,3), breaks=0, labels=expression(mu[0])) +
+  scale_y_continuous(limits=c(0, .5), expand=expansion(0)) +
+  # design
+  coord_fixed(ratio=1.25) +
+  theme_blog() + theme(
+    panel.border = element_blank(),
+    axis.line.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank(),
+    axis.title.x = element_blank()
+  ) +
+  # annotation
+  geom_segment(aes(x=0, xend=0, y=0, yend=0.3), linetype="dashed") +
+  geom_segment(aes(x=0, xend=-3, y=0.38, yend=0.38), arrow=arrow(length=unit(0.4, "lines"), type="closed"), color=c[2]) +
+  geom_segment(aes(x=0, xend=0, y=0.38, yend=0.30), color=c[2]) +
+  geom_segment(aes(x=.05, xend=3, y=0.18, yend=0.18), arrow=arrow(length=unit(0.4, "lines"), type="closed"), color=c[5]) +
+  annotate("label", hjust=.5, vjust=1,
+           x=-1.5, y=0.5,
+           label.size=NA, fill="white", size=3,
+           label=expression(paste(H[0])),
+           color=c[2]) +
+  annotate("label", hjust=0.5, vjust=1,
+           x=1.5, y=0.5,
+           label.size=NA, fill="white", size=3,
+           label=expression(paste(H[1])),
+           color=c[5]) +
+  ggtitle(expression(paste(H[0],": ",mu<=mu[0],",  ",H[1],": ",mu>mu[0])))
+
+p2 <- ggplot() +
+  scale_x_continuous(name="X", limits=c(-3,3), breaks=0, labels=expression(mu[0])) +
+  scale_y_continuous(limits=c(0, .5), expand=expansion(0)) +
+  # design
+  coord_fixed(ratio=1.25) +
+  theme_blog() + theme(
+    panel.border = element_blank(),
+    axis.line.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank(),
+    axis.title.x = element_blank()
+  ) +
+  # annotation
+  geom_segment(aes(x=0, xend=0, y=0, yend=0.3), linetype="dashed") +
+  geom_segment(aes(x=0, xend=3, y=0.38, yend=0.38), arrow=arrow(length=unit(0.4, "lines"), type="closed"), color=c[2]) +
+  geom_segment(aes(x=0, xend=0, y=0.38, yend=0.30), color=c[2]) +
+  geom_segment(aes(x=-.05, xend=-3, y=0.18, yend=0.18), arrow=arrow(length=unit(0.4, "lines"), type="closed"), color=c[5]) +
+  annotate("label", hjust=.5, vjust=1,
+           x=-1.5, y=0.5,
+           label.size=NA, fill="white", size=3,
+           label=expression(paste(H[1])),
+           color=c[5]) +
+  annotate("label", hjust=0.5, vjust=1,
+           x=1.5, y=0.5,
+           label.size=NA, fill="white", size=3,
+           label=expression(paste(H[0])), 
+           color=c[2]) +
+  ggtitle(expression(paste(H[0],": ",mu>=mu[0],",  ",H[1],": ",mu<mu[0])))
+
+p3 <- ggplot() +
+  scale_x_continuous(name="X", limits=c(-3,3), breaks=0, labels=expression(mu[0])) +
+  scale_y_continuous(limits=c(0, .5), expand=expansion(0)) +
+  # design
+  coord_fixed(ratio=1.25) +
+  theme_blog() + theme(
+    panel.border = element_blank(),
+    axis.line.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank(),
+    axis.title.x = element_blank()
+  ) +
+  # annotation
+  geom_segment(aes(x=0, xend=0, y=0, yend=0.3), linetype="dashed") +
+  geom_segment(aes(x=.05, xend=3, y=0.18, yend=0.18), arrow=arrow(length=unit(0.4, "lines"), type="closed"), color=c[5]) +
+  geom_segment(aes(x=-.05, xend=-3, y=0.18, yend=0.18), arrow=arrow(length=unit(0.4, "lines"), type="closed"), color=c[5]) +
+  annotate("label", hjust=.5, vjust=1,
+           x=-1.5, y=0.5,
+           label.size=NA, fill="white", size=3,
+           label=expression(paste(H[1])),
+           color=c[5]) +
+  annotate("label", hjust=0.5, vjust=1,
+           x=1.5, y=0.5,
+           label.size=NA, fill="white", size=3,
+           label=expression(paste(H[1])),
+           color=c[5]) +
+  annotate("label", hjust=.5, vjust=1,
+           x=0.05, y=0.5,
+           label.size=NA, fill="white", size=2.5,
+           label=expression(paste(H[0])), 
+           color=c[2]) +
+  geom_segment(aes(x=0, xend=0, y=0.15, yend=0.05), arrow=arrow(length=unit(0.2, "lines"), type="closed"), color=c[2]) +
+  ggtitle(expression(paste(H[0],": ",mu==mu[0],",  ",H[1],": ",mu!=mu[0])))
+
+p4 <-  ggplot() +
   geom_jitter(aes(x=sample, y=0), height=0.1,
               shape=21, size=1.5, color=c[5], fill=c[5]) +
   geom_vline(xintercept=mean(sample)) +
@@ -694,7 +793,7 @@ p1 <-  ggplot() +
     axis.title.x = element_blank()
   )
 
-p4 <- getnd(0, 1/sqrt(15)) %>%
+p5 <- getnd(0, 1/sqrt(15)) %>%
   ggplot() +
   geom_area(aes(x,y), 
             color=c[2], fill=c[2]) +
@@ -717,14 +816,14 @@ p4 <- getnd(0, 1/sqrt(15)) %>%
     panel.grid.major = element_blank()
   ) +
   # annotations
-  annotate("label", hjust=0, vjust=1,
-           x=mean(sample)+0.1, y=2,
-           label.size=NA, fill="white", size=2.5,
-           label=expression(paste("as large / larger"))) +
-  annotate("label", hjust=1, vjust=1,
-           x=mean(sample)-0.1, y=2,
-           label.size=NA, fill="white", size=2.5,
-           label=expression(paste("smaller"))) +
+  #annotate("label", hjust=0, vjust=1,
+  #         x=mean(sample)+0.1, y=2,
+  #         label.size=NA, fill="white", size=2.5,
+  #         label=expression(paste("as large / larger"))) +
+  #annotate("label", hjust=1, vjust=1,
+  #         x=mean(sample)-0.1, y=2,
+  #         label.size=NA, fill="white", size=2.5,
+  #         label=expression(paste("smaller"))) +
   annotate("rect", color=c[4], fill=c[4],
            xmax=3, xmin=2.8, ymax=0.9, ymin=0.7) +
   annotate("text", size=3,
@@ -732,7 +831,7 @@ p4 <- getnd(0, 1/sqrt(15)) %>%
            x=2.8, y=0.8, 
            label=expression(paste("p=0.10=")))
 
-p5 <- getnd(0, 1/sqrt(15)) %>%
+p6 <- getnd(0, 1/sqrt(15)) %>%
   ggplot() +
   geom_area(aes(x,y), 
             color=c[2], fill=c[2]) +
@@ -755,14 +854,14 @@ p5 <- getnd(0, 1/sqrt(15)) %>%
     panel.grid.major = element_blank()
   ) +
   # annotations
-  annotate("label", hjust=0, vjust=1,
-           x=mean(sample)+0.1, y=2,
-           label.size=NA, fill="white", size=2.5,
-           label=expression(paste("larger"))) +
-  annotate("label", hjust=1, vjust=1,
-           x=mean(sample)-0.1, y=2,
-           label.size=NA, fill="white", size=2.5,
-           label=expression(paste("as small / smaller"))) +
+  #annotate("label", hjust=0, vjust=1,
+  #         x=mean(sample)+0.1, y=2,
+  #         label.size=NA, fill="white", size=2.5,
+  #         label=expression(paste("larger"))) +
+  #annotate("label", hjust=1, vjust=1,
+  #         x=mean(sample)-0.1, y=2,
+  #         label.size=NA, fill="white", size=2.5,
+  #         label=expression(paste("as small / smaller"))) +
   annotate("rect", color=c[4], fill=c[4],
            xmax=3, xmin=2.8, ymax=0.9, ymin=0.7) +
   annotate("text", size=3,
@@ -770,7 +869,7 @@ p5 <- getnd(0, 1/sqrt(15)) %>%
            x=2.8, y=0.8, 
            label=expression(paste("p=0.90=")))
 
-p6 <- getnd(0, 1/sqrt(15)) %>%
+p7 <- getnd(0, 1/sqrt(15)) %>%
   ggplot() +
   geom_area(aes(x,y), 
             color=c[2], fill=c[2]) +
@@ -798,18 +897,18 @@ p6 <- getnd(0, 1/sqrt(15)) %>%
   # annotations
   geom_segment(color="white", size=2, x=0, xend=0, 
                y=dnorm(0,0,1/sqrt(15))+0.01, yend=2.5) +
-  annotate("label", hjust=.5, vjust=1,
-           x=0, y=2,
-           label.size=NA, fill=NA, size=2.5,
-           label=expression(paste("clsr"))) +
-  annotate("label", hjust=0, vjust=1,
-           x=mean(sample)+0.1, y=2,
-           label.size=NA, fill="white", size=2.5,
-           label=expression(paste("...from ", mu[0]))) +
-  annotate("label", hjust=1, vjust=1,
-           x=-mean(sample)-0.1, y=2,
-           label.size=NA, fill="white", size=2.5,
-           label=expression(paste("as far / farther..."))) +
+  #annotate("label", hjust=.5, vjust=1,
+  #         x=0, y=2,
+  #         label.size=NA, fill=NA, size=2.5,
+  #         label=expression(paste("clsr"))) +
+  #annotate("label", hjust=0, vjust=1,
+  #         x=mean(sample)+0.1, y=2,
+  #         label.size=NA, fill="white", size=2.5,
+  #         label=expression(paste("...from ", mu[0]))) +
+  #annotate("label", hjust=1, vjust=1,
+  #         x=-mean(sample)-0.1, y=2,
+  #         label.size=NA, fill="white", size=2.5,
+  #         label=expression(paste("as far / farther..."))) +
   annotate("rect", color=c[4], fill=c[4],
            xmax=3, xmin=2.8, ymax=0.9, ymin=0.7) +
   annotate("text", size=3,
@@ -817,14 +916,14 @@ p6 <- getnd(0, 1/sqrt(15)) %>%
            x=2.8, y=0.8, 
            label=expression(paste("p=0.20=")))
 
-plot.pval <- p1 + p1 + p1 + p4 + p5 + p6 + plot_layout(design=layout)
+plot.pval <- p1 + p2 + p3 + p4 + p4 + p4 + p5 + p6 + p7 + plot_layout(design=layout)
 
 ggsave(
   plot     = plot.pval,
   filename = "pvalue.svg",
   path     = plotdir,
   scale    = 0.6,
-  height   = 4.3,
+  height   = 5.3,
   width    = 10
 )
 

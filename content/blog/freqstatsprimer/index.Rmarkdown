@@ -75,16 +75,19 @@ h2{
 }
 
 .keypoint{
-  border-left: 0.8em solid #cccccc;
+  border-left: 0.7em solid #cccccc;
   background-color: #e5e5e5;
-  padding: 0.75em 1em 0.75em 0.5em;
+  padding: 0.75em 1em 0.75em 0.6em;
 }
 
 .figure{
+  text-align: center;
+}
+
+.caption{
   text-align: justify; 
   font-size: 12px;
-  margin-left: 10em;
-  margin-right: 10em;
+  margin: -1em 6em 2em 6em;
 }
 
 ```
@@ -178,20 +181,14 @@ In my experience, statistics courses often brush over the fundamentals and quick
 
 ## In the Long Run
 
-Statistical inference is based on probability theory. Mathematically speaking, probability is a scalar between zero and one, and the probability that any of multiple mutually exclusive events occurs is the sum of their individual probabilities. Intuitively speaking, >high probability< means we expect it and >low probability< means we’d be surprised if it happened. So far so good. But what exactly does probability quantify in the real world?
-There are several interpretations of probability. But today, we are dealing with *frequentist statistics*. In this framework, probability refers to hypothetical long run *frequencies*. For example, when flipping a coin, the probability of heads is 0.5. That means, if we repeatedly flipped a coin,the proportion of heads would converge to 0.5 as the number of coin flips approaches infinity. You can see a simulated example in F1. 
-
-<!-- plot: law of large numbers -->
-<p style="text-align: center; font-size: 12px">
-  <img src="plots/lln.svg" />
-  <b> Figure 1. </b> 
-  Twenty simulated series of 10,000 coin flips each. The y-axis shows the 
-  proportion of heads. 
-</p>
+Statistical inference is based on probability theory. Mathematically speaking, probability is a scalar between zero and one, and the probability that any of multiple mutually exclusive events occurs is the sum of their individual probabilities. Intuitively speaking, *high probability* means we expect it and *low probability* means we’d be surprised if it happened. So far so good. But what exactly does probability quantify in the real world?
+There are several interpretations of probability. But today, we are dealing with *frequentist statistics*. In this framework, probability refers to hypothetical long run *frequencies*. For example, when flipping a coin, the probability of heads is 0.5. That means, if we repeatedly flipped a coin, the proportion of heads would converge to 0.5 as the number of coin flips approaches infinity. You can see a simulated example in **Figure 1**. 
 
 <!-- plot: law of large numbers -->
 <p class="figure">
   <img src="plots/lln.svg" />
+</p>
+<p class="caption">
   <b> Figure 1. </b> 
   Twenty simulated series of 10,000 coin flips each. The y-axis shows the proportion of heads. 
 </p>
@@ -222,13 +219,12 @@ Now, we need a specific example to work with, which will be as follows:
 We will later pretend that *both* $\mu$ and $\sigma$ are unknown, in which case we will have to use both $m$ and $s$. But for now, $\sigma=1$ is known and $s$ can be ignored.
 
 <!-- plot: overview -->
-<p style="text-align: center; font-size: 12px">
+<p class="figure">
   <img src="plots/overview.svg" />
+</p>
+<p class="caption">
   <b> Figure 2. </b> 
-  The working example. We draw a sample of size \(N\) from a population 
-  distribution with mean \(\mu\) and standard deviation \(\sigma\). We want to
-  answer some question about \(\mu\). In our case, we know that the population 
-  distribution is normal, and that \(\sigma=1\). 
+  The working example. We draw a sample of size \(N\) from a population distribution with mean \(\mu\) and standard deviation \(\sigma\). We want to answer some question about \(\mu\). In our case, we know that \(\sigma=1\).
 </p>
 
 An easy way to remember what the symbols $\mu,\sigma,m,s,N$ stand for is: Greek letter are for population parameters (Latin ones for sample parameters) and letters that are pronounced with M at the beginning are for the mean (the ones with S are for the standard deviation). 
@@ -265,23 +261,23 @@ The sampling distribution exists for any sample statistic (sample mean, median, 
 We will be using the sampling distribution of the sample mean $m$. In **Figure 3** you see twenty samples of size $N$, drawn from a population distribution with some mean $\mu$ and some standard deviation $\sigma$. The grey points are the sample values, and the colored squares are the sample means. 
 
 <!-- plot: clt samples -->
-<p style="text-align: center; font-size: 12px">
+<p class="figure">
   <img src="plots/clt_sample.svg" />
+</p>
+<p class="caption">
   <b> Figure 3. </b> 
-  Samples of size \(N\), drawn from a normal distribution with mean \(\mu\) (dashed line) 
-  and standard deviation \(\sigma\).
+  Samples of size \(N\), drawn from a normal distribution with mean \(\mu\) (dashed line) and standard deviation \(\sigma\).
 </p>
 
 Now, what if we continued doing this infinitely many times? We would get infinitely many sample means, which would form their own distribution. This is the sampling distribution of $m$. In **Figure 4**, you can see the sampling distribution of $m$ in color (and the underlying population distribution in grey).
 
 <!-- plot: clt distributions -->
-<p style="text-align: center; font-size: 12px">
+<p class="figure">
   <img src="plots/clt_dist.svg" />
+</p>
+<p class="caption">
   <b> Figure 4. </b> 
-  The sampling distribution of \(m\), for three sample sizes \(N\). The samples 
-  were drawn from the gray population distribution with mean \(\mu\) and standard deviation 
-  \(\sigma\). The dashed line highlights \(\mu\). The x-axis shows the distance from 
-  \(\mu\), measured in multiples of \(\sigma\).
+  The sampling distribution of \(m\), for three sample sizes \(N\). The samples were drawn from the gray population distribution with mean \(\mu\) and standard deviation \(\sigma\). The dashed line highlights \(\mu\). The x-axis shows the distance from \(\mu\), measured in multiples of \(\sigma\).
 </p>
 
 The sampling distribution of $m$ has some important properties. First, it has the same mean as the underlying population distribution—i.e. it has mean $\mu$. Second, its spread decreases as the sample size $N$ increases—specifically, it has standard deviation $\frac{\sigma}{\sqrt{N}}$.<a href="#standarderror-foot" aria-describedby="footnote-label" id="standarderror-text"></a> Third, it is a normal distribution. 
@@ -296,32 +292,34 @@ So, now we know what the sampling distribution is, but how is it useful? How can
 Say we draw a random sample of $N=15$ from our population with unknown mean $\mu$ and standard deviation $\sigma=1$. The sample is shown in **Figure 5**. The sample mean turns out to be $m=0.3$, and it is marked by the solid vertical line.
 
 <!-- plot: sample -->
-<p style="text-align: center; font-size: 12px">
+<p class="figure">
   <img src="plots/sample.svg" />
+</p>
+<p class="caption">
   <b> Figure 5. </b> 
-  Sample.
+  Random sample of \(N=15\). The sample mean \(m\) is highlighted by the solid vertical line.
 </p>
 
 Let’s ask a simple question: $\mu\stackrel{?}{=}0$. Well, if we assume $\mu\stackrel{!}{=}0$, then our sample mean (solid vertical line) must have come from the distribution highlighted in **Figure 6** (the one with mean $0$). Just by looking at the figure, I think we can agree that this is not unlikely. So, $\mu$ could be $0$. 
 
 <!-- plot: sampling distribution placement 1 -->
-<p style="text-align: center; font-size: 12px">
-  <img src="plots/sdistplace1.svg" />
+<p class="figure">
+  <img src="plots/sdistplace1.svg"/>
+</p>
+<p class="caption">
   <b> Figure 6. </b> 
-  Sampling distributions of \(m\) for different \(\mu\), given \(\sigma=1\) and \(N=15\).
-  The highlighted sampling distribution shows how \(m\) would be distributed in the long
-  run if \(\mu=-0\). 
+  Sampling distributions of \(m\) for different \(\mu\), given \(\sigma=1\) and \(N=15\). The highlighted sampling distribution shows how \(m\) would be distributed in the long run if \(\mu=0\). 
 </p>
 
 Let’s repeat this with another value: $\mu\stackrel{?}{=}-0.5$. Again, if we assume $\mu\stackrel{!}{=}-0.5$, then our sample mean (solid vertical line) must have come from the distribution highlighted in **Figure 7** (the one with mean $-0.5$). Just by looking at the figure, I think we can agree that this is very unlikely (but not exactly impossible: the tails of the distribution are thin but never zero). So, we can conclude $\mu\ne -0.5$. 
 
 <!-- plot: sampling distribution placement 2 -->
-<p style="text-align: center; font-size: 12px">
+<p class="figure">
   <img src="plots/sdistplace2.svg" />
-  <b> Figure 6. </b> 
-  Sampling distributions of \(m\) for different \(\mu\), given \(\sigma=1\) and \(N=15\).
-  The highlighted sampling distribution shows how \(m\) would be distributed in the long run
-  if \(\mu=-2\). 
+</p>
+<p class="caption">
+  <b> Figure 7. </b> 
+  Sampling distributions of \(m\) for different \(\mu\), given \(\sigma=1\) and \(N=15\). The highlighted sampling distribution shows how \(m\) would be distributed in the long run if \(\mu=-0.5\). 
 </p>
 
 Generally speaking, we could be interested in any value, call it $\mu_0$. If we assume $\mu\stackrel{!}{=}\mu_0$, then our sample mean $m$ must have come from the sampling distribution with mean $\mu_0$. If that is very unlikely, then we conclude $\mu\ne\mu_0$ (if it is not unlikely, we do nothing).
@@ -467,7 +465,7 @@ Now, if we want to reject the possible truths that are incompatible with our obs
 
 ## The Null and the Alternative
 
-Back to our working example: we are interested in the population mean $\mu$, and we observe a random sample of size $N$ with sample mean $m$. We will now walk through our argument step by step. As earlier, we will use $N=15$. 
+Back to our working example: we are interested in the population mean $\mu$, and we observe a random sample of size $N$ with sample mean $m$. We will now walk through our argument step by step. We will $N=15$ (same as earlier).
 
 *1. List all possible truths.*
 
@@ -529,36 +527,27 @@ We continue with all possible sample means $m$: again, it could by any number wh
 
 *3. For each possible truth, define which observations are compatible and which are incompatible.*
 
-Since we want to reject $H_0$, we need to define which $m$ would be incompatible with $H_0$. In the frequentist framework, incompatible means 'rare, in the long run'. But how rare, exactly? Well, that's for us to decide---and we will later take a closer look at how to do so. But for now, I will just go ahead and define rare as 5%. With that, we can define which $m$ are incompatible with $H_0$: those that we would get in at most 5% of cases in the long run, if $H_0$ were true. The incompatible region is shown in **Figure 7**; see the figure caption for more details. 
+Since we want to reject $H_0$, we need to define which $m$ would be incompatible with $H_0$. In the frequentist framework, incompatible means 'rare, in the long run'. But how rare, exactly? We control that, by setting the parameter $\alpha$. We will take a closer look at it in a second, but for now I will just go ahead and set $\alpha=0.05$. With that, we have defined which $m$ are incompatible with $H_0$: those that we would get in no more than 5% of cases in the long run, if $H_0$ were true. This incompatible region is shown in **Figure 7**; see the caption for more details. 
 
 <!-- plot: h0h1 -->
-<p style="text-align: center; font-size: 12px">
+<p class="figure">
   <img src="plots/h0h1.svg" />
+</p>
+<p class="caption">
   <b> Figure 7. </b> 
-  Set-up for one-sided tests (left and center) and two-sided tests (right). Top row shows the Null hypothesis \(H_0\), and the alternative hypothesis \(H_1\). Bottom row splits all possible \(m\) into those incompatible with (icw) \(H_0\) and those compatible with (cw) \(H_0\). The split occurs at the solid vertical line. In the one-sided case (left and center), \(m\) would fall into the incompatible region in <i>at most</i> 5% of cases in the long run, if \(H_0\) were true: exactly 5% for the highlighted distribution, and less than 5% for any of the other red distributions. For the two-sided case (right), \(m\) would fall into the incompatible region in <i>exactly</i> 5% of cases in the long run, if \(H_0\) were true.
-</p> 
+  Set-up for one-sided tests (left and center) and two-sided tests (right), with \(\alpha=0.05\). The top row shows \(H_0\) and \(H_1\). The bottom row splits all possible \(m\) into those compatible with (cw) and those incompatible with (icw) \(H_0\). The incompatible region starts at the solid vertical line, whose position is determined by the gray area (\(\alpha\)). In the one-sided case, \(m\) would fall into the incompatible region in <i>at most</i> 5% of cases in the long run, if \(H_0\) were true (5% for the highlighted distribution, which is the most extreme version of \(H_0\); less than 5% for any distribution shifted further into \(H_0\)). For the two-sided case, \(m\) would fall into the incompatible region in <i>exactly</i> 5% of cases in the long run, if \(H_0\) were true.
+</p>
 
+So, by setting the parameter $\alpha$, we define what it takes to reject $H_0$. In **Figure 7**, you can see that $\alpha$ is the gray area of the highlighted sampling distribution---decreasing it will shift the incompatible region further away from $H_0$. So, $\alpha$ defines how far away from $H_0$ the sample mean $m$ has to fall, in order to reject $H_0$.
 
-So by setting $\alpha$, we define what it takes to reject $H_0$. There are two ways to 
-describe what $\alpha$ means. First, it tells us how far away from $H_0$ the sample mean 
-$m$ needs to fall in order to reject $H_0$: so far that, if $H_0$ were true, this would
-happen in no more than a fraction $\alpha$ of all cases in the long run. Another way to put 
-it is, that it tells us how often we'd make a false rejection: if $H_0$ were true, then we 
-would falsely reject it in no more than a fraction $\alpha$ of all cases in the long run. 
-Thus, $\alpha$ is our *false rejection rate*. 
+Of course, $\alpha$ is a long run frequency. If $H_0$ were true, then $m$ would fall into the incompatible region in at most a fraction $\alpha$ of cases, in the long run. Put differently, if $H_0$ were true, then we would (falsely) reject $H_0$ in at most a fraction $\alpha$ of cases, in the long run. Thus, $\alpha$ is our *false rejection rate*.
 
-So, what should we set $\alpha$ to?
-So far, we have simply set it to 0.05, and we will stick with 0.05 as we move on. 
-In fact, most studies simply set it to 0.05. But what is the justification? There is none! 
-There is no good justification for always using 0.05. In fact, there is no good justification 
-for always using *any* specific value. Instead, you should set $\alpha$ depending on the context 
-of the research question and the available resources. We will look at this in more detail, 
-later. For now, it's sufficient to know what $\alpha$ is. 
+What should we set $\alpha$ to? So far I have simply set it to 0.05, and we will stick with 0.05 as we move on. In fact, most studies simply set it to 0.05. But what is the justification? There is none! There is no good justification for always using 0.05. In fact, there is no good justification for always using *any* specific value. Instead, you should set $\alpha$ depending on the context of the research question and the available resources. We will look at this in more detail, later. For now, it's sufficient to know the concept.
 
-> ✔️ **The false rejection rate $\mathbf{\alpha}$**  
-If $\mu$ was some hypothetical value, then we would falsely reject it in a small fraction 
-$\alpha$ of all cases, in the long run. Thus, $\alpha$ is our *false rejection rate*. We
-are in full control of $\alpha$, i.e. we decide what the false rejection rate is. 
+<p class="keypoint">
+<b>✔️ The false rejection rate \(\alpha\)</b><br>
+If \(H_0\) were true, then we would falsely reject it in a small fraction \(\alpha\) of all cases, in the long run. Thus, \(\alpha\) is our <i>false rejection rate</i>. We are in full control of \(\alpha\), i.e. we decide what the false rejection rate is. 
+</p>
 
 ## The p-value
 
@@ -568,41 +557,52 @@ Next, we draw our sample of $N=15$ and compute the sample mean $m$.
 
 *5. Reject all possible truths that are incompatible with the observation.*
 
-We have set $\alpha$ to define how far away from $H_0$ the sample mean $m$ needs to fall, 
-in order to reject $H_0$. We have drawn a sample and computed $m$. Now, we will check 
-how far away from $H_0$ our sample mean $m$ did fall, by computing the $p$-value. If 
-$p\le\alpha$, our sample mean fell far enough from $H_0$ to reject it. 
-
-To get $p$, we simply repeat the two steps from earlier with a slight adjustment. You can 
-follow along in **Figure 6**. Earlier---before taking our sample---we defined how large the 
-gray area $\alpha$ should be. This implied a cutoff , which
-told us how far away from $H_0$ the sample mean $m$ needs to fall in order to reject $H_0$. 
-Now---after taking our sample---we use our observed sample mean $m$ as the cutoff. 
-This creates a gray area $p$. If $p\le\alpha$, our observed sample mean is far away from 
-$H_0$, so we reject $H_0$. 
+Recall that, by setting $\alpha$, we have defined how far away from $H_0$ the incompatible region starts. Now, we check how far away from $H_0$ our sample mean $m$ actually is, by computing the $p$-value. This is shown in **Figure 8**; see the caption for more details. If $p\le\alpha$, our sample mean $m$ is in the incompatible region, and we reject $H_0$. 
 
 <!-- plot: p-values -->
-<p style="text-align: center; font-size: 12px">
+<p class="figure">
   <img src="plots/pvalue.svg" />
-  <b> Figure 6. </b> Caption here. 
-</p> 
+</p>
+<p class="caption">
+  <b> Figure 8. </b>
+  \(p\)-values for one-sided tests (left and center) and the two-sided test (right). The top row shows \(H_0\) and \(H_1\). The middle row shows the sample with the sample mean \(m\). The bottom row shows the corresponding \(p\)-values. The gray area (\(p\)) is determined by the position of the solid vertical line (\(m\)). In the one-sided case (left / center), \(m\) would fall farther away from \(H_0\) (than the \(m\) from our sample) in <i>at most</i> 10% / 90% of all cases in the long run, if \(H_0\) were true (10% / 90% for the highlighted distribution, which is the most extreme version of \(H_0\); less than 10% / 90% for any distribution shifted further into \(H_0\)). For the two-sided case, \(m\) would fall farther away from \(H_0\) (than the \(m\) from our sample) in <i>exactly</i> 20% of all cases in the long run, if \(H_0\) were true. 
+</p>
 
-Just as with $\alpha$, there are two ways to describe what the $p$-value means. First, 
-it tells us how far away our sample mean $m$ is from $H_0$: so far that, if $H_0$ were 
-true, this would happen in no more than a fraction $p$ of all cases in the long run.
-Second, it tells us the lowest false rejection rate under which we would reject $H_0$, 
-given our observed sample mean $m$.
+So by comparing $p$ to $\alpha$, we check if our rejection criterion is met. You can see that the visualization of $\alpha$ (**Figure 7**) is very similar to the visualization of $p$ (**Figure 8**)---in fact, if $p=\alpha$, then the visualizations are identical. Of course, we *set* $\alpha$ but we *compute* $p$. By setting $\alpha$, we answer the question: how far away from $H_0$ would $m$ need to fall, in order to reject $H_0$? By computing $p$, we answer the question: how far away from $H_0$ did $m$ actually fall?
+
+As you may have noticed, $p$ is also a long run frequency. If $H_0$ were true, then $m$ would fall farther from $H_0$ (than the $m$ from our sample) in at most a fraction $p$ of cases, in the long run.<a href="#onesidedp-foot" aria-describedby="footnote-label" id="onesidedp-text"></a>
+
+<p class="keypoint">
+<b>✔️ The \(p\)-value</b><br>
+If \(H_0\) were true, then \(m\) would fall farther away from \(H_0\) (than the \(m\) from our sample) in a fraction \(p\) of all cases, in the long run. If \(p\le\alpha\), then we reject \(H_0\).
+</p>
+
+## The Confidence Curve
+
+So far, we have computed the $p$-value for $H_0$. To that end, we have placed the sampling distribution on $\mu_0$ (the most extreme value under a one-sided Null hypotheses $H_0:\mu\le\mu_0$ or $H_0:\mu\ge\mu_0$, and the only value under a two-sided Null Hypothesis $H_0:\mu=\mu_0$).  
+
+Well, we can repeat that exercise but use any other value instead of $\mu_0$, and compute a $p$-value. In fact, we can repeat that exercise for *all* possible values for $\mu$. If we plot the $p$-values for all possible values, we get what is often called a *confidence curve*. This is shown in **Figure 9**. 
 
 <!-- plot: p-value curves -->
-<p style="text-align: center; font-size: 12px">
+<p class="figure">
   <img src="plots/pvaluecurve.svg" />
-  <b> Figure. </b> Caption here. 
+</p>
+<p class="caption">
+  <b> Figure 9. </b> 
+  Confidence curves for one-sided tests (left and center) and the two-sided test (right). The top row shows the sample with sample mean \(m\) (same as before). The middle rows show \(p\)-values for three arbitrary values. The bottom row shows the confidence curves, which consist of \(p\)-values for all possible values.
 </p> 
 
+## The Confidence Interval
+
+Now that we have the $p$-values for each possible value that $\mu$ could take, we can just reject all values with $p\le\alpha$. All the non-rejected values for $\mu$ form what is usually called the $(1-\alpha)\times 100\%$ *confidence interval*. Since we set $\alpha=0.05$, we have a 95% confidence interval. This is shown in **Figure 10**.
+
 <!-- plot: confidence intervals -->
-<p style="text-align: center; font-size: 12px">
+<p class="figure">
   <img src="plots/ci.svg" />
-  <b> Figure. </b> Caption here. 
+</p>
+<p class="captions">
+  <b> Figure 10. </b>
+  Caption here. 
 </p>
 
 <!-- plot: confidence intervals by n -->
@@ -731,6 +731,11 @@ In surveys, participants may be included at random, in which case the population
 <li id="standarderror-foot">
 The standard deviation of the sampling distribution is also called the standard error. 
 <a href="#standarderror-text" aria-label="Back to content"> ↩ </a>
+</li>
+
+<li id="onesidedp-foot">
+"If \(H_0\) were true, then \(m\) would fall farther from \(H_0\) (than the \(m\) from our sample) in at most a fraction \(p\) of cases, in the long run." If we want to be super-duper accurate, then this definition of the \(p\)-value is a little ambiguous for the one-sided case (but perfectly fine for the two-sided case). For the one sided cases, it would be more accurate to say: if \(H_0\) were true, then \(m\) would be larger / smaller in only a fraction \(p\) of cases in the long run. The difference becomes apparent when \(m\) falls "into \(H_0\)", see the middle column in the figure below. <img src="plots/pvalue.svg" /> Part of the gray area is still "inside \(H_0\)", so it doesn't really make sense to say that the values under the gray area are farther away from \(H_0\) than \(m\) (solid line). Yet, the values under the gray area are definitely smaller than \(m\). However, the definition given in the main text is more universal and it communicates the concept better. So, I think we can keep this little caveat in mind and stick to that definition: if \(H_0\) were true, then \(m\) would fall farther from \(H_0\) (than the \(m\) from our sample) in at most a fraction \(p\) of cases, in the long run.
+<a href="#onesidedp-text" aria-label="Back to content"> ↩ </a>
 </li>
 
 </ol>
