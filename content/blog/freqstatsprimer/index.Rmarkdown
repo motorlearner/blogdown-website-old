@@ -325,7 +325,7 @@ Let’s repeat this with another value: $\mu\stackrel{?}{=}-0.5$. Again, if we a
 Generally speaking, we could be interested in any value, call it $\mu_0$. If we assume $\mu\stackrel{!}{=}\mu_0$, then our sample mean $m$ must have come from the sampling distribution with mean $\mu_0$. If that is very unlikely, then we conclude $\mu\ne\mu_0$ (if it is not unlikely, we do nothing).
 
 <p class="keypoint">
-<b> ✔️ The sampling distribution of the \(m\) </b> <br>
+<b> ✔️ The sampling distribution of \(m\) </b> <br>
 If we (hypothetically) drew infinitely many samples of size \(N\) from a population distribution with mean \(\mu\) and standard deviation \(\sigma\), then all the \(m\)'s would be distributed according to the sampling distribution of \(m\). It is a normal distribution with mean \(\mu\) and standard deviation \(\frac{\sigma}{\sqrt{N}}\). The fact that the sampling distribution of \(m\) and the population distribution both have mean \(\mu\) is important. It allows us to learn something about \(\mu\). For that, we draw a random sample and compute \(m\). We can assume any hypothetical value \(\mu_0\) for the population mean, i.e. \(\mu\stackrel{!}{=}\mu_0\). Under this assumption, our \(m\) must have come from the sampling distribution of \(m\) that has mean \(\mu_0\). If that is very unlikely, we conclude \(\mu\ne\mu_0\).
 </p>
 
@@ -465,69 +465,13 @@ Now, if we want to reject the possible truths that are incompatible with our obs
 
 ## The Null and the Alternative
 
-Back to our working example: we are interested in the population mean $\mu$, and we observe a random sample of size $N$ with sample mean $m$. We will now walk through our argument step by step. We will $N=15$ (same as earlier).
+Back to our working example: we are interested in the population mean $\mu$, and we observe a random sample of size $N$ with sample mean $m$. We will now walk through our argument step by step (using $N=15$ as before). 
 
 *1. List all possible truths.*
 
-We start with all possible truths about $\mu$: it could be any number whatsoever. But we're not done yet. Recall that we can only conclude that $\mu$ is *something* by rejecting *everything else*. Accordingly, we split all possible truths about $\mu$ into the 'something' we want to conclude and the 'everything else' that we need to reject in order to do so. The 'everything else' we need to reject is the *Null Hypothesis* $H_0$. The 'something' we then conclude is the *alternative hypothesis* $H_1$. There are three fundamental versions of $H_0$ and $H_1$:
+Our parameter of interest is $\mu$, and it could be any number. The set of all possible values for our parameter of interest is called the *parameter space*.
 
-<table>
-  <tr>
-    <td>
-    1a
-    </td>
-    <td>
-    \(H_0: \mu \le \mu_0\) <br>
-    \(H_1: \mu  >  \mu_0\)
-    </td>
-    <td>
-    \(\mu\) is less or equal to some value \(\mu_0\) <br>
-    \(\mu\) is greater than some value \(\mu_0\)
-    </td>
-  </tr>
-  <tr>
-    <td>
-    1b
-    </td>
-    <td>
-    \(H_0: \mu \ge \mu_0\) <br>
-    \(H_1: \mu  <  \mu_0\)
-    </td>
-    <td>
-    \(\mu\) is greater or equal to some value \(\mu_0\) <br>
-    \(\mu\) is less than some value \(\mu_0\)
-    </td>
-  </tr>
-  <tr>
-    <td>
-    2
-    </td>
-    <td>
-    \(H_0: \mu  =  \mu_0\) <br>
-    \(H_1: \mu \ne \mu_0\)
-    </td>
-    <td>
-    \(\mu\) is equal to some value \(\mu_0\) <br>
-    \(\mu\) is different from some value \(\mu_0\)
-    </td>
-  </tr>
-</table>
-
-Versions 1a and 1b are called *one-sided tests*. Note that they are basically opposites of each other. Version 2 is called a *two-sided test*. Technically, a two-sided test is just the combination of both one-sided tests, so it's not really fundamental. 
-
-Recall that $\mu_0$ is just some hypothetical value for $\mu$ that we are particularly interested in. We are often interested in specific hypothetical values for a given parameter. Say you want to know if a vaccine prevents more than 90% of infections. Your parameter is vaccine efficacy and you are asking if it's greater than 90%. Or, say you want to know if coffee changes your reaction time. Your parameter is the change in reaction time due to coffee consumption and you are asking if it's different from zero. Of course, sometimes you are not interested in specific hypothetical values for a given parameter. Say you conduct a survey and ask people about their age. Your parameter is the population age, but you are simply asking what it is---there is no value of interest. As we will see shortly, that situation also corresponds to one of the versions above. 
-
-Now that we have listed all possible truths about $\mu$ in the form of $H_0$ and $H_1$, we can move on to the next step. 
-
-*2. List all possible observations.*
-
-We continue with all possible sample means $m$: again, it could by any number whatsoever. Done. 
-
-## The false rejection rate
-
-*3. For each possible truth, define which observations are compatible and which are incompatible.*
-
-Since we want to reject $H_0$, we need to define which $m$ would be incompatible with $H_0$. In the frequentist framework, incompatible means 'rare, in the long run'. But how rare, exactly? We control that, by setting the parameter $\alpha$. We will take a closer look at it in a second, but for now I will just go ahead and set $\alpha=0.05$. With that, we have defined which $m$ are incompatible with $H_0$: those that we would get in no more than 5% of cases in the long run, if $H_0$ were true. This incompatible region is shown in **Figure 7**; see the caption for more details. 
+But we're not done yet. Recall that we can only conclude that $\mu$ is *something* by rejecting *everything else*. So, we partition the parameter space into the 'something' we want to conclude and the 'everything else' that we need to reject in order to do so. The 'everything else' we need to reject is called the *Null Hypothesis* $H_0$. The 'something' we then conclude is called the *alternative hypothesis* $H_1$. There are three fundamental versions of $H_0$ and $H_1$, which are shown in **Figure 7**. 
 
 <!-- plot: h0h1 -->
 <p class="figure">
@@ -535,10 +479,38 @@ Since we want to reject $H_0$, we need to define which $m$ would be incompatible
 </p>
 <p class="caption">
   <b> Figure 7. </b> 
+  Null hypothesis \(H_0\) and alternative hypothesis \(H_1\) for one-sided and two-sided tests.
+</p>
+
+The first two versions are called *one-sided tests*. Here, $H_0$ asserts that $\mu$ is within a certain range of values, which is referred to as a "compound" Null hypothesis. The third version is called a *two-sided test*. Here, $H_0$ asserts that $\mu$ is a single specific value, which is referred to as a "point" Null hypothesis. Note that in each case, the value at the boundary of $H_0$ is denoted $\mu_0$. 
+
+Now, $\mu_0$ can be any hypothetical value for $\mu$ that we are particularly interested in. We are often interested in particular hypothetical values for a given parameter. For example:
+
++ We want to know if a vaccine prevents more than 60% of infections. The parameter is vaccine efficacy against infection, and we are asking if it's greater than 60%. This would be a one-sided test with $H_0$ "vaccine efficacy against infection is 60% or less" and $H_1$ "vaccine efficacy against infection is more than 60%".  
++ We want to know if coffee changes your reaction time. Our parameter is the change in reaction time due to coffee consumption, and we are asking if it's different from zero. This would be a two-sided test with $H_0$ "there is zero change in reaction time due to coffee consumption" and $H_1$ "there is some change in reaction time due to coffee consumption". 
+
+Sometimes, however, we are not interested in any particular hypothetical value for our parameter. Say we conduct a survey and ask people about their age. The parameter is the mean population age, but we are simply asking what it is (not if it's smaller/greater/different from some particular value). As we will see shortly, that situation also corresponds to a two-sided test. 
+
+*2. List all possible observations.*
+
+Our observation is the sample mean $m$, and it could be any number.
+
+## The false rejection rate
+
+*3. For each possible truth, define which observations are compatible and which are incompatible.*
+
+Since we want to reject $H_0$, we need to define which $m$ would be incompatible with $H_0$. In the frequentist framework, incompatible means 'rare, in the long run'. But how rare, exactly? We control that, by setting the parameter $\alpha$. We will take a closer look at it in a second, but for now we will just use $\alpha=0.05$. With that, we have defined which $m$ are incompatible with $H_0$: those that we would get in no more than 5% of cases in the long run, if $H_0$ were true. This incompatible region is shown in **Figure 8**; see the caption for more details. 
+
+<!-- plot: alpha -->
+<p class="figure">
+  <img src="plots/alpha.svg" />
+</p>
+<p class="caption">
+  <b> Figure 8. </b> 
   Set-up for one-sided tests (left and center) and two-sided tests (right), with \(\alpha=0.05\). The top row shows \(H_0\) and \(H_1\). The bottom row splits all possible \(m\) into those compatible with (cw) and those incompatible with (icw) \(H_0\). The incompatible region starts at the solid vertical line, whose position is determined by the gray area (\(\alpha\)). In the one-sided case, \(m\) would fall into the incompatible region in <i>at most</i> 5% of cases in the long run, if \(H_0\) were true (5% for the highlighted distribution, which is the most extreme version of \(H_0\); less than 5% for any distribution shifted further into \(H_0\)). For the two-sided case, \(m\) would fall into the incompatible region in <i>exactly</i> 5% of cases in the long run, if \(H_0\) were true.
 </p>
 
-So, by setting the parameter $\alpha$, we define what it takes to reject $H_0$. In **Figure 7**, you can see that $\alpha$ is the gray area of the highlighted sampling distribution---decreasing it will shift the incompatible region further away from $H_0$. So, $\alpha$ defines how far away from $H_0$ the sample mean $m$ has to fall, in order to reject $H_0$.
+So, by setting the parameter $\alpha$, we define what it takes to reject $H_0$. In **Figure 8**, you can see that $\alpha$ is the gray area of the highlighted sampling distribution---decreasing it will shift the incompatible region further away from $H_0$. So, $\alpha$ defines how far away from $H_0$ the sample mean $m$ has to fall, in order to reject $H_0$.
 
 Of course, $\alpha$ is a long run frequency. If $H_0$ were true, then $m$ would fall into the incompatible region in at most a fraction $\alpha$ of cases, in the long run. Put differently, if $H_0$ were true, then we would (falsely) reject $H_0$ in at most a fraction $\alpha$ of cases, in the long run. Thus, $\alpha$ is our *false rejection rate*.
 
@@ -557,18 +529,18 @@ Next, we draw our sample of $N=15$ and compute the sample mean $m$.
 
 *5. Reject all possible truths that are incompatible with the observation.*
 
-Recall that, by setting $\alpha$, we have defined how far away from $H_0$ the incompatible region starts. Now, we check how far away from $H_0$ our sample mean $m$ actually is, by computing the $p$-value. This is shown in **Figure 8**; see the caption for more details. If $p\le\alpha$, our sample mean $m$ is in the incompatible region, and we reject $H_0$. 
+Recall that, by setting $\alpha$, we have defined how far away from $H_0$ the incompatible region starts. Now, we check how far away from $H_0$ our sample mean $m$ actually is, by computing the $p$-value. This is shown in **Figure 9**; see the caption for more details. If $p\le\alpha$, our sample mean $m$ is in the incompatible region, and we reject $H_0$. 
 
 <!-- plot: p-values -->
 <p class="figure">
   <img src="plots/pvalue.svg" />
 </p>
 <p class="caption">
-  <b> Figure 8. </b>
+  <b> Figure 9. </b>
   \(p\)-values for one-sided tests (left and center) and the two-sided test (right). The top row shows \(H_0\) and \(H_1\). The middle row shows the sample with the sample mean \(m\). The bottom row shows the corresponding \(p\)-values. The gray area (\(p\)) is determined by the position of the solid vertical line (\(m\)). In the one-sided case (left / center), \(m\) would fall farther away from \(H_0\) (than the \(m\) from our sample) in <i>at most</i> 10% / 90% of all cases in the long run, if \(H_0\) were true (10% / 90% for the highlighted distribution, which is the most extreme version of \(H_0\); less than 10% / 90% for any distribution shifted further into \(H_0\)). For the two-sided case, \(m\) would fall farther away from \(H_0\) (than the \(m\) from our sample) in <i>exactly</i> 20% of all cases in the long run, if \(H_0\) were true. 
 </p>
 
-So by comparing $p$ to $\alpha$, we check if our rejection criterion is met. You can see that the visualization of $\alpha$ (**Figure 7**) is very similar to the visualization of $p$ (**Figure 8**)---in fact, if $p=\alpha$, then the visualizations are identical. Of course, we *set* $\alpha$ but we *compute* $p$. By setting $\alpha$, we answer the question: how far away from $H_0$ would $m$ need to fall, in order to reject $H_0$? By computing $p$, we answer the question: how far away from $H_0$ did $m$ actually fall?
+So by comparing $p$ to $\alpha$, we check if our rejection criterion is met. You can see that the visualization of $\alpha$ (**Figure 8**) is very similar to the visualization of $p$ (**Figure 9**)---in fact, if $p=\alpha$, then the visualizations are identical. Of course, we *set* $\alpha$ but we *compute* $p$. By setting $\alpha$, we answer the question: how far away from $H_0$ would $m$ need to fall, in order to reject $H_0$? By computing $p$, we answer the question: how far away from $H_0$ did $m$ actually fall?
 
 As you may have noticed, $p$ is also a long run frequency. If $H_0$ were true, then $m$ would fall farther from $H_0$ (than the $m$ from our sample) in at most a fraction $p$ of cases, in the long run.<a href="#onesidedp-foot" aria-describedby="footnote-label" id="onesidedp-text"></a>
 
@@ -579,31 +551,40 @@ If \(H_0\) were true, then \(m\) would fall farther away from \(H_0\) (than the 
 
 ## The Confidence Curve
 
-So far, we have computed the $p$-value for $H_0$. To that end, we have placed the sampling distribution on $\mu_0$ (the most extreme value under a one-sided Null hypotheses $H_0:\mu\le\mu_0$ or $H_0:\mu\ge\mu_0$, and the only value under a two-sided Null Hypothesis $H_0:\mu=\mu_0$).  
+Quick recap. First, $\mu$ could be any number whatsoever, which is our parameter space. We partitioned this parameter space into $H_0$ (which we want to reject) and $H_1$ (which we would then conclude)---the partition occurs at $\mu_0$. We have set our false positive error rate $\alpha$. Then we have drawn a sample and computed $m$. Finally, we computed the $p$-value for $H_0$, by placing the sampling distribution on $\mu_0$. If $p\le\alpha$, we reject $H_0$ (but this was not the case in our example). 
 
-Well, we can repeat that exercise but use any other value instead of $\mu_0$, and compute a $p$-value. In fact, we can repeat that exercise for *all* possible values for $\mu$. If we plot the $p$-values for all possible values, we get what is often called a *confidence curve*. This is shown in **Figure 9**. 
+So, we have computed a $p$-value for one particular Null hypothesis $H_0$, by placing the sampling distribution on its most extreme value, $\mu_0$. Well, we can compute a $p$-value for *every possible* Null hypothesis, by placing the sampling distribution on *every possible* value. If we plot all the $p$-values across the parameter space, we obtain what is often called a *confidence curve*. This is shown in **Figure 10**. 
 
 <!-- plot: p-value curves -->
 <p class="figure">
   <img src="plots/pvaluecurve.svg" />
 </p>
 <p class="caption">
-  <b> Figure 9. </b> 
-  Confidence curves for one-sided tests (left and center) and the two-sided test (right). The top row shows the sample with sample mean \(m\) (same as before). The middle rows show \(p\)-values for three arbitrary values. The bottom row shows the confidence curves, which consist of \(p\)-values for all possible values.
+  <b> Figure 10. </b> 
+  Confidence curves for one-sided tests (left and center) and the two-sided test (right). The top row shows the sample with the sample mean \(m\) (same as before). The next rows show \(p\)-values for three arbitrary Null hypotheses. Note that the middle row shows the \(p\)-value for our original Null hypothesis, so it is exactly the same as Figure 9. The bottom row shows the confidence curve. Each point on this curve shows the \(p\)-value (on the y-axis) for a particular Null hypothesis (left: \(\mu\le x\), middle: \(\mu\ge x\), right: \(\mu\ne x\), with \(x\) being the value on the x-axis).
 </p> 
+
+By the way, can you see how the one-sided and two-sided confidence curves (and thus the $p$-values) relate to each other? The one-sided $p$ is "one minus the other one-sided $p$". The two-sided $p$ is "the minimum of both one-sided $p$'s, times two". 
+
+<p class="keypoint">
+<b>✔️ The confidence curve</b><br>
+The confidence curve shows the \(p\)-value for every possible Null hypothesis.
+</p>
 
 ## The Confidence Interval
 
-Now that we have the $p$-values for each possible value that $\mu$ could take, we can just reject all values with $p\le\alpha$. All the non-rejected values for $\mu$ form what is usually called the $(1-\alpha)\times 100\%$ *confidence interval*. Since we set $\alpha=0.05$, we have a 95% confidence interval. This is shown in **Figure 10**.
+Now that we have $p$-values for each possible Null hypothesis, we can just reject all the Null hypotheses with $p\le\alpha$. We are left with all non-rejected Null hypothesis. The corresponding values form the $(1-\alpha)\times 100\%$ *confidence interval*. Since we set $\alpha=0.05$, we have a 95% confidence interval. This is shown in **Figure 11**; see the caption for more details. 
 
 <!-- plot: confidence intervals -->
 <p class="figure">
   <img src="plots/ci.svg" />
 </p>
-<p class="captions">
-  <b> Figure 10. </b>
+<p class="caption">
+  <b> Figure 11. </b>
   Caption here. 
 </p>
+
+A $(1-\alpha)\times 100\%$ confidence interval will contain the true parameter value in $(1-\alpha)\times 100\%$ of cases, in the long run. So in our example, the 95% confidence interval will contain the true $\mu$ in 95% of cases, in the long run.
 
 <!-- plot: confidence intervals by n -->
 <p style="text-align: center; font-size: 12px">

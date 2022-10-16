@@ -365,6 +365,142 @@ ggsave(
 
 layout <- "
 ABC
+"
+
+p1 <- ggplot() +
+  scale_x_continuous(name="X", limits=c(-3,3), breaks=0, labels=expression(mu[0])) +
+  scale_y_continuous(limits=c(0, .5), expand=expansion(0)) +
+  # design
+  coord_fixed(ratio=1.25) +
+  theme_blog() + theme(
+    panel.border = element_blank(),
+    axis.line.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank(),
+    axis.title.x = element_blank()
+  ) +
+  # annotation
+  geom_segment(aes(x=0, xend=0, y=0, yend=0.3), linetype="dashed") +
+  geom_segment(aes(x=0, xend=-3, y=0.38, yend=0.38), arrow=arrow(length=unit(0.4, "lines"), type="closed"), color=c[2]) +
+  geom_segment(aes(x=0, xend=0, y=0.38, yend=0.30), color=c[2]) +
+  geom_segment(aes(x=.05, xend=3, y=0.18, yend=0.18), arrow=arrow(length=unit(0.4, "lines"), type="closed"), color=c[5]) +
+  annotate("label", hjust=.5, vjust=1,
+           x=-1.5, y=0.5,
+           label.size=NA, fill="white", size=3,
+           label=expression(paste(H[0])),
+           color=c[2]) +
+  annotate("label", hjust=0.5, vjust=1,
+           x=1.5, y=0.5,
+           label.size=NA, fill="white", size=3,
+           label=expression(paste(H[1])),
+           color=c[5]) +
+  ggtitle(expression(paste(H[0],": ",mu<=mu[0],",  ",H[1],": ",mu>mu[0])))
+
+p2 <- ggplot() +
+  scale_x_continuous(name="X", limits=c(-3,3), breaks=0, labels=expression(mu[0])) +
+  scale_y_continuous(limits=c(0, .5), expand=expansion(0)) +
+  # design
+  coord_fixed(ratio=1.25) +
+  theme_blog() + theme(
+    panel.border = element_blank(),
+    axis.line.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank(),
+    axis.title.x = element_blank()
+  ) +
+  # annotation
+  geom_segment(aes(x=0, xend=0, y=0, yend=0.3), linetype="dashed") +
+  geom_segment(aes(x=0, xend=3, y=0.38, yend=0.38), arrow=arrow(length=unit(0.4, "lines"), type="closed"), color=c[2]) +
+  geom_segment(aes(x=0, xend=0, y=0.38, yend=0.30), color=c[2]) +
+  geom_segment(aes(x=-.05, xend=-3, y=0.18, yend=0.18), arrow=arrow(length=unit(0.4, "lines"), type="closed"), color=c[5]) +
+  annotate("label", hjust=.5, vjust=1,
+           x=-1.5, y=0.5,
+           label.size=NA, fill="white", size=3,
+           label=expression(paste(H[1])),
+           color=c[5]) +
+  annotate("label", hjust=0.5, vjust=1,
+           x=1.5, y=0.5,
+           label.size=NA, fill="white", size=3,
+           label=expression(paste(H[0])), 
+           color=c[2]) +
+  ggtitle(expression(paste(H[0],": ",mu>=mu[0],",  ",H[1],": ",mu<mu[0])))
+
+p3 <- ggplot() +
+  scale_x_continuous(name="X", limits=c(-3,3), breaks=0, labels=expression(mu[0])) +
+  scale_y_continuous(limits=c(0, .5), expand=expansion(0)) +
+  # design
+  coord_fixed(ratio=1.25) +
+  theme_blog() + theme(
+    panel.border = element_blank(),
+    axis.line.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank(),
+    axis.title.x = element_blank()
+  ) +
+  # annotation
+  geom_segment(aes(x=0, xend=0, y=0, yend=0.3), linetype="dashed") +
+  geom_segment(aes(x=.05, xend=3, y=0.18, yend=0.18), arrow=arrow(length=unit(0.4, "lines"), type="closed"), color=c[5]) +
+  geom_segment(aes(x=-.05, xend=-3, y=0.18, yend=0.18), arrow=arrow(length=unit(0.4, "lines"), type="closed"), color=c[5]) +
+  annotate("label", hjust=.5, vjust=1,
+           x=-1.5, y=0.5,
+           label.size=NA, fill="white", size=3,
+           label=expression(paste(H[1])),
+           color=c[5]) +
+  annotate("label", hjust=0.5, vjust=1,
+           x=1.5, y=0.5,
+           label.size=NA, fill="white", size=3,
+           label=expression(paste(H[1])),
+           color=c[5]) +
+  annotate("label", hjust=.5, vjust=1,
+           x=0.05, y=0.5,
+           label.size=NA, fill="white", size=2.5,
+           label=expression(paste(H[0])), 
+           color=c[2]) +
+  geom_segment(aes(x=0, xend=0, y=0.15, yend=0.05), arrow=arrow(length=unit(0.2, "lines"), type="closed"), color=c[2]) +
+  ggtitle(expression(paste(H[0],": ",mu==mu[0],",  ",H[1],": ",mu!=mu[0])))
+
+p0 <- ggplot() +
+  scale_x_continuous(limits=c(0,1), expand=expansion(0)) +
+  scale_y_continuous(limits=c(0,1), expand=expansion(0)) +
+  geom_segment(aes(x=.03, xend=2/3-.03, y=.5, yend=.5)) +
+  geom_segment(aes(x=.97, xend=2/3+.03, y=.5, yend=.5)) +
+  annotate("segment", 
+           x=c(.03, 2/3-.03, 2/3+.03, .97), 
+           xend=c(.03, 2/3-.03, 2/3+.03, .97),
+           y=.5, yend=.3) +
+  annotate("label", hjust=0.5, vjust=0.5,
+           x=.03 + (2/3-.03-.03)/2, y=.5,
+           label.size=NA, fill="white", size=3.5,
+           label="one-sided") +
+  annotate("label", hjust=0.5, vjust=0.5,
+           x=2/3+.03 + (1/3-.03-.03)/2, y=.5,
+           label.size=NA, fill="white", size=3.5,
+           label="two-sided")
+
+
+plot.h0h1.init <- p1 + p2 + p3 + plot_layout(design=layout)
+
+plot.h0h1 <- p0 + plot.h0h1.init + plot_layout(nrow=2)
+
+ggsave(
+  plot     = plot.h0h1,
+  filename = "h0h1.svg",
+  path     = plotdir,
+  scale    = 0.6,
+  height   = 2.3,
+  width    = 10
+)
+
+## alpha --------------------------------------------------------------------------------
+
+layout <- "
+ABC
 DEF
 "
 
@@ -656,11 +792,11 @@ p6 <- getnd(0, 1/sqrt(15)) %>%
   geom_vline(xintercept=qnorm(0.025, 0, 1/sqrt(15), lower.tail=T)) +
   geom_vline(xintercept=qnorm(0.025, 0, 1/sqrt(15), lower.tail=F)) 
 
-plot.h0h1 <- p1 + p2 + p3 + p4 + p5 + p6 + plot_layout(design=layout)
+plot.alpha <- p1 + p2 + p3 + p4 + p5 + p6 + plot_layout(design=layout)
 
 ggsave(
-  plot     = plot.h0h1,
-  filename = "h0h1.svg",
+  plot     = plot.alpha,
+  filename = "alpha.svg",
   path     = plotdir,
   scale    = 0.6,
   height   = 4.5,
