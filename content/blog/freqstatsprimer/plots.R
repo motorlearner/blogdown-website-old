@@ -43,8 +43,17 @@ getnd <- function(mu,sigma){  # get data frame with x,y for normal dist
   return(data.frame(x,y))
 }
 
-# colors, for now
+# colors
 c <- c(color$blue, color$red, color$orange, color$gray2, color$gray2)
+
+# 1a 1b 2 labels
+plab <- ggplot() +
+  scale_x_continuous(limits=c(0,1), expand=expansion(0)) +
+  scale_y_continuous(limits=c(0,1), expand=expansion(0)) +
+  annotate("segment", y=.5, yend=.5, x=c(0/3, 1/3, 2/3+.01)+.02, xend=c(1/3-.01, 2/3, 3/3)-.02) +
+  annotate("label", label.size=NA, fill="white", fontface=2, size=3.5, hjust=.5, vjust=.5, y=.5, x=1/3+0.5/3, label="1b") +
+  annotate("label", label.size=NA, fill="white", fontface=2, size=3.5, hjust=.5, vjust=.5, y=.5, x=0/3+0.5/3, label="1a") +
+  annotate("label", label.size=NA, fill="white", fontface=2, size=3.5, hjust=.5, vjust=.5, y=.5, x=2/3+0.5/3, label="2")
 
 # PLOTS ---------------------------------------------------------------------------------
 
@@ -484,9 +493,11 @@ p0 <- ggplot() +
            label="two-sided")
 
 
-plot.h0h1.init <- p1 + p2 + p3 + plot_layout(design=layout)
+#plot.h0h1.init <- p1 + p2 + p3 + plot_layout(design=layout)
+#
+#plot.h0h1 <- plab + plot.h0h1.init + plot_layout(nrow=2)
 
-plot.h0h1 <- p0 + plot.h0h1.init + plot_layout(nrow=2)
+plot.h0h1 <- plab + (p1 + p2 + p3 + plot_layout(design=layout)) + plot_layout(nrow=2)
 
 ggsave(
   plot     = plot.h0h1,
@@ -650,11 +661,11 @@ p4 <- getnd(0, 1/sqrt(15)) %>%
   annotate("label", hjust=0, vjust=1,
            x=qnorm(0.05, 0, 1/sqrt(15), lower.tail=F)+0.1, y=2.05,
            label.size=NA, fill="white", size=2.5,
-           label=expression(paste("icw ",H[0]))) +
-  annotate("label", hjust=1, vjust=1,
-           x=qnorm(0.05, 0, 1/sqrt(15), lower.tail=F)-0.1, y=2.05,
-           label.size=NA, fill="white", size=2.5,
-           label=expression(paste("cw ",H[0]))) +
+           label=expression(paste("incompatible"))) +
+  #annotate("label", hjust=1, vjust=1,
+  #         x=qnorm(0.05, 0, 1/sqrt(15), lower.tail=F)-0.1, y=2.05,
+  #         label.size=NA, fill="white", size=2.5,
+  #         label=expression(paste("cw ",H[0]))) +
   annotate("rect", color=c[4], fill=c[4],
            xmax=3, xmin=2.8, ymax=0.9, ymin=0.7) +
   annotate("label", size=3,
@@ -711,11 +722,11 @@ p5 <- getnd(0, 1/sqrt(15)) %>%
   annotate("label", hjust=1, vjust=1,
            x=qnorm(0.05, 0, 1/sqrt(15), lower.tail=T)-0.1, y=2.05,
            label.size=NA, fill="white", size=2.5,
-           label=expression(paste("icw ",H[0]))) +
-  annotate("label", hjust=0, vjust=1,
-           x=qnorm(0.05, 0, 1/sqrt(15), lower.tail=T)+0.1, y=2.05,
-           label.size=NA, fill="white", size=2.5,
-           label=expression(paste("cw ",H[0]))) +
+           label=expression(paste("incompatible"))) +
+  #annotate("label", hjust=0, vjust=1,
+  #         x=qnorm(0.05, 0, 1/sqrt(15), lower.tail=T)+0.1, y=2.05,
+  #         label.size=NA, fill="white", size=2.5,
+  #         label=expression(paste("cw ",H[0]))) +
   annotate("rect", color=c[4], fill=c[4],
            xmax=3, xmin=2.8, ymax=0.9, ymin=0.7) +
   annotate("label", size=3,
@@ -771,17 +782,17 @@ p6 <- getnd(0, 1/sqrt(15)) %>%
   annotate("label", hjust=1, vjust=1,
            x=qnorm(0.025, 0, 1/sqrt(15), lower.tail=T)-0.1, y=2.05,
            label.size=NA, fill="white", size=2.5,
-           label=expression(paste("icw ",H[0]))) +
+           label=expression(paste("incompatible"))) +
   annotate("label", hjust=0, vjust=1,
            x=qnorm(0.025, 0, 1/sqrt(15), lower.tail=F)+0.1, y=2.05,
            label.size=NA, fill="white", size=2.5,
-           label=expression(paste("icw ",H[0]))) +
+           label=expression(paste("incompatible"))) +
   geom_segment(color="white", size=2, x=0, xend=0, 
                y=dnorm(0,0,1/sqrt(15))+0.01, yend=2.5) +
-  annotate("label", hjust=0.5, vjust=1,
-           x=0, y=2.05,
-           label.size=NA, fill="white", size=2.5,
-           label=expression(paste("cw ",H[0]))) +
+  #annotate("label", hjust=0.5, vjust=1,
+  #         x=0, y=2.05,
+  #         label.size=NA, fill="white", size=2.5,
+  #         label=expression(paste("cw ",H[0]))) +
   annotate("rect", color=c[4], fill=c[4],
            xmax=3, xmin=2.8, ymax=0.9, ymin=0.7) +
   annotate("label", size=3,

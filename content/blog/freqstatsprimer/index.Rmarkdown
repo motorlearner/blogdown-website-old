@@ -499,7 +499,7 @@ Our observation is the sample mean $m$, and it could be any number.
 
 *3. For each possible truth, define which observations are compatible and which are incompatible.*
 
-Since we want to reject $H_0$, we need to define which $m$ would be incompatible with $H_0$. In the frequentist framework, incompatible means 'rare, in the long run'. But how rare, exactly? We control that, by setting the parameter $\alpha$. We will take a closer look at it in a second, but for now we will just use $\alpha=0.05$. With that, we have defined which $m$ are incompatible with $H_0$: those that we would get in no more than 5% of cases in the long run, if $H_0$ were true. This incompatible region is shown in **Figure 8**; see the caption for more details. 
+To reject $H_0$, we need to define which $m$ are incompatible with $H_0$. That is, we need to find a region into which $m$ would fall rarely in the long run, if $H_0$ were true. We get to decide how rare, by setting the parameter $\alpha$. For now, we will just set $\alpha=0.05$. This means, if $H_0$ were true, then $m$ would fall into the incompatible region in (at most) 5% of cases, in the long-run. This incompatible region is shown in **Figure 8**; see the caption for more details.
 
 <!-- plot: alpha -->
 <p class="figure">
@@ -507,6 +507,8 @@ Since we want to reject $H_0$, we need to define which $m$ would be incompatible
 </p>
 <p class="caption">
   <b> Figure 8. </b> 
+  The top row shows \(H_0\) and \(H_1\). The bottom row shows which \(m\) are incompatible with \(H_0\). The sampling distribution of \(m\) is placed on the boundary of \(H_0\), i.e. on \(\mu_0\) (dashed line). The size of \(\alpha\) (gray area) determines where the incompatible region starts (solid line). If \(\mu\stackrel{!}{=}\mu_0\), then \(m\) would fall into the incompatible region in exactly \(\alpha\times100\%=5\%\) of cases, in the long run. In the one-sided case, we have automatically covered...
+  
   Set-up for one-sided tests (left and center) and two-sided tests (right), with \(\alpha=0.05\). The top row shows \(H_0\) and \(H_1\). The bottom row splits all possible \(m\) into those compatible with (cw) and those incompatible with (icw) \(H_0\). The incompatible region starts at the solid vertical line, whose position is determined by the gray area (\(\alpha\)). In the one-sided case, \(m\) would fall into the incompatible region in <i>at most</i> 5% of cases in the long run, if \(H_0\) were true (5% for the highlighted distribution, which is the most extreme version of \(H_0\); less than 5% for any distribution shifted further into \(H_0\)). For the two-sided case, \(m\) would fall into the incompatible region in <i>exactly</i> 5% of cases in the long run, if \(H_0\) were true.
 </p>
 
@@ -549,7 +551,7 @@ As you may have noticed, $p$ is also a long run frequency. If $H_0$ were true, t
 If \(H_0\) were true, then \(m\) would fall farther away from \(H_0\) (than the \(m\) from our sample) in a fraction \(p\) of all cases, in the long run. If \(p\le\alpha\), then we reject \(H_0\).
 </p>
 
-## The Confidence Curve
+## The p-value function
 
 Quick recap. First, $\mu$ could be any number whatsoever, which is our parameter space. We partitioned this parameter space into $H_0$ (which we want to reject) and $H_1$ (which we would then conclude)---the partition occurs at $\mu_0$. We have set our false positive error rate $\alpha$. Then we have drawn a sample and computed $m$. Finally, we computed the $p$-value for $H_0$, by placing the sampling distribution on $\mu_0$. If $p\le\alpha$, we reject $H_0$ (but this was not the case in our example). 
 
