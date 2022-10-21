@@ -2,7 +2,7 @@
 # This script contains things that you often need to load when writing a blogpost:
 #   - custom ggplot2 theme
 #   - plotting colors
-# ...................................................................................... # nolint
+# ......................................................................................
 
 # list of colors
 color <- list(

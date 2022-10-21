@@ -23,10 +23,10 @@ draft:      false
 library(knitr)
 # set chunk opts
 knitr::opts_chunk$set(
-  warning = FALSE,
-  message = FALSE,
-  include = TRUE,
-  echo    = TRUE
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	include = TRUE
 )
 # set seed
 set.seed(123)
