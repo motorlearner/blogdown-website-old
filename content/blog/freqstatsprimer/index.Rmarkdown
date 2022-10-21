@@ -482,14 +482,12 @@ But we're not done yet. Recall that we can only conclude that $\mu$ is *somethin
   Null hypothesis \(H_0\) and alternative hypothesis \(H_1\) for one-sided and two-sided tests.
 </p>
 
-The first two versions are called *one-sided tests*. Here, $H_0$ asserts that $\mu$ is within a certain range of values, which is referred to as a "compound" Null hypothesis. The third version is called a *two-sided test*. Here, $H_0$ asserts that $\mu$ is a single specific value, which is referred to as a "point" Null hypothesis. Note that in each case, the value at the boundary of $H_0$ is denoted $\mu_0$. 
-
-Now, $\mu_0$ can be any hypothetical value for $\mu$ that we are particularly interested in. We are often interested in particular hypothetical values for a given parameter. For example:
+In a *one-sided test*, $H_0$ asserts that $\mu$ is within a certain range of values, which is referred to as a "compound" Null hypothesis. In a *two-sided test*, $H_0$ asserts that $\mu$ is a single specific value, which is referred to as a "point" Null hypothesis. Note that in each case, the value at the boundary of $H_0$ is denoted $\mu_0$. This can be any hypothetical value for $\mu$ that we are particularly interested in. We are often interested in particular hypothetical values for our parameter of interest, for example:
 
 + We want to know if a vaccine prevents more than 60% of infections. The parameter is vaccine efficacy against infection, and we are asking if it's greater than 60%. This would be a one-sided test with $H_0$ "vaccine efficacy against infection is 60% or less" and $H_1$ "vaccine efficacy against infection is more than 60%".  
 + We want to know if coffee changes your reaction time. Our parameter is the change in reaction time due to coffee consumption, and we are asking if it's different from zero. This would be a two-sided test with $H_0$ "there is zero change in reaction time due to coffee consumption" and $H_1$ "there is some change in reaction time due to coffee consumption". 
 
-Sometimes, however, we are not interested in any particular hypothetical value for our parameter. Say we conduct a survey and ask people about their age. The parameter is the mean population age, but we are simply asking what it is (not if it's smaller/greater/different from some particular value). As we will see shortly, that situation also corresponds to a two-sided test. 
+Of course, we are not always interested in any particular hypothetical value for our parameter of interest. Say we conduct a survey and ask people about their age. The parameter is the mean population age, but we are simply asking what it is (not if it's smaller/greater/different than some particular value). As we will see shortly, that situation also corresponds to a two-sided test. 
 
 *2. List all possible observations.*
 
@@ -499,7 +497,7 @@ Our observation is the sample mean $m$, and it could be any number.
 
 *3. For each possible truth, define which observations are compatible and which are incompatible.*
 
-To reject $H_0$, we need to define which $m$ are incompatible with $H_0$. That is, we need to find a region into which $m$ would fall rarely in the long run, if $H_0$ were true. We get to decide how rare, by setting the parameter $\alpha$. For now, we will just set $\alpha=0.05$. This means, if $H_0$ were true, then $m$ would fall into the incompatible region in (at most) 5% of cases, in the long-run. This incompatible region is shown in **Figure 8**; see the caption for more details.
+To reject $H_0$, we need to define which $m$ would be incompatible with $H_0$, We might call these $m$ the "incompatible region". Intuitively, if $H_0$ were true, then $m$ should fall somewhere close to $H_0$ in most cases and far away from $H_0$ only in rare cases, in the long run. Those rare cases far away from $H_0$ make up the incompatible region. We decide how rare those cases need to be, by setting the parameter $\alpha$. For now, we will just use $\alpha=0.05$. This means, if $H_0$ were true, then $m$ would fall into the incompatible region in (at most) $\alpha\times100\%=5\%$ of cases, in the long-run. This incompatible region is shown in **Figure 8**; see the caption for more details.
 
 <!-- plot: alpha -->
 <p class="figure">
@@ -507,9 +505,7 @@ To reject $H_0$, we need to define which $m$ are incompatible with $H_0$. That i
 </p>
 <p class="caption">
   <b> Figure 8. </b> 
-  The top row shows \(H_0\) and \(H_1\). The bottom row shows which \(m\) are incompatible with \(H_0\). The sampling distribution of \(m\) is placed on the boundary of \(H_0\), i.e. on \(\mu_0\) (dashed line). The size of \(\alpha\) (gray area) determines where the incompatible region starts (solid line). If \(\mu\stackrel{!}{=}\mu_0\), then \(m\) would fall into the incompatible region in exactly \(\alpha\times100\%=5\%\) of cases, in the long run. In the one-sided case, we have automatically covered...
-  
-  Set-up for one-sided tests (left and center) and two-sided tests (right), with \(\alpha=0.05\). The top row shows \(H_0\) and \(H_1\). The bottom row splits all possible \(m\) into those compatible with (cw) and those incompatible with (icw) \(H_0\). The incompatible region starts at the solid vertical line, whose position is determined by the gray area (\(\alpha\)). In the one-sided case, \(m\) would fall into the incompatible region in <i>at most</i> 5% of cases in the long run, if \(H_0\) were true (5% for the highlighted distribution, which is the most extreme version of \(H_0\); less than 5% for any distribution shifted further into \(H_0\)). For the two-sided case, \(m\) would fall into the incompatible region in <i>exactly</i> 5% of cases in the long run, if \(H_0\) were true.
+  The top row shows \(H_0\) and \(H_1\). The bottom row shows which \(m\) are incompatible with \(H_0\). The sampling distribution of \(m\) is placed on the boundary of \(H_0\), i.e. on \(\mu_0\) (dashed line). The magnitude of \(\alpha\) (gray area) determines where the incompatible region starts (solid line). If \(\mu=\mu_0\), then \(m\) would fall into the incompatible region in only \(\alpha\times100\%=5\%\) of cases, in the long run. If we have a compound Null hypotheses, this means that if \(H_0\) was true, then \(m\) would fall into the incompatible region in <i>at most</i> \(5\%\) of cases, in the long run (exactly \(5\%\) if \(\mu\) is at the boundary of \(H_0\), and less than \(5\%\) if \(\mu\) is further inside \(H_0\)). If we have a point Null hypothesis, this means that if \(H_0\) was true, then \(m\) would fall into the incompatible region in <i>exactly</i> \(5\%\) of cases, in the long run.
 </p>
 
 So, by setting the parameter $\alpha$, we define what it takes to reject $H_0$. In **Figure 8**, you can see that $\alpha$ is the gray area of the highlighted sampling distribution---decreasing it will shift the incompatible region further away from $H_0$. So, $\alpha$ defines how far away from $H_0$ the sample mean $m$ has to fall, in order to reject $H_0$.

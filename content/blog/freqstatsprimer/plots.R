@@ -46,15 +46,6 @@ getnd <- function(mu,sigma){  # get data frame with x,y for normal dist
 # colors
 c <- c(color$blue, color$red, color$orange, color$gray2, color$gray2)
 
-# 1a 1b 2 labels
-plab <- ggplot() +
-  scale_x_continuous(limits=c(0,1), expand=expansion(0)) +
-  scale_y_continuous(limits=c(0,1), expand=expansion(0)) +
-  annotate("segment", y=.5, yend=.5, x=c(0/3, 1/3, 2/3+.01)+.02, xend=c(1/3-.01, 2/3, 3/3)-.02) +
-  annotate("label", label.size=NA, fill="white", fontface=2, size=3.5, hjust=.5, vjust=.5, y=.5, x=1/3+0.5/3, label="1b") +
-  annotate("label", label.size=NA, fill="white", fontface=2, size=3.5, hjust=.5, vjust=.5, y=.5, x=0/3+0.5/3, label="1a") +
-  annotate("label", label.size=NA, fill="white", fontface=2, size=3.5, hjust=.5, vjust=.5, y=.5, x=2/3+0.5/3, label="2")
-
 # PLOTS ---------------------------------------------------------------------------------
 
 # Parameters are:
@@ -485,19 +476,14 @@ p0 <- ggplot() +
            y=.5, yend=.3) +
   annotate("label", hjust=0.5, vjust=0.5,
            x=.03 + (2/3-.03-.03)/2, y=.5,
-           label.size=NA, fill="white", size=3.5,
+           label.size=NA, fill="white", size=3, fontface=3,
            label="one-sided") +
   annotate("label", hjust=0.5, vjust=0.5,
            x=2/3+.03 + (1/3-.03-.03)/2, y=.5,
-           label.size=NA, fill="white", size=3.5,
+           label.size=NA, fill="white", size=3, fontface=3,
            label="two-sided")
 
-
-#plot.h0h1.init <- p1 + p2 + p3 + plot_layout(design=layout)
-#
-#plot.h0h1 <- plab + plot.h0h1.init + plot_layout(nrow=2)
-
-plot.h0h1 <- plab + (p1 + p2 + p3 + plot_layout(design=layout)) + plot_layout(nrow=2)
+plot.h0h1 <- p0 + (p1 + p2 + p3 + plot_layout(design=layout)) + plot_layout(nrow=2)
 
 ggsave(
   plot     = plot.h0h1,
@@ -505,6 +491,199 @@ ggsave(
   path     = plotdir,
   scale    = 0.6,
   height   = 2.3,
+  width    = 10
+)
+
+
+## sampling distribution reprint --------------------------------------------------------
+
+plot.sdist <- getnd(0,1/sqrt(15)) |> 
+  ggplot(aes(y=y)) +
+  # data
+  geom_area(aes(x,y), color=c[2], fill=c[2]) +
+  geom_segment(aes(x=0, xend=0, y=0, yend=dnorm(0,0,1/sqrt(15))), linetype="dashed") + 
+  # axes
+  scale_y_continuous(limits=c(0, 1.55), expand=expansion(0)) +
+  scale_x_continuous(name=NULL,
+                     limits=c(-3,3), 
+                     breaks=-3:3,
+                     labels=c(expression(mu[0]-3), expression(mu[0]-2), expression(mu[0]-1), 
+                              expression(mu[0]),
+                              expression(mu[0]+1), expression(mu[0]+2), expression(mu[0]+3)),
+                     expand=expansion(0)) +
+  # design
+  coord_fixed(ratio=1.25) +
+  theme_blog() + theme(
+    panel.border = element_blank(),
+    axis.line.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    axis.title.x = element_blank(),
+    panel.grid.major = element_blank()
+  )
+
+ggsave(
+  plot     = plot.sdist,
+  filename = "sdist.svg",
+  path     = plotdir,
+  scale    = 0.6,
+  height   = 2.5,
+  width    = 7
+)
+
+## alpha mu0 ----------------------------------------------------------------------------
+
+layout <- "
+ABC
+"
+
+p1 <- getnd(0, 1/sqrt(15)) %>%
+  ggplot() +
+  geom_area(aes(x=x-0.5,y), 
+            color=c[2], fill=c[2], alpha=0, size=0.1) +
+  geom_area(aes(x=x-1.0,y), 
+            color=c[2], fill=c[2], alpha=0, size=0.1) +
+  geom_area(aes(x=x-1.5,y), 
+            color=c[2], fill=c[2], alpha=0, size=0.1) +
+  geom_area(aes(x=x-2.0,y), 
+            color=c[2], fill=c[2], alpha=0, size=0.1) +
+  geom_area(aes(x=x-2.5,y), 
+            color=c[2], fill=c[2], alpha=0, size=0.1) +
+  geom_area(aes(x,y), 
+            color=c[2], fill=c[2]) +
+    geom_area(aes(ifelse(x > qnorm(0.05, 0, 1/sqrt(15), lower.tail=F), x, NA), y),
+              color=c[4], fill=c[4]) +
+    scale_y_continuous(limits=c(0, 2.05), expand=expansion(0)) +
+    scale_x_continuous(name=expression(paste("Distance from ",mu[0])),
+                       limits=c(-3, 3), breaks=-2:2, 
+                       expand=expansion(0)) +
+  # design
+  coord_fixed(ratio=1.25) +
+  theme_blog() + theme(
+    panel.border = element_blank(),
+    axis.line.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank()
+  ) +
+  # annotations
+  geom_vline(xintercept=0, linetype="dashed") +
+  geom_vline(xintercept=qnorm(0.05, 0, 1/sqrt(15), lower.tail=F)) +
+  geom_segment(color="white", size=2, x=0, xend=0, 
+               y=dnorm(0,0,1/sqrt(15))+0.01, yend=2.5) +
+  annotate("label", hjust=0, vjust=1,
+           x=qnorm(0.05, 0, 1/sqrt(15), lower.tail=F)+0.1, y=2.05,
+           label.size=NA, fill="white", size=2.5,
+           label=expression(paste("incompatible"))) +
+  annotate("rect", color=c[4], fill=c[4],
+           xmax=3, xmin=2.8, ymax=0.9, ymin=0.7) +
+  annotate("label", size=3,
+           hjust=1, vjust=0.5,
+           x=2.8, y=0.8, 
+           label.size=NA, fill="white", alpha=0.7,
+           label=expression(paste(alpha,"=0.05=")))
+
+p2 <- getnd(0, 1/sqrt(15)) %>%
+  ggplot() +
+  geom_area(aes(x=x+0.5,y), 
+            color=c[2], fill=c[2], alpha=0, size=0.1) +
+  geom_area(aes(x=x+1.0,y), 
+            color=c[2], fill=c[2], alpha=0, size=0.1) +
+  geom_area(aes(x=x+1.5,y), 
+            color=c[2], fill=c[2], alpha=0, size=0.1) +
+  geom_area(aes(x=x+2.0,y), 
+            color=c[2], fill=c[2], alpha=0, size=0.1) +
+  geom_area(aes(x=x+2.5,y), 
+            color=c[2], fill=c[2], alpha=0, size=0.1) +
+  geom_area(aes(x,y), 
+          color=c[2], fill=c[2]) +
+  geom_area(aes(ifelse(x < qnorm(0.05, 0, 1/sqrt(15), lower.tail=T), x, NA), y),
+            color=c[4], fill=c[4]) +
+  scale_y_continuous(limits=c(0, 2.05), expand=expansion(0)) +
+  scale_x_continuous(name=expression(paste("Distance from ", mu[0])),
+                     limits=c(-3, 3), breaks=-2:2, 
+                     expand=expansion(0)) +
+  # design
+  coord_fixed(ratio=1.25) +
+  theme_blog() + theme(
+    panel.border = element_blank(),
+    axis.line.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank()
+  ) +
+  # annotations
+  geom_vline(xintercept=0, linetype="dashed") +
+  geom_vline(xintercept=qnorm(0.05, 0, 1/sqrt(15), lower.tail=T)) +
+  geom_segment(color="white", size=2, x=0, xend=0, 
+               y=dnorm(0,0,1/sqrt(15))+0.01, yend=2.5) +
+  annotate("label", hjust=1, vjust=1,
+           x=qnorm(0.05, 0, 1/sqrt(15), lower.tail=T)-0.1, y=2.05,
+           label.size=NA, fill="white", size=2.5,
+           label=expression(paste("incompatible"))) +
+  annotate("rect", color=c[4], fill=c[4],
+           xmax=3, xmin=2.8, ymax=0.9, ymin=0.7) +
+  annotate("label", size=3,
+           hjust=1, vjust=0.5,
+           x=2.8, y=0.8,
+           label.size=NA, fill="white", alpha=0.9,
+           label=expression(paste(alpha,"=0.05=")))
+
+p3 <- getnd(0, 1/sqrt(15)) %>%
+  ggplot() +
+  geom_area(aes(x,y), 
+          color=c[2], fill=c[2]) +
+  geom_area(aes(ifelse(x < qnorm(0.025, 0, 1/sqrt(15), lower.tail=T), x, NA), y),
+            color=c[4], fill=c[4]) +
+  geom_area(aes(ifelse(x > qnorm(0.025, 0, 1/sqrt(15), lower.tail=F), x, NA), y),
+            color=c[4], fill=c[4]) +
+  scale_y_continuous(limits=c(0, 2.05), expand=expansion(0)) +
+  scale_x_continuous(name=expression(paste("Distance from ", mu[0])),
+                     limits=c(-3, 3), breaks=-2:2, 
+                     expand=expansion(0)) +
+  # design
+  coord_fixed(ratio=1.25) +
+  theme_blog() + theme(
+    panel.border = element_blank(),
+    axis.line.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank()
+  ) +
+  # annotations
+  geom_vline(xintercept=0, linetype="dashed") +
+  annotate("label", hjust=1, vjust=1,
+           x=qnorm(0.025, 0, 1/sqrt(15), lower.tail=T)-0.1, y=2.05,
+           label.size=NA, fill="white", size=2.5,
+           label=expression(paste("incompatible"))) +
+  annotate("label", hjust=0, vjust=1,
+           x=qnorm(0.025, 0, 1/sqrt(15), lower.tail=F)+0.1, y=2.05,
+           label.size=NA, fill="white", size=2.5,
+           label=expression(paste("incompatible"))) +
+  geom_segment(color="white", size=2, x=0, xend=0, 
+               y=dnorm(0,0,1/sqrt(15))+0.01, yend=2.5) +
+  annotate("rect", color=c[4], fill=c[4],
+           xmax=3, xmin=2.8, ymax=0.9, ymin=0.7) +
+  annotate("label", size=3,
+           hjust=1, vjust=0.5,
+           x=2.8, y=0.8, 
+           label.size=NA, fill="white", alpha=0.7,
+           label=expression(paste(alpha,"=0.05="))) +
+  geom_vline(xintercept=qnorm(0.025, 0, 1/sqrt(15), lower.tail=T)) +
+  geom_vline(xintercept=qnorm(0.025, 0, 1/sqrt(15), lower.tail=F)) 
+
+plot.alphamu0 <- p1 + p2 + p3 + plot_layout(design=layout)
+
+ggsave(
+  plot     = plot.alphamu0,
+  filename = "alphamu0.svg",
+  path     = plotdir,
+  scale    = 0.6,
+  height   = 3.5,
   width    = 10
 )
 
@@ -3687,3 +3866,6 @@ ggsave(
   height   = 4,
   width    = 10
 )
+
+  
+  
