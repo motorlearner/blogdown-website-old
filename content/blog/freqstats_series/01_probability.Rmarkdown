@@ -8,6 +8,192 @@ excerpt:      |
   This is part 1 of a series on the fundamentals of frequentist statistics.
 ---
 
+```{r setup, include=FALSE}
+
+# load knitr
+library(knitr)
+
+# set chunk opts
+knitr::opts_chunk$set(
+  eval    = TRUE,
+	echo    = TRUE,
+	message = FALSE,
+	warning = FALSE,
+  error   = FALSE,
+	include = TRUE
+)
+
+# display numbers to two decimals
+options(digits = 1)
+
+# seed
+set.seed(2020)
+
+```
+
+```{css, echo=FALSE}
+
+/*---GENERAL TEXT---*/
+
+/* text */
+p {
+  font-size: 14px;
+  text-align: justify;
+  width: auto;
+}
+
+/* text classes */
+p.keypoint{
+  border-left: 0.7em solid #cccccc;
+  background-color: #ebebeb;
+  padding: 0.75em 1em 0.75em 0.6em;
+}
+
+p.figure{
+  text-align: center;
+}
+
+p.caption{
+  text-align: justify; 
+  font-size: 12px;
+  margin: -1em 6em 2em 6em;
+}
+
+/* list */
+li{
+  font-size: 14px;
+  text-align: justify;
+  padding-left: 1em;
+}
+
+/* headings */
+h1{
+  font-size: 11px;
+}
+
+h2{
+  font-size: 6px;
+}
+
+/*---POP-UP FOOTNOTES---*/
+
+/* hyperlink subclass fn,
+   whose span is the pop-up footnote;
+   default params below are when not hovering
+*/
+a.fn span {
+  opacity: 0;
+  pointer-events: none;
+  width: 30%;
+  font-size: 0.9em;
+  position: absolute;
+  background-color: #FEF6BB;
+   -webkit-transition: all 0.5s ease;
+   -moz-transition: all 0.5s ease;
+   -o-transition: all 0.5s ease;
+   transition: all 0.5s ease;
+}
+/* hyperlink subclass fn,
+   whose span is the pop-up footnote;
+   params below are specifically when hovering
+*/
+a.fn:hover span {
+  opacity: 1;
+  pointer-events: auto;
+  padding: .5em .8em .5em .8em;
+  box-shadow: 0px 0px 15px grey;
+   -webkit-transition: all 0.5s ease;
+   -moz-transition: all 0.5s ease;
+   -o-transition: all 0.5s ease;
+   transition: all 0.5s ease;
+}
+
+/*---FOOTER FOOTNOTES---*/
+
+/* footer, which will hold footnotes as ordered list */
+footer {
+  margin-top: 2ex;
+  border-top: 1px solid silver;
+  font-size: 1em;
+}
+/* footer ordered list */
+footer ol {
+  padding-left: 1em;
+}
+
+/* init a `footnotes` counter*/
+article {
+  counter-reset: footnotes;
+}
+
+/*  inline footnotes references
+ *  1. increment the counter at each new reference
+ *  2. reset link styles to make it appear like regular text
+ */
+[aria-describedby="footnote-label"] {
+  counter-increment: footnotes; /* 1 */
+  text-decoration: none; /* 2 */
+  color: inherit; /* 2 */
+  cursor: default; /* 2 */
+  outline: none; /* 2 */
+}
+
+/*  actual numbered references
+ *  1. display the current state of the counter (e.g. `[1]`)
+ *  2. align text as superscript
+ *  3. make the number smaller (since it's superscript)
+ *  4. slightly offset the number from the text
+ *  5. reset link styles on the number to show it's usable
+ */
+[aria-describedby="footnote-label"]::after {
+  content: '[' counter(footnotes) ']';    /* 1 */
+  vertical-align: super;                  /* 2 */
+  font-size: 0.8em;                       /* 3 */
+  margin-left: 2px;                       /* 4 */
+  color: #8a0900;                         /* 5 */
+  cursor: pointer;                        /* 5 */
+}
+
+/* resetting the default focused styles on the number
+ */
+[aria-describedby="footnote-label"]:focus::after {
+  outline: thin dotted;
+  outline-offset: 2px;
+}
+
+[aria-label="Back to content"] {
+  font-size: 0.8em;
+}
+
+/* highlight target note
+ */
+footer :target {
+  background: #FEF6BB;
+}
+
+/* visually hidden yet accessible content
+ */
+.visually-hidden {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  visibility: hidden;
+  opacity: 0;
+}
+
+```
 
 
+Blablabla <a class="fn" href="#whatispop-foot" aria-describedby="footnote-label" id="whatispop-text"> <span>An interesting and informative comment appears here, as if by magic. What if there is more text though. Can it go on and on and on? For how long? Even more text. And more. More more more. What if there is more text though. Can it go on and on and on? For how long? Even more text. And more. More more more. What if there is more text though. Can it go on and on and on? For how long? Even more text. And more. More more more.</span></a>.
 
+<!-- footnotes -->
+<footer>
+<h2 class="visually-hidden" id="footnote-label"> Footnotes </h2>
+<ol>
+
+<li id="whatispop-foot">
+In surveys, participants may be included at random, in which case the population refers to all people that could have been drawn. In trials, participants are typically not included at random but are randomly allocated to group, in which case the population refers to all possible allocations of the included participants. It is pretty rare that participants are both included and allocated at random, but in this case the population would refer to all possible allocations of all people that could have been included. 
+<a href="#whatispop-text" aria-label="Back to content"> ↩ </a>
+</li>
+
+</ol>
+</footer>
