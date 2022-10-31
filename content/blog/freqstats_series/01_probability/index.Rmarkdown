@@ -202,7 +202,7 @@ footer :target {
 ```
 
 <p class="foreword">
-This is part 1 of a series on the fundamentals of frequentist statistics. Hope you enjoy, feedback is always appreciated!
+This is part 1 of a series on the fundamentals of frequentist statistics. Hope you enjoy, feedback is always appreciated! 
 </p>
 
 Statistical inference is based on probability theory. Probability has a clear definition in the abstract mathematical world: it is a number between 0 and 1, and the probability that any one of multiple mutually exclusive events occurs is the sum of their individual probabilities. But if we apply probability to our real world, what exactly does it quantify there?
