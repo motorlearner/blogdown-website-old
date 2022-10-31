@@ -60,7 +60,3 @@ p.sdis <- p.dists[[1]] + p.dists[[2]] + p.dists[[3]] + plot_layout(ncol=3)
 savesvg(plot=p.one, filename="clt_onesample", w=8, h=1.2)
 savesvg(plot=p.many, filename="clt_manysamples", w=8, h=8)
 savesvg(plot=p.sdis, filename="clt_sampdist", w=8, h=2.5)
-
-
-
-

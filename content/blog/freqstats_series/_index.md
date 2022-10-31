@@ -20,7 +20,8 @@ sidebar:
   author:               ""
   title:                Frequentist Statistics Fundamentals
   description:          |
-    This is a series of blogposts about the fundamentals of frequentist statistics, such as p-values, confidence intervals, and statistical power. 
+    Enjoy the series! Feedback is always appreciated and welcomed! 
+
   show_sidebar_adunit:  false
   text_link_label:      ""
   text_link_url:        ""

@@ -28,7 +28,7 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHw0MzIuMDB8MS45MHw2Mi45MA==)'>
-<rect x='-0.000000000000032' y='1.90' width='432.00' height='61.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<rect x='-0.000000000000032' y='1.90' width='432.00' height='61.00' style='stroke-width: 1.07; stroke: none; fill: #FAFAFA;' />
 </g>
 <g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHw2NC44MA==)'>
 </g>
@@ -159,7 +159,7 @@
 <text x='314.04' y='18.36' style='font-size: 6.30px; font-family: "Arial";' textLength='3.51px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='317.55' y='16.72' style='font-size: 9.00px; font-family: "Arial";' textLength='5.00px' lengthAdjust='spacingAndGlyphs'>: </text>
 <text x='322.55' y='16.72' style='font-size: 9.00px; font-family: "Arial";' textLength='5.19px' lengthAdjust='spacingAndGlyphs'>μ</text>
-<text x='329.82' y='16.72' style='font-size: 9.00px; font-family: "Arial";' textLength='6.16px' lengthAdjust='spacingAndGlyphs'>≥</text>
+<text x='329.82' y='16.72' style='font-size: 9.00px; font-family: "Arial";' textLength='6.16px' lengthAdjust='spacingAndGlyphs'>=</text>
 <text x='338.06' y='16.72' style='font-size: 9.00px; font-family: "Arial";' textLength='5.19px' lengthAdjust='spacingAndGlyphs'>μ</text>
 <text x='343.25' y='18.36' style='font-size: 6.30px; font-family: "Arial";' textLength='3.51px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='346.76' y='16.72' style='font-size: 9.00px; font-family: "Arial";' textLength='7.50px' lengthAdjust='spacingAndGlyphs'>,  </text>
@@ -167,7 +167,7 @@
 <text x='360.75' y='18.36' style='font-size: 6.30px; font-family: "Arial";' textLength='3.51px' lengthAdjust='spacingAndGlyphs'>1</text>
 <text x='364.26' y='16.72' style='font-size: 9.00px; font-family: "Arial";' textLength='5.00px' lengthAdjust='spacingAndGlyphs'>: </text>
 <text x='369.26' y='16.72' style='font-size: 9.00px; font-family: "Arial";' textLength='5.19px' lengthAdjust='spacingAndGlyphs'>μ</text>
-<text x='376.53' y='16.72' style='font-size: 9.00px; font-family: "Arial";' textLength='6.16px' lengthAdjust='spacingAndGlyphs'>&lt;</text>
+<text x='376.53' y='16.72' style='font-size: 9.00px; font-family: "Arial";' textLength='6.16px' lengthAdjust='spacingAndGlyphs'>≠</text>
 <text x='384.77' y='16.72' style='font-size: 9.00px; font-family: "Arial";' textLength='5.19px' lengthAdjust='spacingAndGlyphs'>μ</text>
 <text x='389.96' y='18.36' style='font-size: 6.30px; font-family: "Arial";' textLength='3.51px' lengthAdjust='spacingAndGlyphs'>0</text>
 </g>

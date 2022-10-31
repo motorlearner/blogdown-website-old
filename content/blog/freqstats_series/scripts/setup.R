@@ -58,7 +58,13 @@ plotdir <- here("content", "blog", "freqstats_series", "plots")
 
 # save as svg function
 library(svglite)
+library(patchwork)
 savesvg <- function(plot, filename, h, w, scale=.6, directory=plotdir) {
+  
+  plot <- plot +
+    plot_annotation(theme = theme(plot.background = element_rect(color=NA, fill=color$bg)))
+  
+  
   ggsave(
     plot     = plot,
     filename = paste0(filename, ".svg"),
@@ -70,7 +76,13 @@ savesvg <- function(plot, filename, h, w, scale=.6, directory=plotdir) {
 }
 # save as png
 library(png)
+library(patchwork)
 savepng <- function(plot, filename, h, w, scale=.6, directory=plotdir) {
+  
+  plot <- plot +
+    plot_annotation(theme = theme(plot.background = element_rect(color=NA, fill=color$bg)))
+  
+  
   ggsave(
     plot     = plot,
     filename = paste0(filename, ".png"),

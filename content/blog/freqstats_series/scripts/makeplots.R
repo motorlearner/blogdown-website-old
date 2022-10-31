@@ -14,4 +14,8 @@ files <- list.files(path = scriptdir, pattern = "^plot")
 paths <- paste(scriptdir, files, sep="/")
 
 # run all
-purrr::walk(paths, source)
+purrr::walk(paths, source) # without printout
+
+# NOTE
+# because scripts clear environment, cannot use for-loop, have to use walk
+
