@@ -5,7 +5,7 @@ subtitle:     The meaning of probability in frequentist statistics.
 date:         2022-10-01
 draft:        false
 excerpt:      |
-  This is part 1 of a series on the fundamentals of frequentist statistics.
+  Preface to a series on the fundamentals of frequentist statistics.
 ---
 
 ```{r setup, include=FALSE}

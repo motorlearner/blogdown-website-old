@@ -5,7 +5,7 @@ subtitle:     The meaning of probability in frequentist statistics.
 date:         2022-10-01
 draft:        false
 excerpt:      |
-  This is part 1 of a series on the fundamentals of frequentist statistics.
+  Part 1 of a series on the fundamentals of frequentist statistics.
 ---
 
 
@@ -23,7 +23,7 @@ p {
 
 /* text classes */
 p.keypoint{
-  border-left: 0.7em solid #cccccc;
+  border-left: 0.7em solid #c4c4c4;
   background-color: #ebebeb;
   padding: 0.75em 1em 0.75em 0.6em;
 }
@@ -38,12 +38,6 @@ p.caption{
   margin: -1em 6em 2em 6em;
 }
 
-p.foreword{
-  margin-bottom: 2em;
-  padding-bottom: 1em;
-  border-bottom: 1.5px solid #b5b3b3;
-}
-
 /* FIGURE X */
 b.figreftext{
   font-size: 12px;
@@ -54,6 +48,9 @@ b.figreftext{
 b.figreffig{
   font-size: 11px;
   font-family: "Times new Roman", "Times", "sans-serif";
+  color: #8a0900;
+}
+b.key{
   color: #8a0900;
 }
 
@@ -77,13 +74,15 @@ h2{
 
 /* hyperlink subclass fn,
    whose span is the pop-up footnote;
-   default params below are when not hovering
-*/
+   default params below are when not hovering */
+   
 a.fn span {
   opacity: 0;
   pointer-events: none;
-  width: 30%;
+  width: fit-content;
+  max-width: 60%; 
   font-size: 0.9em;
+  text-align: left;
   position: absolute;
   background-color: #FEF6BB;
    -webkit-transition: all 0.5s ease;
@@ -98,6 +97,7 @@ a.fn span {
 a.fn:hover span {
   opacity: 1;
   pointer-events: auto;
+  margin-left: 1.5em;
   padding: .5em .8em .5em .8em;
   box-shadow: 0px 0px 15px grey;
    -webkit-transition: all 0.5s ease;
@@ -110,7 +110,9 @@ a.fn:hover span {
 
 /* footer, which will hold footnotes as ordered list */
 footer {
-  margin-top: 2ex;
+  margin-top: 5ex;
+  padding-top: 2ex;
+  margin-bottom: -5ex;
   border-top: 1px solid silver;
   font-size: 1em;
 }
@@ -180,10 +182,6 @@ footer :target {
 
 </style>
 
-<p class="foreword">
-This is part 1 of a series on the fundamentals of frequentist statistics. Hope you enjoy, feedback is always appreciated! 
-</p>
-
 Statistical inference is based on probability theory. Probability has a clear definition in the abstract mathematical world: it is a number between 0 and 1, and the probability that any one of multiple mutually exclusive events occurs is the sum of their individual probabilities. But if we apply probability to our real world, what exactly does it quantify there?
 
 The answer depends on the statistical framework. In the *frequentist* framework, probabilities refer to hypothetical long run *frequencies*. For example, when flipping a coin, the probability of heads is 0.5. That means, if we repeatedly flipped a coin, the frequency of heads would tend to 0.5 as the number of coin flips approaches infinity. A simulated version of this is shown in <b class="figreftext"> FIGURE 1</b>. 
@@ -197,20 +195,23 @@ The answer depends on the statistical framework. In the *frequentist* framework,
   Three simulated coins, each flipped 3000 times. The x-axis shows the number of flips. The y-axis shows the frequency of heads for each coin. After the first flip, the frequency of heads is either 0 or 1. As the number of flips grows, the frequency of heads tends to 0.5. 
 </p>
 
-More generally, the probability that a process produces a certain outcome is the frequency at which that outcome is observed *in the long run*, i.e. *if the process is repeated infinitely often*. 
+More generally, the probability that a process produces a certain outcome is the frequency at which that outcome is observed *in the long run*, i.e. *if the process is repeated infinitely often*.
 
+Note that, when subscribing to the frequentist interpretation, it only makes sense to assign probabilities to outcomes of repeatable processes. Without repetition, there cannot be a frequency. For example, does it make sense to talk about the probability of getting a sum of at least 10 when rolling three dice? Yes, because "rolling three dice" is repeatable, so there can be a frequency of getting at least 10. Does it make sense to talk about the probability of winning when buying a lottery ticket? Yes, because "buying a lottery ticket" is repeatable, so there can be a frequency of winning. Does it make sense to talk about the probability of the [simulation hypothesis](https://en.wikipedia.org/wiki/Simulation_hypothesis) being true? No, because there is no repeatable process, so there cannot be a frequency at which the simulation hypothesis is true. <a class="fn" href="#bayes-foot" id="bayes-text" aria-describedby="footnote-label"> <span>It does make sense under a different interpretation of probability... </span></a> Many misinterpretations of frequentist statistical concepts can be avoided simply by remembering that probabilities are only assigned to outcomes of repeatable processes. 
 
-
-Blablabla <a class="fn" href="#whatispop-foot" aria-describedby="footnote-label" id="whatispop-text"> <span>An interesting and informative comment appears here, as if by magic. What if there is more text though. Can it go on and on and on? For how long? Even more text. And more. More more more. What if there is more text though. Can it go on and on and on? For how long? Even more text. And more. More more more. What if there is more text though. Can it go on and on and on? For how long? Even more text. And more. More more more more.</span></a>.
+<p class="keypoint">
+<b>✔️ Probability as a long-run frequency</b><br>
+In the frequentist framework, the probability that a process produces a certain outcome is the frequency at which that outcome is observed <i>in the long run</i>, i.e. <i>if the process is repeated infinitely often</i>.
+</p>
 
 <!-- footnotes -->
 <footer>
 <h3 class="visually-hidden" id="footnote-label"> Footnotes </h2>
 <ol>
 
-<li id="whatispop-foot">
-In surveys, participants may be included at random, in which case the population refers to all people that could have been drawn. In trials, participants are typically not included at random but are randomly allocated to group, in which case the population refers to all possible allocations of the included participants. It is pretty rare that participants are both included and allocated at random, but in this case the population would refer to all possible allocations of all people that could have been included. 
-<a href="#whatispop-text" aria-label="Back to content"> ↩ </a>
+<li id="bayes-foot">
+In Bayesian statistics (a different framework), probability is often interpreted to reflect a rational agent's degree of belief. Using this interpretation, it absolutely makes sense to talk about the probability of the simulation hypothesis being true: it simply reflects how strongly you believe that the hypothesis is true.
+<a href="#bayes-text" aria-label="Back to content"> ↩ </a>
 </li>
 
 </ol>
