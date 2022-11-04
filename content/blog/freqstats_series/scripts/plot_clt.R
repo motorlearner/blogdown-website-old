@@ -35,8 +35,9 @@ for (i in 1:3) {
     theme_x1() +
     ax(xl=c(-3,3), xb=c(0), xt=expression(mu), yl=c(0,1)) +
     geom_jitter(aes(x=x), shape=16, color=color$grayd, height=.15) +
-    geom_vline(xintercept=mean(dat$x)) +
-    geom_point(aes(x=m), shape=15, color=colorlist[[i]], size=2)
+    geom_point(aes(x=m), shape=15, color=colorlist[[i]], size=2) +
+    ggtitle(as.expression(bquote(N==.(nvec[i])))) +
+    theme(plot.title=element_text(hjust=.5))
   
   p.samples[[i]] <- dflist[[i]] |> 
     ggplot(aes(y=k, group=k)) +
@@ -46,17 +47,21 @@ for (i in 1:3) {
     geom_point(aes(x=x), shape=16, color=color$grayd, size=.5) +
     geom_vline(xintercept=0, linetype="dashed") +
     geom_point(aes(x=m), shape=15, color=colorlist[[i]], size=.8) +
-    theme(panel.grid.major.y = element_line(color="black"))
+    ggtitle(as.expression(bquote(N==.(nvec[i])))) +
+    theme(plot.title=element_text(hjust=.5))
   
   p.dists[[i]] <- sub.alldistmu0.list[[i]] +
     ax(xl=c(-3,3), yl=c(0,2.83), xb=0, xt=expression(mu), r=1.25) +
-    geom_vline(xintercept=0, linetype="dashed")
+    geom_vline(xintercept=0, linetype="dashed") +
+    theme(plot.title=element_text(hjust=.5)) +
+    ggtitle(as.expression(bquote(N==.(nvec[i])))) +
+    theme(plot.title=element_text(hjust=.5))
 }
 
 p.one <- p.sample[[1]] + p.sample[[2]] + p.sample[[3]] + plot_layout(ncol=3)
 p.many <- p.samples[[1]] + p.samples[[2]] + p.samples[[3]] + plot_layout(ncol=3)
 p.sdis <- p.dists[[1]] + p.dists[[2]] + p.dists[[3]] + plot_layout(ncol=3)
 
-savesvg(plot=p.one, filename="clt_onesample", w=8, h=1.2)
+savesvg(plot=p.one, filename="clt_onesample", w=8, h=1.4)
 savesvg(plot=p.many, filename="clt_manysamples", w=8, h=8)
 savesvg(plot=p.sdis, filename="clt_sampdist", w=8, h=2.5)

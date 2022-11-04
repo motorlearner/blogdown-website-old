@@ -84,7 +84,8 @@ AAAAA#CCCCC
 AAAAAD#####
 "
 
-p <- p.pop + arrow1 + p.sam + arrow2 + plot_layout(design=l)
+p <- p.pop + arrow1 + p.sam + arrow2 + plot_layout(design=l) +
+  plot_annotation(theme = theme(plot.background = element_rect(color=NA, fill=color$bg)))
 
 savesvg(plot=p, filename="workingexample", w=10, h=4)
 

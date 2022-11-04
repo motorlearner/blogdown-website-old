@@ -5,7 +5,7 @@ subtitle:     The logical argument underlying frequentist statistics.
 date:         2022-10-01
 draft:        false
 excerpt:      |
-  Part 1 of a series on the fundamentals of frequentist statistics.
+  Part 2 of a series on the fundamentals of frequentist statistics.
 ---
 
 ```{r setup, include=FALSE}
@@ -92,42 +92,6 @@ h2.small{
   margin-top: 1.5em;
 }
 
-/*---POP-UP FOOTNOTES---*/
-
-/* hyperlink subclass fn,
-   whose span is the pop-up footnote;
-   default params below are when not hovering */
-   
-a.fn span {
-  opacity: 0;
-  pointer-events: none;
-  width: fit-content;
-  max-width: 60%; 
-  font-size: 0.9em;
-  text-align: left;
-  position: absolute;
-  background-color: #FEF6BB;
-   -webkit-transition: all 0.5s ease;
-   -moz-transition: all 0.5s ease;
-   -o-transition: all 0.5s ease;
-   transition: all 0.5s ease;
-}
-/* hyperlink subclass fn,
-   whose span is the pop-up footnote;
-   params below are specifically when hovering
-*/
-a.fn:hover span {
-  opacity: 1;
-  pointer-events: auto;
-  margin-left: 1.5em;
-  padding: .5em .8em .5em .8em;
-  box-shadow: 0px 0px 15px grey;
-   -webkit-transition: all 0.5s ease;
-   -moz-transition: all 0.5s ease;
-   -o-transition: all 0.5s ease;
-   transition: all 0.5s ease;
-}
-
 /*---FOOTER FOOTNOTES---*/
 
 /* footer, which will hold footnotes as ordered list */
@@ -210,27 +174,57 @@ table.clean {
   border-bottom: .5px solid #a6a6a6;
   border-left: none;
   border-right: none;
-  margin-top: 3em;
-  margin-bottom: 3em;
+  margin: 3em auto 3em auto;
 }
 
 table.clean tr td {
   font-size: 13px;
   background-color: #fafafa;
   border-top: none;
-  border-bottom: .5px solid #cfcfcf;
+  border-bottom: none;
   padding-top: 1em;
   padding-bottom: 1em;
 }
 
-table.clean tr:firt-child td{
-  border-top; none;
+table.clean tr:not(:last-child) td {
+  border-bottom: .5px dashed #cfcfcf;
 }
 
-table.clean tr:last-child td{
-  border-bottom: none;
-}
+/*---POP-UP FIGURE---*/
 
+/* hyperlink subclass,
+   whose span is the pop-up;
+   default params below are when not hovering */
+   
+a.popup span {
+  opacity: 0;
+  pointer-events: none;
+  width: fit-content;
+  max-width: 50%; 
+  font-size: 0.9em;
+  text-align: left;
+  position: absolute;
+  background-color: #fafafa;
+   -webkit-transition: all 0.5s ease;
+   -moz-transition: all 0.5s ease;
+   -o-transition: all 0.5s ease;
+   transition: all 0.5s ease;
+}
+/* hyperlink subclass,
+   whose span is the pop-up;
+   params below are specifically when hovering
+*/
+a.popup:hover span {
+  opacity: 1;
+  pointer-events: auto;
+  margin-left: 1.5em;
+  padding: 1px 1px 1px 1px;
+  box-shadow: 0px 0px 15px grey;
+   -webkit-transition: all 0.5s ease;
+   -moz-transition: all 0.5s ease;
+   -o-transition: all 0.5s ease;
+   transition: all 0.5s ease;
+}
 
 ```
 
@@ -240,17 +234,15 @@ Forget about statistics for a moment. Imagine we are at a scientific conference.
 2. No one is wearing a lab coat.  
 3. Therefore, Rick is not at the conference. 
 
-We conclude that Rick is not at the conference. Now, let's say we do see someone wearing a lab coat.
+In this case, we can conclude that Rick is not at the conference. Our observation that no one is wearing a lab coat is incompatible with Rick being at the conference. Now, let's say we do see someone wearing a lab coat.
 
 1. If Rick is at the conference, then someone will be wearing a lab coat. 
 2. Someone is wearing a lab coat. 
 3. -- 
 
-We cannot conclude anything. Sure, we might have seen Rick in his lab coat---or Rick wasn't there at all and we just saw someone else wearing a lab coat.
+In this case, we cannot conclude anything. Sure, we might have seen Rick---or Rick wasn't there at all and we just saw someone else wearing a lab coat. Our observation that someone is wearing a ab coat is compatible with both Rick being at the conference and him not being there. 
 
-## Modus Tollens
-
-The logical argument that we have just used is called *modus tollens* or "denying the consequent". We start with a premise of the form &nbsp; "if $T$ then $O$", &nbsp; i.e. a model/assumption that tells us what observation (`$O$`) to expect under a given possible truth (`$T$`). Next, we make an observation. Finally, if our observation is not what we would expect under the possible truth, we reject the possible truth.
+This kind of logical argument is called *modus tollens* also known as "denying the consequent". We start with a model/assumption that tells us what observation (`$O$`) to expect under a given possible truth (`$T$`). Next, we make an observation. Finally, if our observation is incompatible (not what we expect) with the possible truth, we reject the possible truth.
 
 <table class="clean">
   <tr>
@@ -285,7 +277,7 @@ The logical argument that we have just used is called *modus tollens* or "denyin
   </tr>
 </table>
 
-This is basically the argument used in frequentist statistics. However, in the table above, a few steps are left implicit (hence why the table starts with step 3). The table below shows the exact same argument, but with all steps spelled out (thus starting with step 1).
+Now, in the table above, a few steps are left implicit (hence it starts with step 3). The table below shows the exact same argument, but with all steps spelled out (thus starting with step 1).
 
 <table class="clean">
   <colgroup>
@@ -365,6 +357,15 @@ This is basically the argument used in frequentist statistics. However, in the t
   </tr>
 </table>
 
-Two key points are 3 and 5. First, everything in frequentist statistics is based on if-then statements. Literally all the quantities (p, error rates, etc.) are based on if-then statements. Second, we can only ever reject the incompatible. We can only conclude something if we have rejected everything else. 
+We will follow exactly these steps when doing some statistics later. I think the table above is pretty self-explanatory, but steps 3 and 5 are worth emphasizing again. 
 
-On to the probailistic version. Sneak peak at false rejection rate. 
+In step 3, we construct a model that defines which possible truths are compatible with which observations. In the corresponding <a class="popup"><u>figure</u><span><img src="compatible2.svg"></span></a>, a connection between a given $T$ and a given $O$ means that they are compatible. The model is essentially a series of *IF-THEN* statements (if $T$ then $O$). Why is this worth emphasizing? Because all the frequentist statistical concepts we'll encounter later (error rates / statistical power, $p$-values, confidence intervals) are essentially *IF-THEN* statements! Many if not all misinterpretations of these concepts can be prevented by keeping this in mind.
+
+In step 5, we reject all possible truths that are incompatible with the observation we made. We are left with all possible truths that have not been rejected, and the actual truth is somewhere in there. The key point here is: the only way to conclude that the actual truth is *something* is to reject *everything else*. We can only reject! Again, keeping this in mind will prevent you from misleading yourself. 
+
+Finally, note that in our example, "incompatible" means "logically impossible" --- if $T$ then definitely $O$ (and "not $O$" is logically impossible). But questions cannot be answered only with logic. That's when we need probability and statistics. So, as we move one, "incompatible" will mean "improbable" --- if $T$ then $O$ with high probability (and "not $O$" with low probability). And since we are dealing with the frequentist framework, "incompatible" translates to "rare, in the long run". 
+
+<p class="keypoint">
+<b>✔️ Rejecting the Incompatible</b><br>
+How do we infer something about the true state of the world? We start with a pool of possible truths, make an observation, and then <i>reject</i> all possible truths that are incompatible with our observation. The actual truth is somewhere among the remaining possible truths.  
+</p>

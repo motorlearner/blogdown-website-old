@@ -38,6 +38,10 @@ p.caption{
   margin: -1em 6em 2em 6em;
 }
 
+p.table{
+  font-size: 10px;
+}
+
 /* FIGURE X */
 b.figreftext{
   font-size: 12px;
@@ -62,48 +66,9 @@ li{
 }
 
 /* headings */
-h1{
-  font-size: 11px;
-}
-
-h2{
-  font-size: 6px;
-}
-
-/*---POP-UP FOOTNOTES---*/
-
-/* hyperlink subclass fn,
-   whose span is the pop-up footnote;
-   default params below are when not hovering */
-   
-a.fn span {
-  opacity: 0;
-  pointer-events: none;
-  width: fit-content;
-  max-width: 60%; 
-  font-size: 0.9em;
-  text-align: left;
-  position: absolute;
-  background-color: #FEF6BB;
-   -webkit-transition: all 0.5s ease;
-   -moz-transition: all 0.5s ease;
-   -o-transition: all 0.5s ease;
-   transition: all 0.5s ease;
-}
-/* hyperlink subclass fn,
-   whose span is the pop-up footnote;
-   params below are specifically when hovering
-*/
-a.fn:hover span {
-  opacity: 1;
-  pointer-events: auto;
-  margin-left: 1.5em;
-  padding: .5em .8em .5em .8em;
-  box-shadow: 0px 0px 15px grey;
-   -webkit-transition: all 0.5s ease;
-   -moz-transition: all 0.5s ease;
-   -o-transition: all 0.5s ease;
-   transition: all 0.5s ease;
+h2.small{
+  font-size: 20px;
+  margin-top: 1.5em;
 }
 
 /*---FOOTER FOOTNOTES---*/
@@ -180,13 +145,43 @@ footer :target {
   opacity: 0;
 }
 
+/* TABLE */
+
+table.clean {
+  border-collapse: collapse;
+  border-top: .5px solid #a6a6a6;
+  border-bottom: .5px solid #a6a6a6;
+  border-left: none;
+  border-right: none;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+table.clean tr td {
+  font-size: 13px;
+  background-color: #fafafa;
+  border-top: none;
+  border-bottom: .5px solid #cfcfcf;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+table.clean tr:firt-child td{
+  border-top; none;
+}
+
+table.clean tr:last-child td{
+  border-bottom: none;
+}
+
+
 </style>
 
 Statistical inference is based on probability theory. Probability has a clear definition in the abstract mathematical world: it is a number between 0 and 1, and the probability that any one of multiple mutually exclusive events occurs is the sum of their individual probabilities. But if we apply probability to our real world, what exactly does it quantify there?
 
 The answer depends on the statistical framework. In the *frequentist* framework, probabilities refer to hypothetical long run *frequencies*. For example, when flipping a coin, the probability of heads is 0.5. That means, if we repeatedly flipped a coin, the frequency of heads would tend to 0.5 as the number of coin flips approaches infinity. A simulated version of this is shown in <b class="figreftext"> FIGURE 1</b>. 
 
-<!-- figure: -->
+<!-- figure -->
 <p class="figure">
   <img src="../plots/coin.svg" />
 </p>
@@ -197,7 +192,7 @@ The answer depends on the statistical framework. In the *frequentist* framework,
 
 More generally, the probability that a process produces a certain outcome is the frequency at which that outcome is observed *in the long run*, i.e. *if the process is repeated infinitely often*.
 
-Note that, when subscribing to the frequentist interpretation, it only makes sense to assign probabilities to outcomes of repeatable processes. Without repetition, there cannot be a frequency. For example, does it make sense to talk about the probability of getting a sum of at least 10 when rolling three dice? Yes, because "rolling three dice" is repeatable, so there can be a frequency of getting at least 10. Does it make sense to talk about the probability of winning when buying a lottery ticket? Yes, because "buying a lottery ticket" is repeatable, so there can be a frequency of winning. Does it make sense to talk about the probability of the [simulation hypothesis](https://en.wikipedia.org/wiki/Simulation_hypothesis) being true? No, because there is no repeatable process, so there cannot be a frequency at which the simulation hypothesis is true. <a class="fn" href="#bayes-foot" id="bayes-text" aria-describedby="footnote-label"> <span>It does make sense under a different interpretation of probability... </span></a> Many misinterpretations of frequentist statistical concepts can be avoided simply by remembering that probabilities are only assigned to outcomes of repeatable processes. 
+Note that, when subscribing to the frequentist interpretation, it only makes sense to assign probabilities to outcomes of repeatable processes. Without repetition, there cannot be a frequency. For example, does it make sense to talk about the probability of getting a sum of at least 10 when rolling three dice? Yes, because "rolling three dice" is repeatable, so there can be a frequency of getting at least 10. Does it make sense to talk about the probability of winning when buying a lottery ticket? Yes, because "buying a lottery ticket" is repeatable, so there can be a frequency of winning. Does it make sense to talk about the probability of the [simulation hypothesis](https://en.wikipedia.org/wiki/Simulation_hypothesis) being true? No, because there is no repeatable process, so there cannot be a frequency at which the simulation hypothesis is true. <a href="#bayes-foot" id="bayes-text" aria-describedby="footnote-label"></a> Many misinterpretations of frequentist statistical concepts can be avoided simply by remembering that probabilities are only assigned to outcomes of repeatable processes. 
 
 <p class="keypoint">
 <b>✔️ Probability as a long-run frequency</b><br>

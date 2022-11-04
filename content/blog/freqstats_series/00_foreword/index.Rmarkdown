@@ -44,7 +44,7 @@ p {
 
 /* text classes */
 p.keypoint{
-  border-left: 0.7em solid #cccccc;
+  border-left: 0.7em solid #c4c4c4;
   background-color: #ebebeb;
   padding: 0.75em 1em 0.75em 0.6em;
 }
@@ -59,10 +59,24 @@ p.caption{
   margin: -1em 6em 2em 6em;
 }
 
-p.foreword{
-  margin-bottom: 2em;
-  padding-bottom: 1em;
-  border-bottom: 1.5px solid #b5b3b3;
+p.table{
+  font-size: 10px;
+}
+
+/* FIGURE X */
+b.figreftext{
+  font-size: 12px;
+  font-family: "Times new Roman", "Times", "sans-serif";
+  color: #8a0900;
+  margin-left: .2em;
+}
+b.figreffig{
+  font-size: 11px;
+  font-family: "Times new Roman", "Times", "sans-serif";
+  color: #8a0900;
+}
+b.key{
+  color: #8a0900;
 }
 
 /* list */
@@ -73,25 +87,24 @@ li{
 }
 
 /* headings */
-h1{
-  font-size: 11px;
-}
-
-h2{
-  font-size: 6px;
+h2.small{
+  font-size: 20px;
+  margin-top: 1.5em;
 }
 
 /*---POP-UP FOOTNOTES---*/
 
 /* hyperlink subclass fn,
    whose span is the pop-up footnote;
-   default params below are when not hovering
-*/
-a.fn span {
+   default params below are when not hovering */
+   
+a.pop span {
   opacity: 0;
   pointer-events: none;
-  width: 30%;
+  width: fit-content;
+  max-width: 10%; 
   font-size: 0.9em;
+  text-align: left;
   position: absolute;
   background-color: #FEF6BB;
    -webkit-transition: all 0.5s ease;
@@ -103,9 +116,10 @@ a.fn span {
    whose span is the pop-up footnote;
    params below are specifically when hovering
 */
-a.fn:hover span {
+a.pop:hover span {
   opacity: 1;
   pointer-events: auto;
+  margin-left: 1.5em;
   padding: .5em .8em .5em .8em;
   box-shadow: 0px 0px 15px grey;
    -webkit-transition: all 0.5s ease;
@@ -113,12 +127,19 @@ a.fn:hover span {
    -o-transition: all 0.5s ease;
    transition: all 0.5s ease;
 }
+/* subclass for figures*/
+a.pop.fig span {
+  background-color: #fafafa;
+  padding: 1px 1px 1px 1px;
+}
 
 /*---FOOTER FOOTNOTES---*/
 
 /* footer, which will hold footnotes as ordered list */
 footer {
-  margin-top: 2ex;
+  margin-top: 5ex;
+  padding-top: 2ex;
+  margin-bottom: -5ex;
   border-top: 1px solid silver;
   font-size: 1em;
 }
@@ -185,6 +206,36 @@ footer :target {
   visibility: hidden;
   opacity: 0;
 }
+
+/* TABLE */
+
+table.clean {
+  border-collapse: collapse;
+  border-top: .5px solid #a6a6a6;
+  border-bottom: .5px solid #a6a6a6;
+  border-left: none;
+  border-right: none;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+table.clean tr td {
+  font-size: 13px;
+  background-color: #fafafa;
+  border-top: none;
+  border-bottom: .5px solid #cfcfcf;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+table.clean tr:firt-child td{
+  border-top; none;
+}
+
+table.clean tr:last-child td{
+  border-bottom: none;
+}
+
 
 ```
 
